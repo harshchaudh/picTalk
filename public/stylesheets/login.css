@@ -1,9 +1,75 @@
+* {
+    box-sizing: border-box;
+  }
+header {
+    text-align: center;
+
+}
+
 body {
     background-color: #C0E5C8;
+}
+
+section{
+    display: -webkit-flex;
+    display: flex;
+}
+
+article {
+    -webkit-flex: 3;
+    -ms-flex: 3;
+    flex: 3;
+    text-align: center;
+    align-items: center;
+    background-color: #f1f1f1;
+    padding: 10px;
+}
+
+footer {
+    background-color: #777;
+    text-align: center;
+    align-items: center;
+
+}
+
+@media (max-width: 600px) {
+    section {
+      -webkit-flex-direction: column;
+      flex-direction: column;
+    }
+}
+
+
+.transition-input {
+    width: 200px;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    transition: all 0.3s ease; /* Apply transition to all properties over 0.3 seconds */
+}
+
+.transition-input:hover {
+    background-color:red ;
+    opacity: 0.5;
+
+}
+
+input.large {
+    width: 300px;
+    height: 40px;
+    font-size: 16px;
+    padding-left: 10px;
+    border: 1px solid grey;
+    border-radius: 10px;
 }
 .container {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.footer_container {
+    align-items: center;
+    
 }
 
