@@ -1,37 +1,53 @@
 <!DOCTYPE html>
-<html>
-<link rel = "stylesheet" href = "../stylesheets/login.css">
-<title>Website</title>
-<header>
-    <h1>Website</h1>
-</header>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | [Website]</title>
+    <!-- Bootstrap CSS -->
+    <link href="../../node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../stylesheets/login.css" rel="stylesheet">
+</head>
+
 <body>
-    <section>
-        <article>
-        <form>
-            <label for = "username">USERNAME</label> <br>
-            <input type = "text" class = "transition-input large" placeholder = "Enter your username" required autofocus> <br>
-            <a href = "url">Forgot username</a> <br>
-
-            <label for = "password">PASSWORD</label> <br>
-            <input type = "password" class = "transition-input large" placeholder = "Enter your password" required> <br>
-            <a href = "url">Forgot password</a> <br>
-
-            <input type = "submit" value = "LOG IN">
-        </form>
-        </article>
-    </section>
-    
-    <footer>
-        <div class = "footer_container">
-            <table>
-                <tr>
-                    <td>about</td>
-                    <td>help</td>
-                </tr>
-            </table>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="card-title">[Website Title]</h1>
+                        <p class="card-text">Welcome to [Website Title]. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse consequuntur voluptatem ducimus non iure. Tempora velit iusto iure delectus molestias, quibusdam nostrum quos modi mollitia rem aut quae. Est, sint?</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="card">
+                    <div class="card-header">
+                        Login
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="username">Username:</label>
+                                <input type="text" class="form-control" id="username" placeholder="Enter username">
+                            </div>
+                            <p class = "forgotLink"><a href="forgotDetails.html"><u>Forgot username</u></a></p>
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input type="password" class="form-control" id="password" placeholder="Enter password">
+                            </div>
+                            <p class = "forgotLink"><a href="forgotDetails.html"><u>Forgot password</u></a></p>
+                            <button type = "submit" class="btn btn-primary btn-block">Login</button>
+                        </form>
+                    </div>
+                </div>
+                <p class = "signUpLink">Don't have an account? <a href = "signup.html">Create an account.</a></p>
+            </div>
         </div>
-    </footer>
-
+    </div>
+    <script src = "../../node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
 </body>
+
 </html>
