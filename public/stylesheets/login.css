@@ -1,0 +1,28 @@
+body{
+  background-color: #9AC2C9;
+}
+.container{
+  padding-top: 10%;
+}
+
+.forgotLink{
+  text-align: right;
+  line-height: 1.5;
+}
+.signUpLink{
+  text-align: center;
+}
+
+.row{
+  align-items: center;
+}
+
+.card{
+  border: 0px solid black;
+  background-color: #9AC2C9;
+}
+.card-header{
+  background-color: #9AC2C9;
+  text-align: left;
+  font-size: 30px;
+}
