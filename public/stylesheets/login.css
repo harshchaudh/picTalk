@@ -1,42 +1,68 @@
-body{
+body {
   background-color: #FAE3E3;
 }
-.container-fluid{
+
+.container-fluid {
   border: 0px solid black;
-  padding-top: 10%;
-}
-.col{
-  border: 2px solid yellow;
-}
-.card-title{
-  text-align: center;
+  margin-top: 10%;
 }
 
-.forgotLink{
+.col-signUp {
+  border: 0px solid black
+}
+
+.colDescript {
+  border: 0px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-title {
+  text-align: left;
+  font-size: 70px;
+}
+
+.forgotLink {
   text-align: right;
   line-height: 1.5;
 }
 
-.signUpLink{
-  text-align: center;
+.signUpLink {
+  text-align: right;
 }
 
-.card{
+.card {
   border: 0px solid black;
   background-color: #FAE3E3;
 }
 
-.card-header{
+.card-signUp {
+  border: 2px solid black;
+}
+
+.card-header-login {
   background-color: #FAE3E3;
   text-align: left;
   font-size: 30px;
 }
 
-.btn{
+.card-header-signUp {
+  border: 0px solid black;
+  background-color: #FAE3E3;
+  text-align: left;
+  font-size: 30px;
+}
+
+.card-body-signUp {
+  padding: 20px;
+}
+
+.btn {
   background-color: #FFCB47;
   width: 100%;
 }
 
-.btn:hover{
+.btn:hover {
   background-color: #E7B22C;
 }
