@@ -18,6 +18,11 @@ body {
   align-items: center;
 }
 
+label {
+  border: 0px solid black;
+  margin-left: 2%;
+}
+
 .card-title {
   text-align: left;
   font-size: 70px;
@@ -59,7 +64,7 @@ body {
 }
 
 .modal-lg {
-  max-width: 30%;
+  max-width: 42%;
   margin-top: 10%;
 }
 
@@ -68,7 +73,6 @@ body {
 }
 
 .footer-signUp-close {
-  align-items: right;
   margin-top: 1%;
 }
 
