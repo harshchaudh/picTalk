@@ -1,5 +1,5 @@
 body {
-  background-color: #FAE3E3;
+  background-color: #F5CAC3;
 }
 
 .container-fluid {
@@ -34,7 +34,7 @@ body {
 
 .card {
   border: 0px solid black;
-  background-color: #FAE3E3;
+  background-color: #F5CAC3;
 }
 
 .card-signUp {
@@ -42,14 +42,14 @@ body {
 }
 
 .card-header-login {
-  background-color: #FAE3E3;
+  background-color: #F5CAC3;
   text-align: left;
   font-size: 30px;
 }
 
 .card-header-signUp {
   border: 0px solid black;
-  background-color: #FAE3E3;
+  background-color: #F5CAC3;
   text-align: left;
   font-size: 30px;
 }
@@ -58,11 +58,25 @@ body {
   padding: 20px;
 }
 
+.modal-lg {
+  max-width: 30%;
+  margin-top: 10%;
+}
+
+.footer-signUp {
+  margin-bottom: 2%;
+}
+
+.footer-signUp-close {
+  align-items: right;
+  margin-top: 1%;
+}
+
 .btn {
-  background-color: #FFCB47;
+  background-color: #F7EDE2;
   width: 100%;
 }
 
 .btn:hover {
-  background-color: #E7B22C;
+  background-color: #F6BD60;
 }

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | [Website]</title>
     <!-- Bootstrap CSS -->
-    <link href="../stylesheets/bootstrap.css" rel="stylesheet">
+    <link href="../stylesheets/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="../stylesheets/login.css" rel="stylesheet">
 </head>
@@ -27,11 +27,13 @@
                             adipisicing elit. Esse consequuntur voluptatem ducimus non iure. Tempora velit iusto
                             iure
                             delectus molestias, quibusdam nostrum quos modi mollitia rem aut quae. Est, sint?Lorem,
-                            ipsum dolor sit amet consectetur adipisicing elit. Corrupti doloremque dignissimos odio illo
+                            ipsum dolor sit amet consectetur adipisicing elit. Corrupti doloremque dignissimos odio
+                            illo
                             eos mollitia quibusdam, culpa, obcaecati nihil rem tempora repellat quasi illum! Ea amet
                             ipsam provident commodi praesentium. Lorem ipsum dolor sit, amet consectetur adipisicing
                             elit. Cum accusantium numquam maxime inventore dolor, aut sed id. Aliquid, veritatis.
-                            Ratione illo aspernatur quam vitae! Repudiandae voluptates doloribus officia qui porro?</p>
+                            Ratione illo aspernatur quam vitae! Repudiandae voluptates doloribus officia qui porro?
+                        </p>
                     </div>
                 </div>
             </div>
@@ -67,17 +69,16 @@
                         <!-- Sign Up Modal Link -->
                         <p>Don't have an account?
                             <a class="signUpLink" data-toggle="modal" data-target="#myModal">
-                                Create an account</a>
+                                Create an account</a>.
                         </p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <!-- Sign Up Modal -->
     <div class="modal fade" id="myModal">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
 
                 <!-- Sign Up Header -->
@@ -89,30 +90,35 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label for="usr"><b>Username</b></label>
-                            <input type="text" placeholder="Enter username" name="usr" required>
+                            <label for="username"><b>Username</b></label>
+                            <input type="text" class="form-control" id="username" placeholder="Enter username" required>
                         </div>
+                        <p>The username must be unique.</p>
 
                         <div class="form-group">
                             <label for="psw"><b>Password</b></label>
-                            <input type="password" placeholder="Enter Password" name="psw" required>
+                            <input type="password" class="form-control" placeholder="Enter Password" name="password"
+                                required>
                         </div>
+                        <p>The password must be a minimum of 8 characters.</p>
                         <div class="form-group">
                             <label for="psw-repeat"><b>Repeat Password</b></label>
-                            <input type="password" placeholder="Repeat Password" name="psw-repeat" required>
+                            <input type="password" class="form-control" placeholder="Repeat Password"
+                                name="password-repeat" required>
                         </div>
-                        <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms &
-                                Privacy</a>.</p>
+
+                        <br>
+                        <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
                     </form>
                 </div>
 
                 <!-- Sign Up Footer -->
-                <div class="modal-footer">
+                <div class="container footer-signUp">
                     <div class="row">
-                        <div class = "col-xl-6">
+                        <div class="col-xl-12">
                             <button type="button" class="btn" data-dismiss="modal">Sign up</button>
                         </div>
-                        <div class="col-xl-6">
+                        <div class="col-xl-12 footer-signUp-close">
                             <button type="button" class="btn" data-dismiss="modal">Close</button>
                         </div>
                     </div>
