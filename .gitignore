@@ -1,2 +1,6 @@
 node_modulus/
 */.DS_Store
+app/static/.DS_Store
+app/static/stylesheets/.DS_Store
+app/templates/.DS_Store
+.DS_Store
