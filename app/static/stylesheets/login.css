@@ -1,31 +1,79 @@
-body {
-  background-color: #F5CAC3;
+/* Fonts */
+@font-face {
+  font-family: 'Alata-Regular';
+  src: url(../fonts/Alata-Regular.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
 }
 
+/* Navigation bar styles */
+.navbar {
+  background-color: #BBCDE5;
+}
+
+.navbar-brand {
+  font-family: 'Alata-Regular', sans-serif;
+  font-size: 40px;
+  letter-spacing: -2px;
+}
+
+.navbar-content {
+  width: 100%;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.nav-form-searchBar {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  width: 300%
+}
+
+.nav-form-searchBtn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+
+/* Structure element styles */
+header {
+  font-family: 'Alata-Regular';
+}
+
+body {
+  background-color: #FFFFFF;
+  font-family: 'Alata-Regular';
+  font-size: 20px;
+  font-weight: 100;
+}
+
+/* Container */
 .container-fluid {
   border: 0px solid black;
+}
+
+/* Login Card Style */
+.card-login {
+  border: 0px solid black;
+  display: flex;
+  align-items: center;
   margin-top: 10%;
 }
 
-.col-signUp {
-  border: 0px solid black
+.card-header-login {
+  border: 0px solid black;
+  background-color: #FFFFFF00;
+  font-size: 40px;
 }
 
-.colDescript {
-  border: 0px solid black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* Sign Up Style */
+.col-signUp {
+  border: 0px solid black
 }
 
 label {
   border: 0px solid black;
   margin-left: 2%;
-}
-
-.card-title {
-  text-align: left;
-  font-size: 70px;
 }
 
 .forgotLink {
@@ -39,22 +87,14 @@ label {
 
 .card {
   border: 0px solid black;
-  background-color: #F5CAC3;
 }
 
 .card-signUp {
   border: 2px solid black;
 }
 
-.card-header-login {
-  background-color: #F5CAC3;
-  text-align: left;
-  font-size: 30px;
-}
-
 .card-header-signUp {
   border: 0px solid black;
-  background-color: #F5CAC3;
   text-align: left;
   font-size: 30px;
 }
@@ -77,10 +117,12 @@ label {
 }
 
 .btn {
-  background-color: #F7EDE2;
+  background-color: #1c5d99;
+  color: #FFFFFF;
   width: 100%;
 }
 
 .btn:hover {
-  background-color: #F6BD60;
+  background-color: #14436E;
+  color: #FFFFFF;
 }
