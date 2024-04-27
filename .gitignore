@@ -505,3 +505,7 @@ app/static/.DS_Store
 app/static/stylesheets/.DS_Store
 app/templates/.DS_Store
 .DS_Store
+.flaskenv
+venv/
+**/__pycache__/
+*.db

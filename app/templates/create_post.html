@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Your Post</title>
+</head>
+<body>
+    <!-- insert nav bar here -->
+    
+    <h1>Create Post</h1>
+    <p>Let your creation be known.</p>
+
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        {{ form.image.label }} {{form.image(size=32) }}
+        {% for error in form.image.errors %}
+        <span>[{{ error }}]</span>
+        {% endfor %}
+        {{ form.submit() }}
+    </form>
+
+    <!-- insert footer here -->
+</body>
+</html>
