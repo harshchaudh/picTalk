@@ -17,5 +17,5 @@ class SignupForm(FlaskForm):
 class CreateContentForm(FlaskForm):
     image = FileField('', validators=[FileRequired(), FileAllowed(['jpg', 'png', 'jpeg'], 'Images only')])
     caption_text = TextAreaField('Enter your caption', validators=[DataRequired()])
-    tag_text = TextAreaField('Enter your tags', validators=[DataRequired()])
+    tag_text = StringField('Enter your tags', validators=[DataRequired()])
     submit = SubmitField('Submit')

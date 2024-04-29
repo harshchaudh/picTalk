@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="../static/stylesheets/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../static/stylesheets/create_post.css" rel="stylesheet">
+
     <title>Create Your Post</title>
 </head>
 <body>
@@ -13,13 +18,51 @@
 
     <form method="POST" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
-        {{ form.image.label }} {{form.image(size=32) }}
-        {% for error in form.image.errors %}
-        <span>[{{ error }}]</span>
-        {% endfor %}
-        {{ form.submit() }}
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form.image.label }} 
+                    {{ form.image(size=32) }}
+                        <div>
+                            {% for error in form.image.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-8">
+                    <div>
+                        {{ form.caption_text.label }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.caption_text(class="caption-text-input form-control") }}
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div>
+                        {{ form.tag_text.label }}
+                        <div>
+                            <small class="text-muted">Press "Enter" to add more tags.</small>
+                        </div>
+                    </div>
+                    <div id="tags-container" class="form-group input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">@</span>
+                        </div>
+                        {{ form.tag_text(class="tag-text-input form-control") }}
+                    </div>
+                </div>
+            </div>  
+        </div>
+        <br>
+        <div class="text-center">
+            {{ form.submit(id="submit-btn", class="btn btn-primary w-90 form-submit")}}
+        </div>
     </form>
 
     <!-- insert footer here -->
+
 </body>
 </html>

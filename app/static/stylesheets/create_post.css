@@ -1,0 +1,24 @@
+.caption-text-input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    resize: none;
+}
+
+.tag-text-input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    resize: none;
+    height: 38px;
+}
+
+#submit-btn {
+    background-color: #BBCDE5;
+    color: #222222;
+    border-color: #639FAB;
+}
+
+.w-90 {
+    width: 90%;
+}
