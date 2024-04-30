@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+<!-- Imports signup.css -->
+{% block variable_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/signup.css') }}">
+{% endblock %}
+
+<!-- Sets title for sign up page -->
+{% block title %}
+Sign up | PicTalk
+{% endblock %}
+
+<!-- Content for sign up page -->
+{% block main %}
+
+<!-- Sign Up -->
+<div class="container">
+    <!-- Sign Up Card-->
+    <div class="card card-signUp">
+
+        <!-- Sign Up Header -->
+        <div class="card-header card-header-signUp">
+            Create an account
+        </div>
+
+        <!-- Sign Up Body -->
+        <div class="card-body">
+            <form action="/" method="POST">
+                <div class="form-group">
+                    <label for="signup-username"><b>Username</b></label>
+                    <input type="text" class="form-control" id="signup-username" placeholder="Enter username"
+                        name="signup-username" required>
+                </div>
+                <p>The username must be unique.</p>
+
+                <div class="form-group">
+                    <label for="signup-psw"><b>Password</b></label>
+                    <input type="password" id="signup-psw" class="form-control" placeholder="Enter Password"
+                        name="signup-psw" required>
+                </div>
+                <p>The password must be a minimum of 8 characters.</p>
+
+                <div class="form-group">
+                    <label for="signup-pswConfirm"><b>Confirm Password</b></label>
+                    <input type="password" class="form-control" id="signup-pswConfirm" placeholder="Confirm Password"
+                        name="signup-pswConfirm" required>
+                </div>
+
+                <br>
+                {% if error %}
+                    <p class="error" style = "color: red;"> {{ error }}</p>
+                {% endif %}  
+                <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+                <button type="submit" class="btn">Sign up</button>
+            </form>
+
+
+            <br>
+            <!-- Login Page Link -->
+            <p>Have an account?
+                <a href="{{ url_for('login')}}">Login</a>
+            </p>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
