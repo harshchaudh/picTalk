@@ -37,7 +37,7 @@ Login | PicTalk
 
                 <p class="forgotLink"><a href="forgotDetails.html"><u>Forgot password</u></a></p>
                 
-                {% if error %}
+                {% if error is not none %}
                     <p class="error" style = "color: red;"> {{ error }}</p>
                 {% endif %}     
                 
@@ -48,7 +48,7 @@ Login | PicTalk
 
             <!-- Sign Up Page Link -->
             <p>Don't have an account?
-                <a href="{{ url_for('signup')}}">Create an account.</a>
+                <a href="{{ url_for('picTalk.signup')}}">Create an account.</a>
             </p>
 
         </div>

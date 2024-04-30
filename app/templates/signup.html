@@ -47,9 +47,11 @@ Sign up | PicTalk
                 </div>
 
                 <br>
-                {% if error %}
-                    <p class="error" style = "color: red;"> {{ error }}</p>
-                {% endif %}  
+
+                {% if error is not none %}
+                    <p class="error" style="color: red;">{{ error }}</p>
+                {% endif %}
+
                 <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
                 <button type="submit" class="btn">Sign up</button>
             </form>
@@ -58,7 +60,7 @@ Sign up | PicTalk
             <br>
             <!-- Login Page Link -->
             <p>Have an account?
-                <a href="{{ url_for('login')}}">Login</a>
+                <a href="{{ url_for('picTalk.login')}}">Login</a>
             </p>
 
         </div>
