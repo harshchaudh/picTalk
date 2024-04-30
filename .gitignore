@@ -4,3 +4,4 @@ app/static/stylesheets/.DS_Store
 app/templates/.DS_Store
 .DS_Store
 .vscode/
+app/__pycache__/
