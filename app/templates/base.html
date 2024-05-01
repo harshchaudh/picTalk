@@ -14,7 +14,7 @@
     {% block variable_css %}{% endblock %}
 
     <link rel="icon" type="image/svg+xml"
-        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='60' fill='%23BBCDE5'/%3E%3Ctext x='30' y='80' font-family='Arial' font-size='70' fill='%23000'%3EP%3C/text%3E%3C/svg%3E">
+        href="{{ url_for('static', filename = 'icons/favicon.svg') }}">
 
     <title>{% block title %}PicTalk{% endblock %}</title>
 </head>
