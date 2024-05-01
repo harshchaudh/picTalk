@@ -6,7 +6,7 @@ from model import db, USER
 picTalk_bp = Blueprint('picTalk', __name__)
 
 # Route for the sign up page
-@picTalk_bp.route('/', methods=['GET', 'POST'])
+@picTalk_bp.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == "POST":
         signup_username = request.form['signup-username']
@@ -54,3 +54,7 @@ def login():
 @picTalk_bp.route('/home')
 def home():
     return render_template('home.html')
+
+@picTalk_bp.route('/')
+def gallery():
+    return render_template('gallery.html')

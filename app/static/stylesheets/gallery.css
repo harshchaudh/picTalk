@@ -1,0 +1,26 @@
+.container-gallery {
+    margin-top: 2%
+}
+
+.container-title-gallery {
+    margin-top: 2%;
+}
+
+.card-image-gallery {
+    height: auto;
+    width: auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    border: 1px solid black;
+}
+
+.card-text {
+    text-align: left;
+}
+
+.card-img-top {
+    max-width: 100%;
+    max-height: 100%;
+
+    width: auto;
+    height: auto;
+}
