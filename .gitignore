@@ -5,3 +5,4 @@ app/templates/.DS_Store
 .DS_Store
 .vscode/
 app/__pycache__/
+instance/picTalk.db
