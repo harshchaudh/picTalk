@@ -8,8 +8,6 @@
     <link href="../static/stylesheets/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="../static/stylesheets/create_post.css" rel="stylesheet">
-    <!-- JQuery-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <!-- Google Icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -22,7 +20,7 @@
     <h1>Create Post</h1>
     <p>Let your creation be known.</p>
 
-    <form method="POST" enctype="multipart/form-data">
+    <form id="form" method="POST" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
 
         <div class="container-fluid">
@@ -49,34 +47,25 @@
                     <div>
                         {{ form.tag_text.label }}
                     </div>
-                    <div class="form-group">
+                    <div id="tag-div" class="form-group">
                         <span class="material-symbols-outlined">sell</span>
                         {{ form.tag_text(id="tag-text-input", class="form-control", placeholder="Add a tag...", maxlength="25", autocomplete="off") }}
                     </div>
+                    <div class="tags"></div>
+                    <br>
+                    <div id="submit-div" class="text-center">
+                        {{ form.submit(id="submit-btn", class="btn btn-primary w-90 form-submit")}}
+                    </div>
                 </div>
             </div>
-        </div>
-        <br>
-        <div class="text-center">
-            {{ form.submit(id="submit-btn", class="btn btn-primary w-90 form-submit")}}
         </div>
     </form>
 
     <!-- insert footer here -->
 
-    <script>
-        $(document).ready(function() {
-            $('#file-upload').change(function(event) {
-                var input = this;
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        $('#img-preview').attr('src', e.target.result).css('display', 'block');
-                    };
-                    reader.readAsDataURL(input.files[0]);
-                }
-            });
-        });
-    </script>
+    <!-- JQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../static/javascript/create_post.js"></script>
 </body>
 </html>

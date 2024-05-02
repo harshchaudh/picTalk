@@ -12,12 +12,17 @@
     box-sizing: border-box;
     resize: none;
     height: 38px;
+    margin-bottom: 5px;
 }
 
 #submit-btn {
     background-color: #BBCDE5;
     color: #222222;
     border-color: #639FAB;
+}
+
+#submit-btn:hover {
+    background-color: aqua;
 }
 
 .w-90 {
@@ -36,7 +41,6 @@
     border: 2px dashed #ccc;
     height: 600px;
     text-align: center;
-    
 }
 
 #upload-box p {
@@ -63,4 +67,38 @@
     width: 100%;
     height: 93.9516%;
     bottom: 596.8px;
+}
+
+#tag-div span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+}
+
+#tag-div {
+    display: flex;
+}
+
+.tag {
+    background: #f1f1f1;
+    border-radius: 5px;
+    padding: 0.2em o.5em;
+    display: inline-block;
+    margin: 0.2em;
+    padding: 4px;
+}
+
+.tag span {
+    font-size: 0.8em;
+    cursor: pointer;
+}
+
+.tag b {
+    padding-bottom: 1em;
+}
+
+.tags {
+    margin-bottom: 1.5em;
 }
