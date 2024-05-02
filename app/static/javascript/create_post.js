@@ -18,6 +18,16 @@ $(document).ready(function() {
 let $input = $('#tag-text-input');
 let $tagForm = $('#form');
 let $output = $('.tags');
+let $hiddenTags = $('#hidden-tags');
+
+function updateHiddenTags() {
+    let tags = [];
+    $output.children('.tag').each(function() {
+        let tagText = $(this).text().replace('close', '').trim();
+        tags.push(tagText);
+    });
+    $hiddenTags.val(tags.join(','));
+}
 
 function outputTag() {
     const tag = `
@@ -31,6 +41,7 @@ function outputTag() {
 
     $output.append(tag);
     $input.val("");
+    updateHiddenTags();
 }
 
 $tagForm.keydown(function(e) { //Event listener on the enter button to see if a tag has been submitted

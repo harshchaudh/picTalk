@@ -33,7 +33,7 @@
                     </div>
                     <div id="upload-errors">
                         {% for error in form.image.errors %}
-                        {{ error }}
+                        {{ [error] }}
                         {% endfor %}
                     </div>
                 </div>
@@ -49,7 +49,8 @@
                     </div>
                     <div id="tag-div" class="form-group">
                         <span class="material-symbols-outlined">sell</span>
-                        {{ form.tag_text(id="tag-text-input", class="form-control", placeholder="Press enter to add a tag...", maxlength="25", autocomplete="off") }}
+                        <input type="text" id="tag-text-input", class="form-control", placeholder="Press enter to add a tag...", maxlength="25", autocomplete="off"/>
+                        {{ form.tag_text(type="hidden", id="hidden-tags") }}
                     </div>
                     <div class="tags"></div>
                     <br>
