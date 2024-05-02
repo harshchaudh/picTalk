@@ -33,7 +33,7 @@
                     </div>
                     <div id="upload-errors">
                         {% for error in form.image.errors %}
-                        {{ [error] }}
+                        <span>Error, not submitted: {{ error }}</span>
                         {% endfor %}
                     </div>
                 </div>

@@ -137,3 +137,7 @@ h1, p {
     color: #2b6e7b;
     padding: 8px;
 }
+
+#upload-errors {
+    color: red;
+}
