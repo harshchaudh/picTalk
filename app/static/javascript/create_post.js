@@ -52,6 +52,6 @@ $(window).on('click', function(e) { //Event listener on tag remove button to rem
     if(e.target.classList.contains('remove-btn')) {
         e.target.parentElement.remove();
         $input.prop('disabled', false);
-        $input.attr('placeholder', "Add a tag...");
+        $input.attr('placeholder', "Press enter to add a tag...");
     }
 })

@@ -38,18 +38,18 @@
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div>
+                    <div id="caption-label-div">
                         {{ form.caption_text.label }}
                     </div>
                     <div class="form-group">
                         {{ form.caption_text(id="caption-text-input", class="form-control") }}
                     </div>
-                    <div>
+                    <div id="tag-label-div">
                         {{ form.tag_text.label }}
                     </div>
                     <div id="tag-div" class="form-group">
                         <span class="material-symbols-outlined">sell</span>
-                        {{ form.tag_text(id="tag-text-input", class="form-control", placeholder="Add a tag...", maxlength="25", autocomplete="off") }}
+                        {{ form.tag_text(id="tag-text-input", class="form-control", placeholder="Press enter to add a tag...", maxlength="25", autocomplete="off") }}
                     </div>
                     <div class="tags"></div>
                     <br>
