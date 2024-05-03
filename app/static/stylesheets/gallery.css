@@ -34,6 +34,7 @@ body {
     border-radius: 1%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
+
 .image {
     transition: filter 0.3s ease;
 }
@@ -41,6 +42,29 @@ body {
 .image:hover {
     filter: brightness(50%);
 }
+
+.modal-image-gallery {
+    border: 0px solid black;
+}
+
+.container-modal-gallery {
+    border: 0px solid black;
+}
+
+.card-img-top {
+    max-width: 100%;
+    max-height: 100%;
+
+    width: auto;
+    height: auto;
+}
+.modal-dialog-centered {
+    max-width: 100%;
+    width: 50%;
+
+    margin: auto;
+}
+
 @media screen and (max-width: 800px) {
     .column {
         flex: 50%;
