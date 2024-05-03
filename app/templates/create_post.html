@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block variable_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/create_post.css') }}">
+{% endblock %}
+
+<!-- Sets title for submission page -->
+{% block title %}
+Create Your Post | PicTalk
+{% endblock %}
+
+<!-- Content for submission page -->
+{% block main %}
+<h1>Create Post</h1>
+<p>Let your creation be known.</p>
+
+<form id="form" method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+
+                <div id="upload-box">
+                    <p>Click here to select your image...</p>
+                    {{ form.image(id="file-upload") }}
+                    <img id="img-preview" src="" alt="img-preview">
+                </div>
+
+                <div id="upload-errors">
+                    {% for error in form.image.errors %}
+                    <span>Error, not submitted: {{ error }}</span>
+                    {% endfor %}
+                </div>
+
+            </div>
+            <div class="col-md-4">
+
+                <div id="caption-label-div">
+                    {{ form.caption_text.label }}
+                </div>
+
+                <div class="form-group">
+                    {{ form.caption_text(id="caption-text-input", class="form-control") }}
+                </div>
+
+                <div id="tag-label-div">
+                    {{ form.tag_text.label }}
+                </div>
+
+                <div id="tag-div" class="form-group">
+                    <span class="material-symbols-outlined">sell</span>
+                    <input type="text" id="tag-text-input" , class="form-control" ,
+                        placeholder="Press enter to add a tag..." , maxlength="25" , autocomplete="off" />
+                    {{ form.tag_text(type="hidden", id="hidden-tags") }}
+                </div>
+
+                <div class="tags"></div>
+
+                <br>
+
+                <div id="submit-div" class="text-center">
+                    {{ form.submit(id="submit-btn", class="btn btn-primary w-90 form-submit")}}
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</form>
+{% endblock %}
+
+{% block variable_js %}
+<!-- JQuery-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<!-- Custom JS -->
+<script src="{{ url_for('static', filename='javascript/create_post.js') }}"></script>
+{% endblock %}
