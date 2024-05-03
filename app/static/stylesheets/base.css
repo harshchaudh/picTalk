@@ -1,0 +1,59 @@
+/* This stylesheet is for the 'Base' page only. This is the skeleton for all other websites. Changes made here are global. */
+
+@font-face {
+  font-family: 'Alata-Regular';
+  src: url('../fonts/Alata-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: 'Alata-Regular';
+  color: #222222;
+  font-size: 20px;
+  font-weight: 100;
+}
+
+/* Structure element styles */
+body {
+  background-color: #FFFFFF;
+}
+
+/* Buttons */
+.btn {
+  background-color: #1c5d99;
+  color: #FFFFFF;
+  width: 100%;
+}
+
+.btn:hover {
+  background-color: #14436E;
+  color: #FFFFFF;
+}
+
+/* Navigation bar styles */
+.navbar {
+  background-color: #BBCDE5;
+}
+
+.navbar-brand {
+  font-family: 'Alata-Regular', sans-serif;
+  font-size: 40px;
+  letter-spacing: -2px;
+}
+
+.navbar-content {
+  width: 100%;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.nav-form-searchBar {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.nav-form-searchBtn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
