@@ -1,1 +1,16 @@
+{% extends 'base.html' %}
 
+<!-- Imports home.css -->
+{% block variable_css %}
+<link rel = "stylesheet" href = "{{ url_for('static', filename='stylesheets/home.css') }}">
+{% endblock %}
+
+<!-- Sets title for home page -->
+{% block title %}
+Home | PicTalk
+{% endblock %}
+
+<!-- Content for home page -->
+{% block main %}
+    
+{% endblock %}
