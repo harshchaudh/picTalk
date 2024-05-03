@@ -1,0 +1,84 @@
+:root {
+    --grey-color: #222222; /* Dark gray */
+    --white-color: #FFFFFF; /* White */
+    --blue-color: rgb(204, 214, 222); /* Blue */
+    --lite-color: #80a7af; /* Light blue */
+    --purp-color: rgb(178, 86, 228) ; /* Purple */
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--white-color);
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+.navbar {
+    color: whitesmoke
+}
+
+.navbar-brand, .display-3{
+    font-style: italic;
+    color: #222222;
+    transform: rotate(-10deg);
+}
+
+.navbar-nav .nav-link {
+    color: var(--grey-color);
+}
+
+.carousel {
+    margin-bottom: 4rem;
+}
+
+.carousel-caption {
+    bottom: 2rem;
+    z-index: 10;
+}
+  
+.carousel-item {
+    height: 30rem;
+    background-color: #777;
+}
+
+.carousel-item > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    height: 30rem;
+}
+
+#slogan {
+    padding: 10px;
+    text-decoration: double;
+}
+
+.container {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.middleSection {
+    background-color: var(--blue-color);
+    text-align: center;
+}
+
+.outerSection {
+    background-color: var(--white-color);
+}
+
+.featurette-divider {
+    margin: 5rem 0; 
+  }
+  
+
+.featurette-heading {
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -.05rem;
+    text-align: center;
+  }
+
+h2 ~ p {
+    text-align: center;
+}
