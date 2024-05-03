@@ -1,0 +1,24 @@
+/* This stylesheet is for the 'Sign up' page only. */
+
+/* Card Style */
+.card-signUp {
+    border: 0px solid black;
+    display: flex;
+    align-items: center;
+    margin-top: 5%;
+}
+
+.card-header-signUp {
+    border: 0px solid black;
+    background-color: #FFFFFF00;
+    font-size: 40px;
+}
+
+/* Card Footer Style */
+.footer-signUp {
+    margin-bottom: 2%;
+}
+
+.footer-signUp-close {
+    margin-top: 1%;
+}
