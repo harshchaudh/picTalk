@@ -6,26 +6,6 @@
     --purp-color: rgb(178, 86, 228) ; /* Purple */
 }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: var(--white-color);
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-}
-.navbar {
-    color: whitesmoke
-}
-
-.navbar-brand, .display-3{
-    font-style: italic;
-    color: #222222;
-    transform: rotate(-10deg);
-}
-
-.navbar-nav .nav-link {
-    color: var(--grey-color);
-}
-
 .carousel {
     margin-bottom: 4rem;
 }
