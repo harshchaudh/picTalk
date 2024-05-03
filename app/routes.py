@@ -1,4 +1,8 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
+from app.forms import CreateContentForm
+from werkzeug.utils import secure_filename
+import os
+
 from sqlalchemy.exc import IntegrityError
 
 from model import db, USER
@@ -55,6 +59,14 @@ def login():
 def home():
     return render_template('home.html')
 
+@picTalk_bp.route('/create', methods=['GET', 'POST'])
+def create():
+    form = CreateContentForm()
+    if form.validate_on_submit():
+        pass
+    return render_template('create_post.html', form=form)
+
 @picTalk_bp.route('/')
 def gallery():
     return render_template('gallery.html')
+
