@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from app.forms import CreateContentForm
+from forms import CreateContentForm
 from werkzeug.utils import secure_filename
 import os
 
