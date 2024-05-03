@@ -1,0 +1,147 @@
+#caption-text-input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    resize: none;
+}
+
+#tag-text-input {
+    width: 90%;
+    float: right;
+    padding: 8px;
+    box-sizing: border-box;
+    resize: none;
+    height: 38px;
+    margin-bottom: 5px;
+}
+
+.w-90 {
+    width: 90%;
+}
+
+.material-symbols-outlined {
+    color: #1c9D99;
+    font-size: 24px;
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+}
+
+#upload-box {
+    border: 2px dashed #639FAB;
+    height: 600px;
+    text-align: center;
+    background-color: #f1f1f1;
+    border-radius: 10px;
+}
+
+#upload-box p {
+    opacity: 50%;
+    margin: 0px;
+    padding: 0px;
+}
+
+#upload-box:hover {
+    background-color: #ecf4ff;
+}
+
+#file-upload {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    position: relative;
+    bottom: 24px;
+}
+
+#img-preview {
+    display: none;
+    object-fit: contain;
+    position: relative;
+    width: 100%;
+    height: 93.9516%;
+    bottom: 596.8px;
+}
+
+#tag-div span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+}
+
+#tag-div {
+    display: flex;
+}
+
+.tag {
+    background: #f1f1f1;
+    border-radius: 5px;
+    padding: 0.2em o.5em;
+    display: inline-block;
+    margin: 0.2em;
+    padding: 4px;
+}
+
+.tag span {
+    font-size: 0.8em;
+    cursor: pointer;
+}
+
+.tag b {
+    padding-bottom: 1em;
+    color: #2b6e7b;
+}
+
+.tags {
+    margin-bottom: 1.5em;
+}
+
+body {
+    background-color: #BBCDE5;
+    color: #FFFFFF;
+}
+
+h1,
+p {
+    color: #2b6e7b;
+    padding: 10px
+}
+
+#form {
+    background-color: #FFFFFF;
+    padding: 15px;
+}
+
+.btn-primary {
+    background-color: #1c9D99;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #137a63;
+}
+
+#upload-box p {
+    color: black;
+}
+
+@media (max-width: 768px) {
+
+    .col-md-8,
+    .col-md-4 {
+        width: 100%;
+    }
+}
+
+#caption-label-div,
+#tag-label-div {
+    color: #2b6e7b;
+    padding: 8px;
+}
+
+#upload-errors {
+    color: red;
+}
