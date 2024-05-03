@@ -9,6 +9,16 @@ from model import db, USER
 
 picTalk_bp = Blueprint('picTalk', __name__)
 
+# Route for the home page.
+@picTalk_bp.route('/')
+def home():
+    return render_template('home.html')
+
+# Route for the gallery page.
+@picTalk_bp.route('/gallery')
+def gallery():
+    return render_template('gallery.html')
+
 # Route for the sign up page
 @picTalk_bp.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -55,18 +65,12 @@ def login():
     
     return render_template('login.html')
 
-@picTalk_bp.route('/home')
-def home():
-    return render_template('home.html')
-
+# Route for the creating a post page
 @picTalk_bp.route('/create', methods=['GET', 'POST'])
 def create():
     form = CreateContentForm()
     if form.validate_on_submit():
         pass
-    return render_template('create_post.html', form=form)
+    return render_template('create_post.html', form = form)
 
-@picTalk_bp.route('/')
-def gallery():
-    return render_template('gallery.html')
 
