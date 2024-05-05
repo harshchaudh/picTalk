@@ -1,6 +1,9 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from forms import CreateContentForm
+
 from werkzeug.utils import secure_filename
+from werkzeug.security import generate_password_hash, check_password_hash
+
 import os
 
 from sqlalchemy.exc import IntegrityError
@@ -36,7 +39,7 @@ def signup():
     
         try: 
             # Create a new user
-            new_user = USER(username = signup_username, password = signup_psw)
+            new_user = USER(username = signup_username, password = generate_password_hash(signup_psw, method='pbkdf2:sha256'))
             db.session.add(new_user)
             db.session.commit()
             return redirect(url_for('picTalk.login'))
@@ -56,7 +59,7 @@ def login():
 
         user = USER.query.filter_by(username = login_username).first()
         if user:
-            if user.password == login_password:
+            if check_password_hash(user.password, login_password):
                 return redirect(url_for('picTalk.home'))
             else:
                 return render_template('login.html', error = 'Invalid username or password')
