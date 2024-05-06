@@ -10,4 +10,4 @@ venv/
 .vscode/
 app/__pycache__/
 instance/picTalk.db
-
+picTalk.db

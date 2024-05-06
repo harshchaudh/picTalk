@@ -33,6 +33,16 @@
     height: 30rem;
 }
 
+#slider {
+    height: 350px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.carousel-indicators {
+    display: none;
+}
+
 #slogan {
     padding: 10px;
     text-decoration: double;
