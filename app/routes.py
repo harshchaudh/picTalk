@@ -1,11 +1,9 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash
-from forms import CreateContentForm
-from werkzeug.utils import secure_filename
-import os
+from flask import Blueprint, render_template, request, redirect, url_for
+from app.forms import CreateContentForm
 
 from sqlalchemy.exc import IntegrityError
 
-from model import db, USER
+from app.model import db, USER
 
 picTalk_bp = Blueprint('picTalk', __name__)
 
