@@ -1,19 +1,25 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 
-from model import db
+from model import db, init_login
 from routes import picTalk_bp
 
-# Create a Flask application instance
-app = Flask(__name__) #template_folder='app/templates', static_folder='app/static'
+from config import Config
 
-# Configure SQLAlchemy database URI
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///picTalk.db'
+# Create a Flask application instance
+app = Flask(__name__)
+app.config.from_object(Config)
+
 # Initialize SQLAlchemy
 db.init_app(app)
 
-# Initialize bcrypt
-bcrypt = Bcrypt(app)
+# Initialize Flask-Login
+login_manager = LoginManager(app)
+login_manager.login_view = 'picTalk.login'
+
+# Initialize Flask-Login in the model module
+init_login(login_manager)
 
 with app.app_context():
     db.create_all()

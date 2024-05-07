@@ -43,15 +43,23 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url_for('picTalk.gallery') }}">Gallery</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('picTalk.create') }}">Submit</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('picTalk.login') }}">Login</a>
-                </li>
+
+                {% if current_user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('picTalk.create') }}">Submit</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('picTalk.profile') }}">{{ current_user.username }}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('picTalk.logout') }}">Logout</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('picTalk.login') }}">Login</a>
+                    </li>
+                {% endif %}
+
             </ul>
 
         </nav>
