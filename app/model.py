@@ -47,3 +47,12 @@ class COMMENT(db.Model):
     
     submission_id = db.Column(db.String(20), db.ForeignKey('SUBMISSION.submission_id'), nullable=False)
     submit = db.relationship('SUBMISSION', backref='COMMENT', lazy=True)
+
+
+class TAGS():
+    __tablename__ = "TAGS"
+
+    tag = id
+    
+    submission_id = db.Column(db.String(20), db.ForeignKey('SUBMISSION.submission_id'), nullable=False)
+    submit = db.relationship('SUBMISSION', backref='TAGS', lazy=True)
