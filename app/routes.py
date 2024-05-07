@@ -4,34 +4,13 @@ from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
 
-import re
-
 from sqlalchemy.exc import IntegrityError
 
 from app.model import db, USER, SUBMISSION
 from app.forms import CreateContentForm
+from utilities import username_validation, password_validation
 
 picTalk_bp = Blueprint('picTalk', __name__)
-
-def username_validation(username):
-    # Only allows letters (a-z and A-Z), digits (0-9), underscore (_) and periods (.)
-    # The username must also be a minimum of 3 characters and a maximum of 32 characters
-    # The username cannot begin with a digit, underscore or period. 
-    # The username cannot end with an underscore or period.
-    # The username cannot be a string of numbers
-    regex = r'^[a-zA-Z][a-zA-Z0-9_.]{1,30}[a-zA-Z0-9]$'
-    return bool(re.match(regex, username))
-
-def password_validation(password):
-    # Minimum eight characters, at least one letter and one number 
-    regex = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
-    return bool(re.match(regex, password))
-
-def truncate_username(username, max_length = 10):
-    if len(username) > max_length:
-        username = username[:(max_length - 3)] + "..."
-    return username
-
 
 # Route for the home page.
 @picTalk_bp.route('/')

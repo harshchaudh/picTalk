@@ -4,12 +4,7 @@ from flask_wtf.file import FileField, FileRequired, FileAllowed
 from wtforms import StringField, PasswordField, SubmitField, TextAreaField, validators
 from wtforms.validators import DataRequired, Length, EqualTo, Regexp
 
-def ValidateTags(form, field):
-    tags = field.data.split(',')
-    if len(tags) > 5:
-        raise validators.ValidationError('You must not submit more than 5 tags.')
-    if '' in tags:
-        raise validators.ValidationError('Tags can not be empty.')
+from utilities import ValidateTags
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20)])
