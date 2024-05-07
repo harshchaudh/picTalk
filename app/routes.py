@@ -99,7 +99,7 @@ def create():
 
         try: 
             # Create a new submission
-            submission = SUBMISSION(image = image_data, caption = caption_text)
+            submission = SUBMISSION(image = image_data, caption = caption_text, username_id = current_user)
             db.session.add(submission)
             db.session.commit()
             return redirect(url_for('picTalk.home'))
