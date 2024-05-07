@@ -68,8 +68,7 @@ def login():
 def create():
     form = CreateContentForm()
     if form.validate_on_submit():
-        print(form.image.data)
-        print(form.caption_text.data)
-        tags = form.tag_text.data.split(',')
-        print(tags)
+        tags = form.tag_text.data.split(',') #Creates tag list
+        caption = form.caption_text.data 
+        img = form.image.data.read() #Creates image BLOB
     return render_template('create_post.html', form = form)
