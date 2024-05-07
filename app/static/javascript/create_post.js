@@ -45,21 +45,27 @@ function outputTag() {
 }
 
 $tagForm.keydown(function (e) { //Event listener on the enter button to see if a tag has been submitted
-    if (e.which == 13) {
+    if (!e.key.match(/^[a-zA-Z]+$/)) {  
         e.preventDefault();
-        if ($output.children().length >= 4) {
+    }
+
+    else if (e.which == 13) {
+        e.preventDefault();
+        let empty = $input.val() === "" ? true : false;
+        
+        if ($output.children().length >= 4 && !empty) {
             outputTag();
             $input.prop('disabled', true);
             $input.val("");
             $input.attr('placeholder', "Max number of tags reached!");
         }
-        else {
+        else if (!empty) {
             outputTag();
         }
     }
 });
 
-$(window).on('click', function (e) { //Event listener on tag remove button to remove tags and allow for a new one to be made
+$(window).on('click', function (e) { //Event listener on window (and if on remove button), removes tags and allow for a new one to be made
     if (e.target.classList.contains('remove-btn')) {
         e.target.parentElement.remove();
         $input.prop('disabled', false);
