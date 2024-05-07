@@ -1,17 +1,28 @@
+from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+# Initialize Flask-Login with the provided login_manager instance
+def init_login(login_manager):
+    @login_manager.user_loader
+    def load_user(username):
+        return USER.query.get(username)
+    
 # USER table in picTalk.db
-class USER(db.Model):
+class USER(UserMixin, db.Model):
     __tablename__ = 'USER'
     
-    username = db.Column(db.String(20), primary_key=True)
-    password = db.Column(db.String(1000), nullable=False)
+    username = db.Column(db.String(32), primary_key=True)
+    password = db.Column(db.String(128), nullable=False)
     
     def __init__(self, username, password):
         self.username = username
         self.password = password
+        
+    def get_id(self):
+        return self.username
+
 
 # SUBMISSION table in picTalk.db
 class SUBMISSION(db.Model):

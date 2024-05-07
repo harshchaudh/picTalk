@@ -11,3 +11,4 @@ venv/
 app/__pycache__/
 instance/picTalk.db
 
+app/config.py
