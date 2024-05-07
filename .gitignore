@@ -8,6 +8,6 @@ app/templates/.DS_Store
 venv/
 
 .vscode/
-app/__pycache__/
 instance/picTalk.db
+**__pycache__
 picTalk.db
