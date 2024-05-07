@@ -29,7 +29,7 @@ Create Your Post | PicTalk
 
                 <div id="upload-box">
                     <p>Click here to select your image...</p>
-                    {{ form.image(id="file-upload") }}
+                    {{ form.image(id="file-upload", accept=".jpg, .jpeg, .png") }}
                     <img id="img-preview" src="" alt="img-preview">
                 </div>
 
