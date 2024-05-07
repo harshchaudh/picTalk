@@ -8,7 +8,7 @@ from sqlalchemy.exc import IntegrityError
 
 from app.model import db, USER, SUBMISSION
 from app.forms import CreateContentForm
-from utilities import username_validation, password_validation
+from app.utilities import username_validation, password_validation
 
 picTalk_bp = Blueprint('picTalk', __name__)
 
