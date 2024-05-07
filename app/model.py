@@ -19,8 +19,7 @@ class USER(UserMixin, db.Model):
     username = db.Column(db.String(32), unique = True, nullable = False)
     password = db.Column(db.String(128), nullable=False)
     
-    def __init__(self, username_id, username, password):
-        self.username_id = username_id
+    def __init__(self, username, password):
         self.username = username
         self.password = password
     
@@ -34,7 +33,7 @@ class SUBMISSION(db.Model):
 
     submission_id = db.Column(db.Integer, primary_key=True, autoincrement = True)
 
-    image = db.Column(LargeBinary)
+    image = db.Column(db.LargeBinary)
     caption = db.Column(db.String(256))
 
     username_id = db.Column(db.Integer, db.ForeignKey('USER.username_id'), nullable=False)
