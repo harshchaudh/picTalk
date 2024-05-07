@@ -2,8 +2,8 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
-from model import db, init_login
-from routes import picTalk_bp
+from app.model import db, init_login
+from app.routes import picTalk_bp
 
 from app.config import Config
 
