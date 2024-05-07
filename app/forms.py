@@ -1,8 +1,13 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 
-from wtforms import StringField, PasswordField, SubmitField, TextAreaField
+from wtforms import StringField, PasswordField, SubmitField, TextAreaField, validators
 from wtforms.validators import DataRequired, Length, EqualTo, Regexp
+
+def ValidateTags(form, field):
+    tags = field.data.split(',')
+    if len(tags) > 5:
+        raise validators.ValidationError('You must not submit more than 5 tags.')
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20)])
@@ -18,5 +23,5 @@ class SignupForm(FlaskForm):
 class CreateContentForm(FlaskForm):
     image = FileField('', validators=[FileRequired(), FileAllowed(['jpg', 'png', 'jpeg'], '.jpg, .png, and .jpeg only')])
     caption_text = TextAreaField('Enter your caption', validators=[DataRequired()])
-    tag_text = StringField('Enter your tags', validators=[DataRequired(), Regexp('^[a-zA-Z,]+$', message='Alphabetical characters only')])
+    tag_text = StringField('Enter your tags', validators=[DataRequired(), ValidateTags, Regexp('^[a-zA-Z,]+$', message='Alphabetical characters only')])
     submit = SubmitField('Submit')
