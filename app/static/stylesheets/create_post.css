@@ -109,15 +109,6 @@ p {
     padding: 15px;
 }
 
-.btn-primary {
-    background-color: #1c9D99;
-    border: none;
-}
-
-.btn-primary:hover {
-    background-color: #137a63;
-}
-
 #upload-box p {
     color: black;
 }
