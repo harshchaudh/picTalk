@@ -19,6 +19,7 @@ let $input = $('#tag-text-input');
 let $tagForm = $('#tag-div');
 let $output = $('.tags');
 let $hiddenTags = $('#hidden-tags');
+let $captionForm = $('#caption-text-input');
 
 function updateHiddenTags() {
     let tags = [];
@@ -62,6 +63,12 @@ $tagForm.keydown(function (e) { //Event listener on the enter button to see if a
         else if (!empty) {
             outputTag();
         }
+    }
+});
+
+$captionForm.keydown(function (e) {
+    if (!e.key.match(/^[a-zA-Z ,.!?]+$/) || e.which == 13) {
+        e.preventDefault();
     }
 });
 

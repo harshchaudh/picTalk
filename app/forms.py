@@ -8,6 +8,8 @@ def ValidateTags(form, field):
     tags = field.data.split(',')
     if len(tags) > 5:
         raise validators.ValidationError('You must not submit more than 5 tags.')
+    if '' in tags:
+        raise validators.ValidationError('Tags can not be empty.')
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20)])
@@ -21,7 +23,7 @@ class SignupForm(FlaskForm):
     submit = SubmitField('Sign Up')
 
 class CreateContentForm(FlaskForm):
-    image = FileField('', validators=[FileRequired(), FileAllowed(['jpg', 'png', 'jpeg'], '.jpg, .png, and .jpeg only')])
-    caption_text = TextAreaField('Enter your caption', validators=[DataRequired()])
-    tag_text = StringField('Enter your tags', validators=[DataRequired(), ValidateTags, Regexp('^[a-zA-Z,]+$', message='Alphabetical characters only')])
+    image = FileField('', validators=[FileRequired(), FileAllowed(['jpg', 'png', 'jpeg'], '.jpg, .png, and .jpeg only.')])
+    caption_text = TextAreaField('Enter your caption', validators=[DataRequired(), Regexp('^[a-zA-Z ,.!?]+$', message='No special characters in caption.')])
+    tag_text = StringField('Enter your tags', validators=[DataRequired(), ValidateTags, Regexp('^[a-zA-Z,]+$', message='Alphabetical characters in tags only.')])
     submit = SubmitField('Submit')
