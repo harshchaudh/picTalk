@@ -114,7 +114,7 @@ def profile():
 def create():
     form = CreateContentForm()
     if form.validate_on_submit():
-        pass
+        tags = form.tag_text.data.split(',') #Creates tag list
+        caption = form.caption_text.data 
+        img = form.image.data.read() #Creates image BLOB
     return render_template('create_post.html', form = form)
-
-
