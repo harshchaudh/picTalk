@@ -1,6 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_user, logout_user, login_required, current_user
-from app.forms import CreateContentForm
 
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -9,7 +8,8 @@ import re
 
 from sqlalchemy.exc import IntegrityError
 
-from app.model import db, USER
+from app.model import db, USER, SUBMISSION
+from app.forms import CreateContentForm
 
 picTalk_bp = Blueprint('picTalk', __name__)
 
@@ -114,7 +114,21 @@ def profile():
 def create():
     form = CreateContentForm()
     if form.validate_on_submit():
-        pass
+        image_data = form.image.data.read()
+        caption_text = form.caption_text.data
+
+        try: 
+            # Create a new submission
+            submission = SUBMISSION(image = image_data, caption = caption_text)
+            db.session.add(submission)
+            db.session.commit()
+            return redirect(url_for('picTalk.home'))
+        except IntegrityError:
+            return render_template('create_post.html', error='Error, unable to make a submission')
+        except Exception as e:
+            return render_template('create_post.html', error=f'Error: {str(e)}')
+            
+
     return render_template('create_post.html', form = form)
 
 
