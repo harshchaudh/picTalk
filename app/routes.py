@@ -116,6 +116,7 @@ def create():
     if form.validate_on_submit():
         image_data = form.image.data.read()
         caption_text = form.caption_text.data
+        tags = form.tag_text.data.split(',')
 
         try: 
             # Create a new submission
@@ -130,5 +131,4 @@ def create():
             
 
     return render_template('create_post.html', form = form)
-
 
