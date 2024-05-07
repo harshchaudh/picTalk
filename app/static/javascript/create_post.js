@@ -16,7 +16,7 @@ $(document).ready(function () {
 //Tag addition
 
 let $input = $('#tag-text-input');
-let $tagForm = $('#form');
+let $tagForm = $('#tag-div');
 let $output = $('.tags');
 let $hiddenTags = $('#hidden-tags');
 
