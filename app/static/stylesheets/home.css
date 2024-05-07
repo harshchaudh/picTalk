@@ -16,9 +16,12 @@
 }
 
 .carousel-caption {
-    bottom: 2rem;
-    z-index: 10;
-}
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
 
 .carousel-item {
     height: 30rem;
@@ -31,6 +34,25 @@
     left: 0;
     min-width: 100%;
     height: 30rem;
+}
+
+.rotate-text {
+    transform: rotate(-10deg); 
+  }
+
+#slider {
+    height: 350px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    color: rgb(13, 13, 13);
+}
+
+.carousel-indicators {
+    display: none;
 }
 
 #slogan {
@@ -66,4 +88,8 @@
 
 h2~p {
     text-align: center;
+}
+
+.bottom-text{
+    padding: 10%;
 }
