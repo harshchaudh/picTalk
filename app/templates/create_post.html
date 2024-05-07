@@ -58,6 +58,12 @@ Create Your Post | PicTalk
 
                 <div class="tags"></div>
 
+                <div id="tag-errors">
+                    {% for error in form.tag_text.errors %}
+                    <span>Error, not submitted: {{ error }}</span>
+                    {% endfor %}
+                </div>
+
                 <br>
 
                 <div id="submit-div" class="text-center">

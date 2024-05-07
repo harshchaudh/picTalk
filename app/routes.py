@@ -68,7 +68,8 @@ def login():
 def create():
     form = CreateContentForm()
     if form.validate_on_submit():
-        pass
+        print(form.image.data)
+        print(form.caption_text.data)
+        tags = form.tag_text.data.split(',')
+        print(tags)
     return render_template('create_post.html', form = form)
-
-
