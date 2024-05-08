@@ -1,5 +1,6 @@
-from wtforms import validators
 import re
+from wtforms import ValidationError
+from app.model import USER 
 
 # Validate tags used in forms.py
 def ValidateTags(form, field):
@@ -17,13 +18,19 @@ def username_validation(username):
     # The username cannot end with an underscore or period.
     # The username cannot be a string of numbers
     regex = r'^[a-zA-Z][a-zA-Z0-9_.]{1,30}[a-zA-Z0-9]$'
-    return bool(re.match(regex, username))
+    if not re.match(regex, username):
+        raise ValidationError("Invalid username format.")
+
+    # Check if username already exists
+    if USER.query.filter_by(username=username).first():
+        raise ValidationError('Username already taken.')
 
 # Validate password used in routes.py
 def password_validation(password):
     # Minimum eight characters, at least one letter and one number 
     regex = r"^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
-    return bool(re.match(regex, password))
+    if not re.match(regex, password):
+        raise ValidationError("Invalid password format.")
 
 # Truncate usernames when username is too long for navigation bar.
 def truncate_username(username, max_length = 10):

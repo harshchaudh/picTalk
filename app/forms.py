@@ -1,24 +1,17 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
-
 from wtforms import StringField, PasswordField, SubmitField, TextAreaField, validators
 from wtforms.validators import DataRequired, Length, EqualTo, Regexp, ValidationError
-
-from app.utilities import ValidateTags
-
-
-def username_exists(form, field):
-    if User.exists_username(field.data):
-        raise ValidationError('Username already taken.')
+from app.utilities import ValidateTags, username_validation, password_validation
 
 class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), username_exists, Length(min=3, max=20)])
+    username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20)])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
 
 class SignupForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20)])
-    password = PasswordField('Password', validators=[DataRequired(), Length(min=6), EqualTo('confirm_password', message='Passwords must match')])
+    username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20), validators.ValidationError(username_validation)])
+    password = PasswordField('Password', validators=[DataRequired(), Length(min=6), EqualTo('confirm_password', message='Passwords must match'), validators.ValidationError(password_validation)])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired()])
     submit = SubmitField('Sign Up')
 
