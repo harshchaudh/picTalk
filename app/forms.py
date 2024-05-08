@@ -2,12 +2,17 @@ from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 
 from wtforms import StringField, PasswordField, SubmitField, TextAreaField, validators
-from wtforms.validators import DataRequired, Length, EqualTo, Regexp
+from wtforms.validators import DataRequired, Length, EqualTo, Regexp, ValidationError
 
 from app.utilities import ValidateTags
 
+
+def username_exists(form, field):
+    if User.exists_username(field.data):
+        raise ValidationError('Username already taken.')
+
 class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20)])
+    username = StringField('Username', validators=[DataRequired(), username_exists, Length(min=3, max=20)])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
 
