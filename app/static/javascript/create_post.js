@@ -16,9 +16,10 @@ $(document).ready(function () {
 //Tag addition
 
 let $input = $('#tag-text-input');
-let $tagForm = $('#form');
+let $tagForm = $('#tag-div');
 let $output = $('.tags');
 let $hiddenTags = $('#hidden-tags');
+let $captionForm = $('#caption-text-input');
 
 function updateHiddenTags() {
     let tags = [];
@@ -45,21 +46,33 @@ function outputTag() {
 }
 
 $tagForm.keydown(function (e) { //Event listener on the enter button to see if a tag has been submitted
-    if (e.which == 13) {
+    if (!e.key.match(/^[a-zA-Z]+$/)) {  
         e.preventDefault();
-        if ($output.children().length >= 4) {
+    }
+
+    else if (e.which == 13) {
+        e.preventDefault();
+        let empty = $input.val() === "" ? true : false;
+        
+        if ($output.children().length >= 4 && !empty) {
             outputTag();
             $input.prop('disabled', true);
             $input.val("");
             $input.attr('placeholder', "Max number of tags reached!");
         }
-        else {
+        else if (!empty) {
             outputTag();
         }
     }
 });
 
-$(window).on('click', function (e) { //Event listener on tag remove button to remove tags and allow for a new one to be made
+$captionForm.keydown(function (e) {
+    if (!e.key.match(/^[a-zA-Z ,.!?]+$/) || e.which == 13) {
+        e.preventDefault();
+    }
+});
+
+$(window).on('click', function (e) { //Event listener on window (and if on remove button), removes tags and allow for a new one to be made
     if (e.target.classList.contains('remove-btn')) {
         e.target.parentElement.remove();
         $input.prop('disabled', false);
