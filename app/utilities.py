@@ -51,6 +51,7 @@ class PasswordValidation:
     @classmethod
     def validate(cls, password):
         return not re.match(cls.regex, password)
+
         
 # Truncate usernames when username is too long for navigation bar.
 def truncate_username(username, max_length = 10):
