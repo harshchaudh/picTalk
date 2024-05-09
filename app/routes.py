@@ -29,11 +29,11 @@ def signup():
             flash('Passwords do not match', 'error')
             return render_template('signup.html')
         
-        if not UsernameValidation.validate(signup_username):
+        if UsernameValidation.validate(signup_username):
             flash('Username does not meet criteria', 'error')
             return render_template('signup.html')
         
-        if not PasswordValidation.validate(signup_psw):
+        if PasswordValidation.validate(signup_psw):
             flash('Password does not meet criteria', 'error')
             return render_template('signup.html')
 

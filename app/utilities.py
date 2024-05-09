@@ -24,13 +24,13 @@ class UsernameValidation:
             message = "Username does not meet criteria."
         self.message = message
 
-    def __call__(self, form, field, regex):
-        if not re.match(regex, field.data):
+    def __call__(self, form, field):
+        if not re.match(self.regex, field.data):
             raise ValidationError(self.message)
     
     @classmethod
-    def validate(cls, username, regex):
-        if not re.match(regex, username):
+    def validate(cls, username):
+        if not re.match(cls.regex, username):
             raise ValidationError("Username does not meet criteria.")
 
     
@@ -44,13 +44,13 @@ class PasswordValidation:
             message = "Password does not meet criteria."
         self.message = message
 
-    def __call__(self, form, field, regex):
-        if not re.match(regex, field.data):
+    def __call__(self, form, field):
+        if not re.match(self.regex, field.data):
             raise ValidationError(self.message)
 
     @classmethod
-    def validate(cls, password, regex):
-        if not re.match(regex, password):
+    def validate(cls, password):
+        if not re.match(cls.regex, password):
             raise ValidationError("Password does not meet criteria.")
         
 # Truncate usernames when username is too long for navigation bar.
