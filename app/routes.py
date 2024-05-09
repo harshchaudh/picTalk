@@ -3,7 +3,7 @@ from flask_login import login_user, logout_user, login_required, current_user
 
 from sqlalchemy.exc import IntegrityError
 
-from app.model import db, USER
+from app.model import db, USER, SUBMISSION
 from app.forms import CreateContentForm
 
 from app.utilities import UsernameValidation, PasswordValidation
@@ -85,7 +85,19 @@ def profile():
 def create():
     form = CreateContentForm()
     if form.validate_on_submit():
-        # form handling logic
-        flash('Post created successfully!', 'success')
-        return redirect(url_for('picTalk.home'))
+        image_file = form.image.data
+        image_data = image_file.read()
+
+        new_submission = SUBMISSION(image = image_data,
+                                    caption = form.caption_text.data,
+                                    username_id = current_user.username_id)
+        try:
+            db.session.add(new_submission)
+            db.session.commit()
+            flash('Post created successfully!', 'success')
+            return redirect(url_for('picTalk.home'))
+        except:
+            flash('Post failed to submit.', 'danger')
+            render_template('create_post.html')
+
     return render_template('create_post.html', form=form)
