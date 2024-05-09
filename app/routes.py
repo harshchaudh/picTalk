@@ -18,7 +18,18 @@ def home():
 
 @picTalk_bp.route('/gallery')
 def gallery():
-    return render_template('gallery.html')
+    images = SUBMISSION.query.order_by(SUBMISSION.created_at).all()
+    base64_images = [base64.b64encode(image.image).decode("utf-8") for image in images] 
+    base64_images.reverse()
+
+    base64_images_firstColumn = organiseColumnImages(base64_images)[0]
+    base64_images_secondColumn = organiseColumnImages(base64_images)[1]
+    base64_images_thirdColumn = organiseColumnImages(base64_images)[2]
+
+    return render_template('gallery.html', user=current_user, 
+                           images_firstColumn = base64_images_firstColumn, 
+                           images_secondColumn = base64_images_secondColumn, 
+                           images_thirdColumn = base64_images_thirdColumn)
 
 @picTalk_bp.route('/signup', methods=['GET', 'POST'])
 def signup():
