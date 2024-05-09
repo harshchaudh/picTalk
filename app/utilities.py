@@ -67,3 +67,6 @@ def format_profileNumbers(value):
         return "{:.0f}K".format(value / 1000)
     else:
         return "{:,}".format(value)
+    
+def organiseColumnImages(elements):
+    return elements[::3], elements[1::3], elements[2::3]
