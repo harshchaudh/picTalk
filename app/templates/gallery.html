@@ -6,7 +6,7 @@
 
 <!-- Sets title for gallery page -->
 {% block title %}
-Gallery | PicTalk
+Gallery
 {% endblock %}
 
 <!-- Content for gallery page -->
@@ -24,14 +24,9 @@ Gallery | PicTalk
   <div class="row gx-3 mb-4">
 
     <div class="col column">
-
-      <a href = "#" data-toggle="modal" data-target="#exampleModal">
         <img src="../static/images/eugene-golovesov-iQUKzF-_vUk-unsplash.jpg" class="image" style="width:100%">
-
-
-      <img src="../static/images/lorisha-buhler-ferrara-F-67aIbPOAc-unsplash.jpg" class="image" style="width:100%">
-      <img src="../static/images/martin-katler-S-Lm2lhayi0-unsplash.jpg" class="image" style="width:100%">
-      </a>
+        <img src="../static/images/lorisha-buhler-ferrara-F-67aIbPOAc-unsplash.jpg" class="image" style="width:100%">
+        <img src="../static/images/martin-katler-S-Lm2lhayi0-unsplash.jpg" class="image" style="width:100%">
     </div>
 
     <div class="col column">
@@ -50,28 +45,5 @@ Gallery | PicTalk
 
 </div>
 
-<div class="container container-modal-gallery">
-
-  <!-- Modal -->
-  <div class="modal fade modal-image-gallery" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-md modal-image-gallery" role="document">
-      <div class="modal-content">
-
-        <div class="modal-body">
-          <div class="card card-image-gallery">
-            <img src="../static/images/lorisha-buhler-ferrara-F-67aIbPOAc-unsplash.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-                content.</p>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-</div>
 
 {% endblock %}

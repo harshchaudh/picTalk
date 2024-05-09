@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+<!-- Imports login.css -->
+{% block variable_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/profile.css') }}">
+{% endblock %}
+
+<!-- Sets title for login page -->
+{% block title %}
+{{ current_user.username }}
+{% endblock %}
+
+{% block main %}
+<div class="container container-profile">
+    <div class="container container-profile-header">
+        <div class="row">
+
+            <div class="col">
+                <p class="display-6 fw-bold"> {{ current_user.username }} </p>
+            </div>
+
+            <div class="col">
+                <div class="row">
+                    <div class="col profile-details">
+                        0 
+                        <br>
+                        Submissions
+                    </div>
+                    <div class="col profile-details">
+                        {{ current_user.followers | format_profileNumbers }}
+                        <br>
+                        Followers
+                    </div>
+                    <div class="col profile-details">
+                        {{ current_user.following | format_profileNumbers }}
+                        <br>
+                        Following
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="container container-profile-body">
+        <div class="row gx-3 mb-4">
+
+            <div class="col column">
+                    <img src="../static/images/eugene-golovesov-iQUKzF-_vUk-unsplash.jpg" class="image"
+                        style="width:100%">
+                    <img src="../static/images/lorisha-buhler-ferrara-F-67aIbPOAc-unsplash.jpg" class="image"
+                        style="width:100%">
+                    <img src="../static/images/martin-katler-S-Lm2lhayi0-unsplash.jpg" class="image" style="width:100%">
+            </div>
+
+            <div class="col column">
+                <img src="../static/images/philip-oroni-D8K6LtI0gWs-unsplash.jpg" class="image" style="width:100%">
+                <img src="../static/images/tron-le-aAn-_iTks4E-unsplash.jpg" class="image" style="width:100%">
+                <img src="../static/images/philip-oroni-D8K6LtI0gWs-unsplash.jpg" class="image" style="width:100%">
+            </div>
+
+            <div class="col column">
+                <img src="../static/images/martin-katler-S-Lm2lhayi0-unsplash.jpg" class="image" style="width:100%">
+                <img src="../static/images/lorisha-buhler-ferrara-F-67aIbPOAc-unsplash.jpg" class="image"
+                    style="width:100%">
+                <img src="../static/images/eugene-golovesov-iQUKzF-_vUk-unsplash.jpg" class="image" style="width:100%">
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,9 +1,14 @@
 :root {
-    --grey-color: #222222; /* Dark gray */
-    --white-color: #FFFFFF; /* White */
-    --blue-color: rgb(204, 214, 222); /* Blue */
-    --lite-color: #80a7af; /* Light blue */
-    --purp-color: rgb(178, 86, 228) ; /* Purple */
+    /* Dark gray */
+    --grey-color: #222222;
+    /* White */
+    --white-color: #FFFFFF;
+    /* Blue */
+    --blue-color: rgb(204, 214, 222);
+    /* Light blue */
+    --lite-color: #80a7af;
+    /* Purple */
+    --purp-color: rgb(178, 86, 228);
 }
 
 .carousel {
@@ -11,21 +16,43 @@
 }
 
 .carousel-caption {
-    bottom: 2rem;
-    z-index: 10;
-}
-  
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
 .carousel-item {
     height: 30rem;
     background-color: #777;
 }
 
-.carousel-item > img {
+.carousel-item>img {
     position: absolute;
     top: 0;
     left: 0;
     min-width: 100%;
     height: 30rem;
+}
+
+.rotate-text {
+    transform: rotate(-10deg); 
+  }
+
+#slider {
+    height: 350px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    color: rgb(13, 13, 13);
+}
+
+.carousel-indicators {
+    display: none;
 }
 
 #slogan {
@@ -48,17 +75,21 @@
 }
 
 .featurette-divider {
-    margin: 5rem 0; 
-  }
-  
+    margin: 5rem 0;
+}
+
 
 .featurette-heading {
     font-weight: 300;
     line-height: 1;
     letter-spacing: -.05rem;
     text-align: center;
-  }
+}
 
-h2 ~ p {
+h2~p {
     text-align: center;
+}
+
+.bottom-text{
+    padding: 10%;
 }

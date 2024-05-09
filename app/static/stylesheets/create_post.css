@@ -22,11 +22,11 @@
 .material-symbols-outlined {
     color: #1c9D99;
     font-size: 24px;
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 24
+    font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
 }
 
 #upload-box {
@@ -99,14 +99,9 @@
     margin-bottom: 1.5em;
 }
 
-body {
-    background-color:#BBCDE5;
-    color: #FFFFFF;
-}
-
-h1, p {
-    color:#2b6e7b;
-    padding: 10px
+h1,
+p {
+    padding: 20px
 }
 
 #form {
@@ -114,26 +109,20 @@ h1, p {
     padding: 15px;
 }
 
-.btn-primary {
-    background-color: #1c9D99;
-    border: none;
-}
-
-.btn-primary:hover {
-    background-color: #137a63;
-}
-
 #upload-box p {
     color: black;
 }
 
 @media (max-width: 768px) {
-    .col-md-8, .col-md-4 {
+
+    .col-md-8,
+    .col-md-4 {
         width: 100%;
     }
 }
 
-#caption-label-div, #tag-label-div {
+#caption-label-div,
+#tag-label-div {
     color: #2b6e7b;
     padding: 8px;
 }
