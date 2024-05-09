@@ -27,12 +27,12 @@
                         Submissions
                     </div>
                     <div class="col profile-details">
-                        <p>Followers: {{ followers_count }}</p> 
+                        {{ current_user.followers | format_profileNumbers }}
                         <br>
                         Followers
                     </div>
                     <div class="col profile-details">
-                        13 
+                        {{ current_user.following | format_profileNumbers }}
                         <br>
                         Following
                     </div>
