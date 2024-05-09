@@ -99,29 +99,14 @@
     margin-bottom: 1.5em;
 }
 
-body {
-    background-color: #BBCDE5;
-    color: #FFFFFF;
-}
-
 h1,
 p {
-    color: #2b6e7b;
-    padding: 10px
+    padding: 20px
 }
 
 #form {
     background-color: #FFFFFF;
     padding: 15px;
-}
-
-.btn-primary {
-    background-color: #1c9D99;
-    border: none;
-}
-
-.btn-primary:hover {
-    background-color: #137a63;
 }
 
 #upload-box p {

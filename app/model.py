@@ -1,58 +1,89 @@
-from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin
+
+from werkzeug.security import generate_password_hash, check_password_hash
+
+from datetime import datetime
 
 db = SQLAlchemy()
 
 # Initialize Flask-Login with the provided login_manager instance
 def init_login(login_manager):
     @login_manager.user_loader
-    def load_user(username):
-        return USER.query.get(username)
-    
+    def load_user(user_id):
+        return USER.query.get(int(user_id))
+
 # USER table in picTalk.db
 class USER(UserMixin, db.Model):
     __tablename__ = 'USER'
     
-    username = db.Column(db.String(32), primary_key=True)
+    username_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    username = db.Column(db.String(32), unique=True, nullable=False, index=True)
     password = db.Column(db.String(128), nullable=False)
-    
+
+    following = db.Column(db.Integer, default = 0)
+    followers = db.Column(db.Integer, default = 0)
+
     def __init__(self, username, password):
         self.username = username
-        self.password = password
-        
-    def get_id(self):
-        return self.username
+        self.password = generate_password_hash(password)
 
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
+    
+    def get_following(self):
+        return self.following
+    
+    def get_followers(self):
+        return self.followers
+
+    def get_id(self):
+        return str(self.username_id)
+
+    def __repr__(self):
+        return f'<USER {self.username}>'
 
 # SUBMISSION table in picTalk.db
 class SUBMISSION(db.Model):
     __tablename__ = 'SUBMISSION'
 
-    submission_id = db.Column(db.String(20), primary_key=True)
+    submission_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    image = db.Column(db.LargeBinary)
+    caption = db.Column(db.String(256))
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    username = db.Column(db.String(20), db.ForeignKey('USER.username'), nullable=False)
-    user = db.relationship('USER', backref='SUBMISSION', lazy=True)
+    username_id = db.Column(db.Integer, db.ForeignKey('USER.username_id'), nullable=False)
+    user = db.relationship('USER', backref=db.backref('submissions', lazy=True, cascade="all, delete-orphan"))
 
-    # Additional columns required image, caption and tags. Perhaps extra fields not sure.
+    def __repr__(self):
+        return f'<SUBMISSION {self.submission_id} by User {self.username_id}>'
 
 # COMMENT table in picTalk.db
 class COMMENT(db.Model):
     __tablename__ = 'COMMENT'
 
-    comment_id  = db.Column(db.String(20), primary_key=True)
-    comment = db.Column(db.String(20), nullable=False)
+    comment_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    comment = db.Column(db.String(256), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
-    username = db.Column(db.String(20), db.ForeignKey('USER.username'), nullable=False)
-    user = db.relationship('USER', backref='COMMENT', lazy=True)
-    
-    submission_id = db.Column(db.String(20), db.ForeignKey('SUBMISSION.submission_id'), nullable=False)
-    submit = db.relationship('SUBMISSION', backref='COMMENT', lazy=True)
+    username_id = db.Column(db.Integer, db.ForeignKey('USER.username_id'), nullable=False)
+    user = db.relationship('USER', backref=db.backref('comments', lazy=True, cascade="all, delete-orphan"))
 
+    submission_id = db.Column(db.Integer, db.ForeignKey('SUBMISSION.submission_id'), nullable=False)
+    submit = db.relationship('SUBMISSION', backref=db.backref('comments', lazy=True, cascade="all, delete-orphan"))
 
-class TAGS():
+    def __repr__(self):
+        return f'<COMMENT {self.comment_id} on Submission {self.submission_id}>'
+
+# TAGS table in picTalk.db
+class TAGS(db.Model):
     __tablename__ = "TAGS"
 
-    tag = id
-    
-    submission_id = db.Column(db.String(20), db.ForeignKey('SUBMISSION.submission_id'), nullable=False)
-    submit = db.relationship('SUBMISSION', backref='TAGS', lazy=True)
+    tag_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    tag = db.Column(db.String(15), unique=True, nullable=False)
+
+    submission_id = db.Column(db.Integer, db.ForeignKey('SUBMISSION.submission_id'), nullable=False)
+    submit = db.relationship('SUBMISSION', backref=db.backref('tags', lazy=True, cascade="all, delete-orphan"))
+
+    def __repr__(self):
+        return f'<TAG {self.tag} on Submission {self.submission_id}>'
