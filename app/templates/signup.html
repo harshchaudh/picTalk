@@ -31,14 +31,14 @@ Sign up
                     <input type="text" class="form-control" id="signup-username" placeholder="Enter username"
                         name="signup-username" required>
                 </div>
-                <p>The username must be unique.</p>
+                <p>Minimum of three characters, may include an underscore (_) or period (.).</p>
 
                 <div class="form-group">
                     <label for="signup-psw"><b>Password</b></label>
                     <input type="password" id="signup-psw" class="form-control" placeholder="Enter Password"
                         name="signup-psw" required>
                 </div>
-                <p>The password must be a minimum of 8 characters.</p>
+                <p>Minimum of eight characters, at least one letter and one number.</p>
 
                 <div class="form-group">
                     <label for="signup-pswConfirm"><b>Confirm Password</b></label>
@@ -48,14 +48,9 @@ Sign up
 
                 <br>
 
-                {% if error is not none %}
-                <p class="error" style="color: red;">{{ error }}</p>
-                {% endif %}
-
                 <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
                 <button type="submit" class="btn">Sign up</button>
             </form>
-
 
             <br>
             <!-- Login Page Link -->
@@ -67,4 +62,8 @@ Sign up
     </div>
 </div>
 
+{% endblock %}
+
+{% block variable_js %}
+<script src="{{ url_for('static', filename='javascript/signupMessage.js') }}"></script>
 {% endblock %}

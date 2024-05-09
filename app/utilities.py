@@ -13,7 +13,7 @@ def ValidateTags(form, field):
 # Validate username used in routes.py
 class UsernameValidation:
     # Only allows letters (a-z and A-Z), digits (0-9), underscore (_) and periods (.)
-    # The username must also be a minimum of 3 characters and a maximum of 32 characters
+    # The username must also be a minimum of 3 characters and a maximum of 20 characters
     # The username cannot begin with a digit, underscore or period. 
     # The username cannot end with an underscore or period.
     # The username cannot be a string of numbers
@@ -59,10 +59,10 @@ def truncate_username(username, max_length = 10):
         username = username[:(max_length - 3)] + "..."
     return username
 
-# Define a custom Jinja filter
+# Truncate submission, follower and following values when they exceed thresholds.
 def format_profileNumbers(value):
     if value >= 1_000_000:
-        return "{:.0f}M".format(value / 10000)
+        return "{:.0f}M".format(value / 10000) #just in case theres a million and one users one day.
     if value >= 10000:
         return "{:.0f}K".format(value / 1000)
     else:
