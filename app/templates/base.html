@@ -34,7 +34,9 @@
                     <input class="form-control nav-form-searchBar" type="search" placeholder="Search tags or users"
                         aria-label="Search">
                     <div class="input-group-append">
-                        <button class="btn nav-form-searchBtn" type="submit"><img src="{{ url_for('static', filename = 'icons/searchIcon.svg') }}" alt="Search Icon"></button>
+                        <button class="btn nav-form-searchBtn" type="submit"><img
+                                src="{{ url_for('static', filename = 'icons/searchIcon.svg') }}"
+                                alt="Search Icon"></button>
                     </div>
                 </div>
             </form>
@@ -45,19 +47,20 @@
                 </li>
 
                 {% if current_user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('picTalk.create') }}">Submit</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('picTalk.profile') }}">{{ current_user.username }}</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('picTalk.logout') }}">Logout</a>
-                    </li>
-                    {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('picTalk.login') }}">Login</a>
-                    </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('picTalk.create') }}">Submit</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('picTalk.profile') }}">{{ current_user.username |
+                        truncate_username}}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('picTalk.logout') }}">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('picTalk.login') }}">Login</a>
+                </li>
                 {% endif %}
 
             </ul>
@@ -66,6 +69,16 @@
     </header>
 
     <main>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}" id="flash-message">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
         {% block main %}{% endblock %}
     </main>
 
@@ -84,8 +97,9 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 
-    {% block variable_js %}{% endblock %}
+    <script src = "{{ url_for('static', filename = 'javascript/flashMessages.js') }}"></script>
 
+    {% block variable_js %}{% endblock %}
 </body>
 
 </html>

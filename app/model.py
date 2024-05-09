@@ -21,12 +21,21 @@ class USER(UserMixin, db.Model):
     username = db.Column(db.String(32), unique=True, nullable=False, index=True)
     password = db.Column(db.String(128), nullable=False)
 
+    following = db.Column(db.Integer, default = 0)
+    followers = db.Column(db.Integer, default = 0)
+
     def __init__(self, username, password):
         self.username = username
         self.password = generate_password_hash(password)
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
+    
+    def get_following(self):
+        return self.following
+    
+    def get_followers(self):
+        return self.followers
 
     def get_id(self):
         return str(self.username_id)

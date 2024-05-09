@@ -17,7 +17,7 @@ class UsernameValidation:
     # The username cannot begin with a digit, underscore or period. 
     # The username cannot end with an underscore or period.
     # The username cannot be a string of numbers
-    regex = r'^[a-zA-Z][a-zA-Z0-9_.]{1,30}[a-zA-Z0-9]$'
+    regex = r'^[a-zA-Z][a-zA-Z0-9_.]{1,18}[a-zA-Z0-9]$'
 
     def __init__(self, message = None):
         if not message:
@@ -30,8 +30,8 @@ class UsernameValidation:
     
     @classmethod
     def validate(cls, username):
-        if not re.match(cls.regex, username):
-            raise ValidationError("Username does not meet criteria.")
+        return not re.match(cls.regex, username)
+
 
     
 # Validate password used in routes.py
@@ -41,7 +41,7 @@ class PasswordValidation:
 
     def __init__(self, message = None):
         if not message:
-            message = "Password does not meet criteria."
+            message = "Password does not meet criteria.oakdpo"
         self.message = message
 
     def __call__(self, form, field):
@@ -50,11 +50,20 @@ class PasswordValidation:
 
     @classmethod
     def validate(cls, password):
-        if not re.match(cls.regex, password):
-            raise ValidationError("Password does not meet criteria.")
+        return not re.match(cls.regex, password)
+
         
 # Truncate usernames when username is too long for navigation bar.
 def truncate_username(username, max_length = 10):
     if len(username) > max_length:
         username = username[:(max_length - 3)] + "..."
     return username
+
+# Define a custom Jinja filter
+def format_profileNumbers(value):
+    if value >= 1_000_000:
+        return "{:.0f}M".format(value / 10000)
+    if value >= 10000:
+        return "{:.0f}K".format(value / 1000)
+    else:
+        return "{:,}".format(value)

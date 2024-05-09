@@ -7,20 +7,20 @@ from wtforms.validators import DataRequired, Length, EqualTo, Regexp, Validation
 from app.utilities import ValidateTags, UsernameValidation, PasswordValidation
 
 class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=3, max=32)])
+    username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20)])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
 
 class SignupForm(FlaskForm):
     username = StringField('Username', validators=[
                             DataRequired(), 
-                            Length(min=3, max=32), 
+                            Length(min=3, max=20), 
                             UsernameValidation()
                             ])
 
     password = PasswordField('Password', validators=[
                             DataRequired(), 
-                            Length(min=6),  
+                            Length(min=8),  
                             PasswordValidation()
                             ])
     

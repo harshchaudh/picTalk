@@ -26,20 +26,21 @@ def signup():
         signup_pswConfirm = request.form['signup-pswConfirm']
 
         if signup_psw != signup_pswConfirm:
-            flash('Passwords do not match', 'error')
+            flash('Passwords do not match.', 'warning')
             return render_template('signup.html')
         
         if UsernameValidation.validate(signup_username):
-            flash('Username does not meet criteria', 'error')
+            flash('Username does not meet criteria.', 'warning')
             return render_template('signup.html')
         
         if PasswordValidation.validate(signup_psw):
-            flash('Password does not meet criteria', 'error')
+            flash('Password does not meet criteria.', 'warning')
+
             return render_template('signup.html')
 
         existing_user = USER.query.filter_by(username=signup_username).first()
         if existing_user:
-            flash('Username is already in use', 'error')
+            flash('Username is already in use.', 'danger')
             return render_template('signup.html')
 
         # Only pass the username and unhashed password
@@ -63,7 +64,7 @@ def login():
             flash('Logged in successfully.', 'success')
             return redirect(url_for('picTalk.home'))
         else:
-            flash('Invalid username or password', 'error')
+            flash('Invalid username or password.', 'warning')
 
     return render_template('login.html')
 
@@ -77,7 +78,7 @@ def logout():
 @picTalk_bp.route('/profile')
 @login_required
 def profile():
-    return render_template('profile.html')
+    return render_template('profile.html', user=current_user)
 
 @picTalk_bp.route('/create', methods=['GET', 'POST'])
 @login_required
