@@ -1,18 +1,33 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
+
 from wtforms import StringField, PasswordField, SubmitField, TextAreaField, validators
 from wtforms.validators import DataRequired, Length, EqualTo, Regexp, ValidationError
-from app.utilities import ValidateTags, username_validation, password_validation
+
+from app.utilities import ValidateTags, UsernameValidation, PasswordValidation
 
 class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20)])
+    username = StringField('Username', validators=[DataRequired(), Length(min=3, max=32)])
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
 
 class SignupForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20), validators.ValidationError(username_validation)])
-    password = PasswordField('Password', validators=[DataRequired(), Length(min=6), EqualTo('confirm_password', message='Passwords must match'), validators.ValidationError(password_validation)])
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired()])
+    username = StringField('Username', validators=[
+                            DataRequired(), 
+                            Length(min=3, max=32), 
+                            UsernameValidation()
+                            ])
+
+    password = PasswordField('Password', validators=[
+                            DataRequired(), 
+                            Length(min=6),  
+                            PasswordValidation()
+                            ])
+    
+    confirm_password = PasswordField('Confirm Password', validators=[
+                                    DataRequired(),
+                                    EqualTo('password', message='Passwords must match')])
+    
     submit = SubmitField('Sign Up')
 
 class CreateContentForm(FlaskForm):

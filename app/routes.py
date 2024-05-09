@@ -1,9 +1,12 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_user, logout_user, login_required, current_user
+
 from sqlalchemy.exc import IntegrityError
+
 from app.model import db, USER
 from app.forms import CreateContentForm
-from app.utilities import username_validation, password_validation
+
+from app.utilities import UsernameValidation, PasswordValidation
 
 picTalk_bp = Blueprint('picTalk', __name__)
 
@@ -26,11 +29,11 @@ def signup():
             flash('Passwords do not match', 'error')
             return render_template('signup.html')
         
-        if not username_validation(signup_username):
+        if not UsernameValidation.validate(signup_username):
             flash('Username does not meet criteria', 'error')
             return render_template('signup.html')
         
-        if not password_validation(signup_psw):
+        if not PasswordValidation.validate(signup_psw):
             flash('Password does not meet criteria', 'error')
             return render_template('signup.html')
 
@@ -53,9 +56,8 @@ def login():
     if request.method == "POST":
         login_username = request.form['login-username'].lower()
         login_password = request.form['login-password']
-        user = USER.query.filter_by(username=login_username).first()
         
-        # Use the check_password method from the USER model
+        user = USER.query.filter_by(username=login_username).first()
         if user and user.check_password(login_password):
             login_user(user)
             flash('Logged in successfully.', 'success')
