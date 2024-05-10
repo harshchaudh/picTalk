@@ -12,9 +12,13 @@ from app.utilities import UsernameValidation, PasswordValidation, organiseColumn
 
 picTalk_bp = Blueprint('picTalk', __name__)
 
-@picTalk_bp.route('/')
+@picTalk_bp.route('/home')
 def home():
     return render_template('home.html', current_user=current_user)
+
+@picTalk_bp.route('/')
+def search():
+    return render_template('search.html')
 
 @picTalk_bp.route('/gallery')
 def gallery():
@@ -106,7 +110,6 @@ def profile():
                            images_firstColumn = base64_images_firstColumn, 
                            images_secondColumn = base64_images_secondColumn, 
                            images_thirdColumn = base64_images_thirdColumn)
-
 
 @picTalk_bp.route('/create', methods=['GET', 'POST'])
 @login_required
