@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+<!-- Imports view_post.css -->
+{% block variable_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/view_post.css') }}">
+{% endblock %}
+
+<!-- Sets title for post viewing page -->
+{% block title %}
+Post: {{ image.caption }}
+{% endblock %}
+
+{% block main %}
+
+<div id="image-div">
+    <img src="data:image/png;base64, {{ base64_image }}">
+</div>
+
+<h4>
+    Created by <a class="h4" href=" {{ url_for('picTalk.profile', username=creator.username) }}">{{ creator.username }}</a>
+</h4>
+
+<p id="caption">{{ image.caption }}</p>  
+
+{% endblock %}

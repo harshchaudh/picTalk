@@ -50,7 +50,7 @@ class SUBMISSION(db.Model):
     submission_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     image = db.Column(db.LargeBinary)
     caption = db.Column(db.String(256))
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=datetime.now)
 
     username_id = db.Column(db.Integer, db.ForeignKey('USER.username_id'), nullable=False)
     user = db.relationship('USER', backref=db.backref('submissions', lazy=True, cascade="all, delete-orphan"))
@@ -64,7 +64,7 @@ class COMMENT(db.Model):
 
     comment_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     comment = db.Column(db.String(256), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=datetime.now)
 
     username_id = db.Column(db.Integer, db.ForeignKey('USER.username_id'), nullable=False)
     user = db.relationship('USER', backref=db.backref('comments', lazy=True, cascade="all, delete-orphan"))

@@ -3,10 +3,13 @@ from flask_login import login_user, logout_user, login_required, current_user
 
 from sqlalchemy.exc import IntegrityError
 
-from app.model import db, USER
+import base64
+
+from app.model import db, USER, SUBMISSION, COMMENT, TAGS
+
 from app.forms import CreateContentForm
 
-from app.utilities import UsernameValidation, PasswordValidation
+from app.utilities import UsernameValidation, PasswordValidation, organiseColumnImages
 
 picTalk_bp = Blueprint('picTalk', __name__)
 
@@ -14,11 +17,40 @@ picTalk_bp = Blueprint('picTalk', __name__)
 def home():
     return render_template('home.html', current_user=current_user)
 
+@picTalk_bp.route('/search', methods=['GET', 'POST'])
+def search():
+    if request.method == "POST":
+        query = request.form['search'].lower()
+        
+        if current_user.is_authenticated: # Makes sure that current user is not included in the results
+            users = USER.query.filter(USER.username.like(f"%{query}%"), USER.username != current_user.username).all()
+        else:
+            users = USER.query.filter(USER.username.like(f"%{query}%")).all()
+        
+        tags = TAGS.query.filter(TAGS.tag.like(f"%{query}%")).all()
+        return render_template('search.html', users = users, tags = tags, query=query)
+
+    return render_template('search.html')
+
 @picTalk_bp.route('/gallery')
 def gallery():
-    return render_template('gallery.html')
+    images = SUBMISSION.query.order_by(SUBMISSION.created_at).all()
+    base64_images = [
+        {"id": image.submission_id, "data": base64.b64encode(image.image).decode("utf-8")}
+        for image in images
+    ] 
+    base64_images.reverse()
 
-@picTalk_bp.route('/signup', methods=['GET', 'POST'])
+    base64_images_firstColumn = organiseColumnImages(base64_images)[0]
+    base64_images_secondColumn = organiseColumnImages(base64_images)[1]
+    base64_images_thirdColumn = organiseColumnImages(base64_images)[2]
+
+    return render_template('gallery.html', user=current_user, 
+                           images_firstColumn = base64_images_firstColumn, 
+                           images_secondColumn = base64_images_secondColumn, 
+                           images_thirdColumn = base64_images_thirdColumn)
+
+@picTalk_bp.route('/signup', methods=['GET', 'POST'])   
 def signup():
     if request.method == "POST":
         signup_username = request.form['signup-username'].lower()
@@ -75,17 +107,55 @@ def logout():
     flash('You have been logged out.', 'info')
     return redirect(url_for('picTalk.home'))
 
-@picTalk_bp.route('/profile')
-@login_required
-def profile():
-    return render_template('profile.html', user=current_user)
+@picTalk_bp.route('/profile/<string:username>')
+def profile(username):
+    user = USER.query.filter_by(username=username).first_or_404()
+    submission_count = SUBMISSION.query.filter_by(username_id=user.username_id).count()
+    
+    images = SUBMISSION.query.filter_by(username_id=user.username_id).order_by(SUBMISSION.created_at).all()
+    base64_images = [
+        {"id": image.submission_id, "data": base64.b64encode(image.image).decode("utf-8")}
+        for image in images
+    ]
+    base64_images.reverse()
+
+    base64_images_firstColumn = organiseColumnImages(base64_images)[0]
+    base64_images_secondColumn = organiseColumnImages(base64_images)[1]
+    base64_images_thirdColumn = organiseColumnImages(base64_images)[2]
+
+    return render_template('profile.html', user=user, 
+                           submission_count=submission_count, 
+                           images_firstColumn = base64_images_firstColumn, 
+                           images_secondColumn = base64_images_secondColumn, 
+                           images_thirdColumn = base64_images_thirdColumn)
+
+@picTalk_bp.route('/image/<int:submission_id>')
+def view_post(submission_id):
+    image = SUBMISSION.query.get(submission_id)
+    base64_image = base64.b64encode(image.image).decode("utf-8")
+    comments = COMMENT.query.filter_by(submission_id=submission_id).all()
+    creator = USER.query.get(image.username_id)
+
+    return render_template('view_post.html', image=image, base64_image=base64_image, comments=comments, creator=creator)
 
 @picTalk_bp.route('/create', methods=['GET', 'POST'])
 @login_required
 def create():
     form = CreateContentForm()
     if form.validate_on_submit():
-        # form handling logic
-        flash('Post created successfully!', 'success')
-        return redirect(url_for('picTalk.home'))
+        image_file = form.image.data
+        image_data = image_file.read()
+
+        new_submission = SUBMISSION(image = image_data,
+                                    caption = form.caption_text.data,
+                                    username_id = current_user.username_id)
+        try:
+            db.session.add(new_submission)
+            db.session.commit()
+            flash('Post created successfully!', 'success')
+            return redirect(url_for('picTalk.home'))
+        except:
+            flash('Post failed to submit.', 'danger')
+            render_template('create_post.html')
+
     return render_template('create_post.html', form=form)
