@@ -21,7 +21,11 @@ def search():
     if request.method == "POST":
         query = request.form['search'].lower()
         
-        users = USER.query.filter(USER.username.like(f"%{query}%")).all()
+        if current_user.is_authenticated: # Makes sure that current user is not included in the results
+            users = USER.query.filter(USER.username.like(f"%{query}%"), USER.username != current_user.username).all()
+        else:
+            users = USER.query.filter(USER.username.like(f"%{query}%")).all()
+        
         tags = TAGS.query.filter(TAGS.tag.like(f"%{query}%")).all()
         return render_template('search.html', users = users, tags = tags, query=query)
 
