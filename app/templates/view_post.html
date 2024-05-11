@@ -14,6 +14,6 @@ View Post
 
 <img src="data:image/png;base64, {{ base64_image }}">
 <p>{{ image.caption }}</p>  
-<p>Uploaded by {{ creator.username }}</p>
+<p>Uploaded by <a href="{{ url_for('picTalk.profile', username=creator.username) }}">{{ creator.username }}</a></p>
 
 {% endblock %}

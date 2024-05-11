@@ -91,12 +91,13 @@ def logout():
     flash('You have been logged out.', 'info')
     return redirect(url_for('picTalk.home'))
 
-@picTalk_bp.route('/profile')
+@picTalk_bp.route('/profile/<string:username>')
 @login_required
-def profile():
-    submission_count = SUBMISSION.query.filter_by(username_id=current_user.username_id).count()
+def profile(username):
+    user = USER.query.filter_by(username=username).first_or_404()
+    submission_count = SUBMISSION.query.filter_by(username_id=user.username_id).count()
     
-    images = SUBMISSION.query.filter_by(username_id=current_user.username_id).order_by(SUBMISSION.created_at).all()
+    images = SUBMISSION.query.filter_by(username_id=user.username_id).order_by(SUBMISSION.created_at).all()
     base64_images = [
         {"id": image.submission_id, "data": base64.b64encode(image.image).decode("utf-8")}
         for image in images
@@ -107,7 +108,7 @@ def profile():
     base64_images_secondColumn = organiseColumnImages(base64_images)[1]
     base64_images_thirdColumn = organiseColumnImages(base64_images)[2]
 
-    return render_template('profile.html', user=current_user, 
+    return render_template('profile.html', user=user, 
                            submission_count=submission_count, 
                            images_firstColumn = base64_images_firstColumn, 
                            images_secondColumn = base64_images_secondColumn, 
