@@ -118,6 +118,31 @@ def profile():
                            images_secondColumn = base64_images_secondColumn, 
                            images_thirdColumn = base64_images_thirdColumn)
 
+# User page for other users, not current logged in user. Had to navigate around '@login_required'. 
+@picTalk_bp.route('/user/<int:username_id>')
+def user_page(username_id):
+    user = USER.query.get(username_id)
+    
+    if user:
+        submission_count = SUBMISSION.query.filter_by(username_id=username_id).count()
+
+        images = SUBMISSION.query.filter_by(username_id=username_id).order_by(SUBMISSION.created_at).all()
+        base64_images = [base64.b64encode(image.image).decode("utf-8") for image in images] 
+        base64_images.reverse()
+
+        base64_images_firstColumn = organiseColumnImages(base64_images)[0]
+        base64_images_secondColumn = organiseColumnImages(base64_images)[1]
+        base64_images_thirdColumn = organiseColumnImages(base64_images)[2]
+
+        return render_template('user_page.html', user=user, 
+                            submission_count=submission_count, 
+                            images_firstColumn = base64_images_firstColumn, 
+                            images_secondColumn = base64_images_secondColumn, 
+                            images_thirdColumn = base64_images_thirdColumn)
+    else:
+        flash('Error - user does not exist.', 'danger')
+        return redirect(url_for('picTalk.home'))
+
 @picTalk_bp.route('/create', methods=['GET', 'POST'])
 @login_required
 def create():

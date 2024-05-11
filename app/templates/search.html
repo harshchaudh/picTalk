@@ -34,7 +34,7 @@ Search
                 </div>
                 <ul class="list-group">
                     {% for user in users %}
-                        <li class="list-group-item">{{ user.username }}</li>
+                        <li class="list-group-item"><a href="{{ url_for('picTalk.user_page', username_id = user.username_id) }}">{{ user.username }}</a></li>
                     {% endfor %}
                 </ul>
             </div>
