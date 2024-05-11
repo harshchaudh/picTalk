@@ -5,7 +5,7 @@ from sqlalchemy.exc import IntegrityError
 
 import base64
 
-from app.model import db, USER, SUBMISSION
+from app.model import COMMENT, db, USER, SUBMISSION
 from app.forms import CreateContentForm
 
 from app.utilities import UsernameValidation, PasswordValidation, organiseColumnImages
@@ -19,7 +19,10 @@ def home():
 @picTalk_bp.route('/gallery')
 def gallery():
     images = SUBMISSION.query.order_by(SUBMISSION.created_at).all()
-    base64_images = [base64.b64encode(image.image).decode("utf-8") for image in images] 
+    base64_images = [
+        {"id": image.submission_id, "data": base64.b64encode(image.image).decode("utf-8")}
+        for image in images
+    ] 
     base64_images.reverse()
 
     base64_images_firstColumn = organiseColumnImages(base64_images)[0]
@@ -31,7 +34,7 @@ def gallery():
                            images_secondColumn = base64_images_secondColumn, 
                            images_thirdColumn = base64_images_thirdColumn)
 
-@picTalk_bp.route('/signup', methods=['GET', 'POST'])
+@picTalk_bp.route('/signup', methods=['GET', 'POST'])   
 def signup():
     if request.method == "POST":
         signup_username = request.form['signup-username'].lower()
@@ -94,7 +97,10 @@ def profile():
     submission_count = SUBMISSION.query.filter_by(username_id=current_user.username_id).count()
     
     images = SUBMISSION.query.filter_by(username_id=current_user.username_id).order_by(SUBMISSION.created_at).all()
-    base64_images = [base64.b64encode(image.image).decode("utf-8") for image in images] 
+    base64_images = [
+        {"id": image.submission_id, "data": base64.b64encode(image.image).decode("utf-8")}
+        for image in images
+    ]
     base64_images.reverse()
 
     base64_images_firstColumn = organiseColumnImages(base64_images)[0]
@@ -107,6 +113,15 @@ def profile():
                            images_secondColumn = base64_images_secondColumn, 
                            images_thirdColumn = base64_images_thirdColumn)
 
+@picTalk_bp.route('/image/<int:submission_id>')
+@login_required
+def view_post(submission_id):
+    image = SUBMISSION.query.get(submission_id)
+    base64_image = base64.b64encode(image.image).decode("utf-8")
+    comments = COMMENT.query.filter_by(submission_id=submission_id).all()
+    creator = USER.query.get(image.username_id)
+
+    return render_template('view_post.html', image=image, base64_image=base64_image, comments=comments, creator=creator)
 
 @picTalk_bp.route('/create', methods=['GET', 'POST'])
 @login_required

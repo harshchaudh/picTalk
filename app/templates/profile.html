@@ -46,19 +46,25 @@
 
             <div class="col column">
                 {% for image in images_firstColumn %}
-                    <img src="data:image/png;base64, {{image}}" class="image" style="width:100%">
+                    <a href="{{ url_for('picTalk.view_post', submission_id=image.id) }}">
+                        <img src="data:image/png;base64, {{image.data}}" class="image" style="width:100%">
+                    </a>
                 {% endfor %}
             </div>
 
             <div class="col column">
                 {% for image in images_secondColumn %}
-                    <img src="data:image/png;base64, {{image}}" class="image" style="width:100%">
+                    <a href="{{ url_for('picTalk.view_post', submission_id=image.id) }}">
+                        <img src="data:image/png;base64, {{image.data}}" class="image" style="width:100%">
+                    </a>
                 {% endfor %}
             </div>
 
             <div class="col column">
                 {% for image in images_thirdColumn %}
-                    <img src="data:image/png;base64, {{image}}" class="image" style="width:100%">
+                    <a href="{{ url_for('picTalk.view_post', submission_id=image.id) }}">
+                        <img src="data:image/png;base64, {{image.data}}" class="image" style="width:100%">
+                    </a>
                 {% endfor %}
             </div>
 

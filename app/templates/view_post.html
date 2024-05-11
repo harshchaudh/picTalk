@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+<!-- Imports view_post.css -->
+{% block variable_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/view_post.css') }}">
+{% endblock %}
+
+<!-- Sets title for post viewing page -->
+{% block title %}
+View Post
+{% endblock %}
+
+{% block main %}
+
+<img src="data:image/png;base64, {{ base64_image }}">
+<p>{{ image.caption }}</p>  
+<p>Uploaded by {{ creator.username }}</p>
+
+{% endblock %}
