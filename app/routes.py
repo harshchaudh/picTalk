@@ -5,7 +5,8 @@ from sqlalchemy.exc import IntegrityError
 
 import base64
 
-from app.model import db, USER, SUBMISSION, TAGS
+from app.model import db, USER, SUBMISSION, COMMENT, TAGS
+
 from app.forms import CreateContentForm
 
 from app.utilities import UsernameValidation, PasswordValidation, organiseColumnImages
@@ -34,7 +35,10 @@ def search():
 @picTalk_bp.route('/gallery')
 def gallery():
     images = SUBMISSION.query.order_by(SUBMISSION.created_at).all()
-    base64_images = [base64.b64encode(image.image).decode("utf-8") for image in images] 
+    base64_images = [
+        {"id": image.submission_id, "data": base64.b64encode(image.image).decode("utf-8")}
+        for image in images
+    ] 
     base64_images.reverse()
 
     base64_images_firstColumn = organiseColumnImages(base64_images)[0]
@@ -46,7 +50,7 @@ def gallery():
                            images_secondColumn = base64_images_secondColumn, 
                            images_thirdColumn = base64_images_thirdColumn)
 
-@picTalk_bp.route('/signup', methods=['GET', 'POST'])
+@picTalk_bp.route('/signup', methods=['GET', 'POST'])   
 def signup():
     if request.method == "POST":
         signup_username = request.form['signup-username'].lower()
@@ -103,24 +107,36 @@ def logout():
     flash('You have been logged out.', 'info')
     return redirect(url_for('picTalk.home'))
 
-@picTalk_bp.route('/profile')
-@login_required
-def profile():
-    submission_count = SUBMISSION.query.filter_by(username_id=current_user.username_id).count()
+@picTalk_bp.route('/profile/<string:username>')
+def profile(username):
+    user = USER.query.filter_by(username=username).first_or_404()
+    submission_count = SUBMISSION.query.filter_by(username_id=user.username_id).count()
     
-    images = SUBMISSION.query.filter_by(username_id=current_user.username_id).order_by(SUBMISSION.created_at).all()
-    base64_images = [base64.b64encode(image.image).decode("utf-8") for image in images] 
+    images = SUBMISSION.query.filter_by(username_id=user.username_id).order_by(SUBMISSION.created_at).all()
+    base64_images = [
+        {"id": image.submission_id, "data": base64.b64encode(image.image).decode("utf-8")}
+        for image in images
+    ]
     base64_images.reverse()
 
     base64_images_firstColumn = organiseColumnImages(base64_images)[0]
     base64_images_secondColumn = organiseColumnImages(base64_images)[1]
     base64_images_thirdColumn = organiseColumnImages(base64_images)[2]
 
-    return render_template('profile.html', user=current_user, 
+    return render_template('profile.html', user=user, 
                            submission_count=submission_count, 
                            images_firstColumn = base64_images_firstColumn, 
                            images_secondColumn = base64_images_secondColumn, 
                            images_thirdColumn = base64_images_thirdColumn)
+
+@picTalk_bp.route('/image/<int:submission_id>')
+def view_post(submission_id):
+    image = SUBMISSION.query.get(submission_id)
+    base64_image = base64.b64encode(image.image).decode("utf-8")
+    comments = COMMENT.query.filter_by(submission_id=submission_id).all()
+    creator = USER.query.get(image.username_id)
+
+    return render_template('view_post.html', image=image, base64_image=base64_image, comments=comments, creator=creator)
 
 @picTalk_bp.route('/create', methods=['GET', 'POST'])
 @login_required

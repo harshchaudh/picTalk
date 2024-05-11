@@ -1,0 +1,33 @@
+#image-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 500px;
+    margin: 50px;
+    padding: 0;
+}
+
+#image-div img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+h4 {
+    padding: 5px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 30px;
+    text-decoration: none;
+}
+
+.h4 {
+    text-decoration: none;
+}
+
+#caption {
+    padding: 5px;
+    margin-left: 30px; 
+    margin-bottom: 0px;
+}
+

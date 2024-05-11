@@ -7,7 +7,7 @@
 
 <!-- Sets title for login page -->
 {% block title %}
-{{ current_user.username }}
+{{ user.username }}
 {% endblock %}
 
 {% block main %}
@@ -16,7 +16,7 @@
         <div class="row">
 
             <div class="col">
-                <p class="display-6 fw-bold"> {{ current_user.username }} </p>
+                <p class="display-6 fw-bold"> {{ user.username }} </p>
             </div>
 
             <div class="col">
@@ -27,12 +27,12 @@
                         Submissions
                     </div>
                     <div class="col profile-details">
-                        {{ current_user.followers | format_profileNumbers }}
+                        {{ user.followers | format_profileNumbers }}
                         <br>
                         Followers
                     </div>
                     <div class="col profile-details">
-                        {{ current_user.following | format_profileNumbers }}
+                        {{ user.following | format_profileNumbers }}
                         <br>
                         Following
                     </div>
@@ -46,19 +46,25 @@
 
             <div class="col column">
                 {% for image in images_firstColumn %}
-                    <img src="data:image/png;base64, {{image}}" class="image" style="width:100%">
+                    <a href="{{ url_for('picTalk.view_post', submission_id=image.id) }}">
+                        <img src="data:image/png;base64, {{image.data}}" class="image" style="width:100%">
+                    </a>
                 {% endfor %}
             </div>
 
             <div class="col column">
                 {% for image in images_secondColumn %}
-                    <img src="data:image/png;base64, {{image}}" class="image" style="width:100%">
+                    <a href="{{ url_for('picTalk.view_post', submission_id=image.id) }}">
+                        <img src="data:image/png;base64, {{image.data}}" class="image" style="width:100%">
+                    </a>
                 {% endfor %}
             </div>
 
             <div class="col column">
                 {% for image in images_thirdColumn %}
-                    <img src="data:image/png;base64, {{image}}" class="image" style="width:100%">
+                    <a href="{{ url_for('picTalk.view_post', submission_id=image.id) }}">
+                        <img src="data:image/png;base64, {{image.data}}" class="image" style="width:100%">
+                    </a>
                 {% endfor %}
             </div>
 

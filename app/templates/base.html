@@ -52,7 +52,7 @@
                     <a class="nav-link" href="{{ url_for('picTalk.create') }}">Submit</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('picTalk.profile') }}">{{ current_user.username |
+                    <a class="nav-link" href="{{ url_for('picTalk.profile', username=current_user.username) }}">{{ current_user.username |
                         truncate_username}}</a>
                 </li>
                 <li class="nav-item">
