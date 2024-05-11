@@ -5,19 +5,26 @@ from sqlalchemy.exc import IntegrityError
 
 import base64
 
-from app.model import db, USER, SUBMISSION
+from app.model import db, USER, SUBMISSION, TAGS
 from app.forms import CreateContentForm
 
 from app.utilities import UsernameValidation, PasswordValidation, organiseColumnImages
 
 picTalk_bp = Blueprint('picTalk', __name__)
 
-@picTalk_bp.route('/home')
+@picTalk_bp.route('/')
 def home():
     return render_template('home.html', current_user=current_user)
 
-@picTalk_bp.route('/')
+@picTalk_bp.route('/search', methods=['GET', 'POST'])
 def search():
+    if request.method == "POST":
+        query = request.form['search'].lower()
+        
+        users = USER.query.filter(USER.username.like(f"%{query}%")).all()
+        tags = TAGS.query.filter(TAGS.tag.like(f"%{query}%")).all()
+        return render_template('search.html', users = users, tags = tags, query=query)
+
     return render_template('search.html')
 
 @picTalk_bp.route('/gallery')
