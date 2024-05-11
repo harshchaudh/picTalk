@@ -92,7 +92,6 @@ def logout():
     return redirect(url_for('picTalk.home'))
 
 @picTalk_bp.route('/profile/<string:username>')
-@login_required
 def profile(username):
     user = USER.query.filter_by(username=username).first_or_404()
     submission_count = SUBMISSION.query.filter_by(username_id=user.username_id).count()
@@ -115,7 +114,6 @@ def profile(username):
                            images_thirdColumn = base64_images_thirdColumn)
 
 @picTalk_bp.route('/image/<int:submission_id>')
-@login_required
 def view_post(submission_id):
     image = SUBMISSION.query.get(submission_id)
     base64_image = base64.b64encode(image.image).decode("utf-8")
