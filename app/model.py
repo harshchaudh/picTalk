@@ -71,7 +71,7 @@ class TAGS(db.Model):
     __tablename__ = "TAGS"
 
     tag_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    tag = db.Column(db.String(15), unique=True, nullable=False)
+    tag = db.Column(db.String(15), nullable=False)
 
     submission_id = db.Column(db.Integer, db.ForeignKey('SUBMISSION.submission_id'), nullable=False)
     submit = db.relationship('SUBMISSION', backref=db.backref('tags', lazy=True, cascade="all, delete-orphan"))

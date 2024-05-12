@@ -5,8 +5,8 @@ from sqlalchemy.exc import IntegrityError
 
 import base64
 
-from app.model import db, USER, SUBMISSION, COMMENT, TAGS, FOLLOWER
 
+from app.model import db, USER, SUBMISSION, COMMENT, TAGS, FOLLOWER
 from app.forms import CreateContentForm
 
 from app.utilities import UsernameValidation, PasswordValidation, organiseColumnImages, is_following
@@ -155,6 +155,7 @@ def create():
     if form.validate_on_submit():
         image_file = form.image.data
         image_data = image_file.read()
+        tags = form.tag_text.data.split(',')
 
         new_submission = SUBMISSION(image = image_data,
                                     caption = form.caption_text.data,
@@ -162,6 +163,13 @@ def create():
         try:
             db.session.add(new_submission)
             db.session.commit()
+
+            for tag in tags:
+                newtag = TAGS(tag = tag.strip(),
+                              submission_id = new_submission.submission_id)
+                db.session.add(newtag)
+            db.session.commit()
+            
             flash('Post created successfully!', 'success')
             return redirect(url_for('picTalk.home'))
         except:
