@@ -7,7 +7,7 @@
 
 <!-- Sets title for login page -->
 {% block title %}
-{{ current_user.username }}
+{{ user.username }}
 {% endblock %}
 
 {% block main %}
@@ -16,7 +16,7 @@
         <div class="row">
 
             <div class="col">
-                <p class="display-6 fw-bold"> {{ current_user.username }} </p>
+                <p class="display-6 fw-bold"> {{ user.username }} </p>
             </div>
 
             <div class="col">
@@ -27,12 +27,12 @@
                         Submissions
                     </div>
                     <div class="col profile-details">
-                        {{ current_user.followers | format_profileNumbers }}
+                        {{ follower_count | format_profileNumbers }}
                         <br>
                         Followers
                     </div>
                     <div class="col profile-details">
-                        {{ current_user.following | format_profileNumbers }}
+                        {{ followed_count | format_profileNumbers }}
                         <br>
                         Following
                     </div>
@@ -40,25 +40,44 @@
             </div>
 
         </div>
+        {% if (current_user.is_authenticated) and (current_user != user) %}
+            {% if check_following %}
+                <form action="{{ url_for('picTalk.unfollow', username_id = user.username_id) }}" method="POST">
+                    <input type="hidden" name="follower_id" value="{{ current_user.username_id }}">
+                    <button type="submit" class="btn btn-lg btn-block">Unfollow</button>
+                </form>
+            {% else %}
+                <form action="{{ url_for('picTalk.follow', username_id = user.username_id) }}" method="POST">
+                    <input type="hidden" name="followed_id" value="{{ current_user.username_id }}">
+                    <button type="submit" class="btn btn-lg btn-block">Follow</button>
+                </form>
+            {% endif %}
+        {% endif %}
     </div>
     <div class="container container-profile-body">
         <div class="row gx-3 mb-4">
 
             <div class="col column">
                 {% for image in images_firstColumn %}
-                    <img src="data:image/png;base64, {{image}}" class="image" style="width:100%">
+                    <a href="{{ url_for('picTalk.view_post', submission_id=image.id) }}">
+                        <img src="data:image/png;base64, {{image.data}}" class="image" style="width:100%">
+                    </a>
                 {% endfor %}
             </div>
 
             <div class="col column">
                 {% for image in images_secondColumn %}
-                    <img src="data:image/png;base64, {{image}}" class="image" style="width:100%">
+                    <a href="{{ url_for('picTalk.view_post', submission_id=image.id) }}">
+                        <img src="data:image/png;base64, {{image.data}}" class="image" style="width:100%">
+                    </a>
                 {% endfor %}
             </div>
 
             <div class="col column">
                 {% for image in images_thirdColumn %}
-                    <img src="data:image/png;base64, {{image}}" class="image" style="width:100%">
+                    <a href="{{ url_for('picTalk.view_post', submission_id=image.id) }}">
+                        <img src="data:image/png;base64, {{image.data}}" class="image" style="width:100%">
+                    </a>
                 {% endfor %}
             </div>
 
