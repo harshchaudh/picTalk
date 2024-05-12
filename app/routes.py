@@ -5,11 +5,11 @@ from sqlalchemy.exc import IntegrityError
 
 import base64
 
-from app.model import db, USER, SUBMISSION, COMMENT, TAGS
+from app.model import db, USER, SUBMISSION, COMMENT, TAGS, FOLLOWER
 
 from app.forms import CreateContentForm
 
-from app.utilities import UsernameValidation, PasswordValidation, organiseColumnImages
+from app.utilities import UsernameValidation, PasswordValidation, organiseColumnImages, is_following
 
 picTalk_bp = Blueprint('picTalk', __name__)
 
@@ -122,9 +122,19 @@ def profile(username):
     base64_images_firstColumn = organiseColumnImages(base64_images)[0]
     base64_images_secondColumn = organiseColumnImages(base64_images)[1]
     base64_images_thirdColumn = organiseColumnImages(base64_images)[2]
+    
+    check_following = False
+    if current_user.is_authenticated: 
+        check_following = is_following(current_user.username_id, user.username_id)
+
+    follower_count = FOLLOWER.query.filter_by(followed_id=user.username_id).count()
+    followed_count = FOLLOWER.query.filter_by(follower_id=user.username_id).count()
 
     return render_template('profile.html', user=user, 
-                           submission_count=submission_count, 
+                           submission_count=submission_count,
+                           check_following = check_following,
+                           follower_count = follower_count,
+                           followed_count = followed_count, 
                            images_firstColumn = base64_images_firstColumn, 
                            images_secondColumn = base64_images_secondColumn, 
                            images_thirdColumn = base64_images_thirdColumn)
@@ -159,3 +169,33 @@ def create():
             render_template('create_post.html')
 
     return render_template('create_post.html', form=form)
+
+# Routes for following and unfollowing users
+@picTalk_bp.route('/follow/<int:username_id>', methods=['POST'])
+def follow(username_id):
+    follower_id = current_user.username_id
+    user = USER.query.filter_by(username_id=username_id).first()
+
+    if follower_id:
+        new_follower = FOLLOWER(follower_id = follower_id, followed_id = username_id)
+        db.session.add(new_follower)
+        db.session.commit()
+        flash('Sucessfully followed user', 'success')
+        return redirect(url_for('picTalk.profile', username = user.username))
+    else:
+        flash('Error could not follow!', 'warning')
+        return redirect(url_for('picTalk.profile', username = user.username))
+
+@picTalk_bp.route('/unfollow/<int:username_id>', methods=['POST'])
+def unfollow(username_id):
+    follower_id = current_user.username_id
+    user = USER.query.filter_by(username_id=username_id).first()
+
+    if follower_id:
+        FOLLOWER.query.filter_by(follower_id=follower_id, followed_id = username_id).delete()
+        db.session.commit()
+        flash('Sucessfully unfollowed user', 'success')
+        return redirect(url_for('picTalk.profile', username = user.username))
+    else:
+        flash('Error could not unfollow!', 'warning')
+        return redirect(url_for('picTalk.profile', username = user.username))
