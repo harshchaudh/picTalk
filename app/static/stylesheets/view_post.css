@@ -22,7 +22,8 @@ h4 {
 }
 
 .h4 {
-    text-decoration: none;
+    text-decoration: underline;
+    color: #1c5d99;
 }
 
 #caption {
