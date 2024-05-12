@@ -29,10 +29,11 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <form class="form-inline" style="margin-left: 10%; width: 50%;">
+            <form action="{{ url_for('picTalk.search') }}" method="POST" class="form-inline" style="margin-left: 10%; width: 50%;">
                 <div class="input-group">
-                    <input class="form-control nav-form-searchBar" type="search" placeholder="Search tags or users"
+                    <input class="form-control nav-form-searchBar" type="search" id="search" name="search" placeholder="Search tags or users"
                         aria-label="Search">
+                    
                     <div class="input-group-append">
                         <button class="btn nav-form-searchBtn" type="submit"><img
                                 src="{{ url_for('static', filename = 'icons/searchIcon.svg') }}"
@@ -51,7 +52,7 @@
                     <a class="nav-link" href="{{ url_for('picTalk.create') }}">Submit</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url_for('picTalk.profile') }}">{{ current_user.username |
+                    <a class="nav-link" href="{{ url_for('picTalk.profile', username=current_user.username) }}">{{ current_user.username |
                         truncate_username}}</a>
                 </li>
                 <li class="nav-item">
