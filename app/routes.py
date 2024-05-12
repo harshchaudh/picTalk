@@ -35,6 +35,29 @@ def search():
 @picTalk_bp.route('/gallery')
 def gallery():
     images = SUBMISSION.query.order_by(SUBMISSION.created_at).all()
+    
+    if current_user.is_authenticated:
+
+        images_following = (SUBMISSION.query
+                            .join(FOLLOWER, FOLLOWER.followed_id == SUBMISSION.username_id)
+                            .filter(FOLLOWER.follower_id == current_user.username_id)
+                            .order_by(SUBMISSION.created_at)
+                            .all()
+                            )
+        base64_images_following = [
+            {"id": image.submission_id, "data": base64.b64encode(image.image).decode("utf-8")}
+            for image in images_following
+        ] 
+        base64_images_following.reverse()
+
+        base64_images_firstColumn_following = organiseColumnImages(base64_images_following)[0]
+        base64_images_secondColumn_following = organiseColumnImages(base64_images_following)[1]
+        base64_images_thirdColumn_following = organiseColumnImages(base64_images_following)[2]
+    else:
+        base64_images_firstColumn_following = []
+        base64_images_secondColumn_following = []
+        base64_images_thirdColumn_following = []
+        
     base64_images = [
         {"id": image.submission_id, "data": base64.b64encode(image.image).decode("utf-8")}
         for image in images
@@ -48,7 +71,11 @@ def gallery():
     return render_template('gallery.html', user=current_user, 
                            images_firstColumn = base64_images_firstColumn, 
                            images_secondColumn = base64_images_secondColumn, 
-                           images_thirdColumn = base64_images_thirdColumn)
+                           images_thirdColumn = base64_images_thirdColumn,
+
+                           images_firstColumn_following = base64_images_firstColumn_following,
+                           images_secondColumn_following = base64_images_secondColumn_following,
+                           images_thirdColumn_following = base64_images_thirdColumn_following)
 
 @picTalk_bp.route('/signup', methods=['GET', 'POST'])   
 def signup():
@@ -178,7 +205,6 @@ def create():
 
     return render_template('create_post.html', form=form)
 
-# Routes for following and unfollowing users
 @picTalk_bp.route('/follow/<int:username_id>', methods=['POST'])
 def follow(username_id):
     follower_id = current_user.username_id
