@@ -7,6 +7,10 @@ body {
     font-family: Arial;
 }
 
+.container-tabs{
+    margin-top: 2%;
+}
+
 .container-gallery {
     margin-top: 2%
 }
