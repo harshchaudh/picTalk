@@ -7,7 +7,7 @@ import base64
 
 
 from app.model import db, USER, SUBMISSION, COMMENT, TAGS, FOLLOWER
-from app.forms import CreateContentForm
+from app.forms import CreateContentForm, EditProfileForm
 
 from app.utilities import UsernameValidation, PasswordValidation, organiseColumnImages, is_following
 
@@ -138,6 +138,21 @@ def profile(username):
                            images_firstColumn = base64_images_firstColumn, 
                            images_secondColumn = base64_images_secondColumn, 
                            images_thirdColumn = base64_images_thirdColumn)
+
+@picTalk_bp.route('/edit_profile', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    form = EditProfileForm()
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.about_me = form.about_me.data
+        db.session.commit()
+        flash('Your changes have been saved.')
+        return redirect(url_for('picTalk.profile', username = current_user.username))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.about_me.data = current_user.about_me
+    return render_template('edit_profile.html', title='Edit Profile',form=form)
 
 @picTalk_bp.route('/image/<int:submission_id>')
 def view_post(submission_id):

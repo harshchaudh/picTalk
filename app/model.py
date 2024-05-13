@@ -20,6 +20,7 @@ class USER(UserMixin, db.Model):
     username_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     username = db.Column(db.String(32), unique=True, nullable=False, index=True)
     password = db.Column(db.String(128), nullable=False)
+    about_me = db.Column(db.String(128))
 
     def __init__(self, username, password):
         self.username = username

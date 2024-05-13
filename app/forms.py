@@ -35,3 +35,12 @@ class CreateContentForm(FlaskForm):
     caption_text = TextAreaField('Enter your caption', validators=[DataRequired(), Regexp('^[a-zA-Z ,.!?]+$', message='No special characters in caption.')])
     tag_text = StringField('Enter your tags', validators=[DataRequired(), ValidateTags, Regexp('^[a-zA-Z,]+$', message='Alphabetical characters in tags only.')])
     submit = SubmitField('Submit')
+
+class EditProfileForm(FlaskForm):
+    username = StringField('Username', validators=[
+                        DataRequired(), 
+                        Length(min=3, max=20), 
+                        UsernameValidation()
+                        ])
+    about_me = TextAreaField('About me', validators=[Length(min=0, max=140)])
+    submit = SubmitField('Submit')
