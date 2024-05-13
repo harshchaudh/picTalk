@@ -32,7 +32,7 @@ class USER(UserMixin, db.Model):
         return str(self.username_id)
 
     def __repr__(self):
-        return f'<USER {self.username}>'
+        return f'<USER {self.username_id}: {self.username}>'
 
 # SUBMISSION table in picTalk.db
 class SUBMISSION(db.Model):
@@ -47,7 +47,7 @@ class SUBMISSION(db.Model):
     user = db.relationship('USER', backref=db.backref('submissions', lazy=True, cascade="all, delete-orphan"))
 
     def __repr__(self):
-        return f'<SUBMISSION {self.submission_id} by User {self.username_id}>'
+        return f'<SUBMISSION {self.submission_id} about {self.caption} by User {self.username_id}>'
 
 # COMMENT table in picTalk.db
 class COMMENT(db.Model):
@@ -92,5 +92,8 @@ class FOLLOWER(db.Model):
 
     # Unique constraint to ensure a user can't follow another user multiple times
     __table_args__ = (db.UniqueConstraint('follower_id', 'followed_id', name='_follower_followed_uc'),)
+
+    def __repr__(self):
+        return f'< {self.follower_id} Followers {self.followed_id}>'
 
 
