@@ -31,3 +31,19 @@ h4 {
     margin-bottom: 0px;
 }
 
+#timestamp {
+    float: right;
+}
+
+#user-span {
+    font-weight: bold;
+}
+
+li.list-group-item {
+    margin-left: 60px;
+    margin-right: 60px;
+}
+
+#form-div {
+    margin: 20px;
+}
