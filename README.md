@@ -37,14 +37,7 @@ For website's similar to PicTalk, [Instagram](https://www.instagram.com) and [Un
 This section details the steps required to deploy the website and complete necessary tests. The following instructions are for Ubuntu based Linux distrubtions; **Ubuntu 22.04.4 LTS** was used specificaly.
 
 ### Prerequsites
-We'll assume you have the basic's softwares like Python. Packages can be installed using the command `pip3 install <<package>>`, where **package** is the package that needs to be installed.
-
-|Package Name|Version|package|
-|----|----|----|
-|Flask|3.0.3|flask|
-|SQLAlchemy|2.0.29|sqlalchemy|
-|Flask SQLAlchemy|3.1.1|flask-sqlalchemy|
-|FLask Login|0.6.3|flask-login|
+We'll assume you have the basic's softwares like Python. Packages can be installed using the command `pip3 install <<package>>`, where **package** is the package that needs to be installed.Refer to the `requirments.txt` to get a full list of python packages.
 
 ### Deployment
 
