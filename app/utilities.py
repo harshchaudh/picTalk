@@ -1,5 +1,6 @@
 import re
 from wtforms import ValidationError, validators
+from flask import flash
 from app.model import USER, FOLLOWER 
 
 # Validate tags used in forms.py
@@ -21,7 +22,7 @@ class UsernameValidation:
 
     def __init__(self, message = None):
         if not message:
-            message = "Username does not meet criteria."
+            message = "Username does not meet criteria"
         self.message = message
 
     def __call__(self, form, field):
@@ -32,8 +33,6 @@ class UsernameValidation:
     def validate(cls, username):
         return not re.match(cls.regex, username)
 
-
-    
 # Validate password used in routes.py
 class PasswordValidation:
     # Minimum eight characters, at least one letter and one number

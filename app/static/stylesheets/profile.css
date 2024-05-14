@@ -32,8 +32,9 @@ p.editProfLink {
 }
 
 .container-about-me {
-    text-align: center;
+     text-align: center;
     padding-top: 0.5cm;
+    margin-bottom: 2%;
 }
 
 .card-img-top {
