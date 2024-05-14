@@ -41,17 +41,19 @@
 
         </div>
         {% if (current_user.is_authenticated) and (current_user != user) %}
-            {% if check_following %}
-                <form action="{{ url_for('picTalk.unfollow', username_id = user.username_id) }}" method="POST">
-                    <input type="hidden" name="follower_id" value="{{ current_user.username_id }}">
-                    <button type="submit" class="btn btn-lg btn-block">Unfollow</button>
-                </form>
-            {% else %}
-                <form action="{{ url_for('picTalk.follow', username_id = user.username_id) }}" method="POST">
-                    <input type="hidden" name="followed_id" value="{{ current_user.username_id }}">
-                    <button type="submit" class="btn btn-lg btn-block">Follow</button>
-                </form>
-            {% endif %}
+            <div class="container container-profile-follower-button">
+                {% if check_following %}
+                    <form action="{{ url_for('picTalk.unfollow', username_id = user.username_id) }}" method="POST">
+                        <input type="hidden" name="follower_id" value="{{ current_user.username_id }}">
+                        <button type="submit" class="btn btn-lg btn-block">Unfollow</button>
+                    </form>
+                {% else %}
+                    <form action="{{ url_for('picTalk.follow', username_id = user.username_id) }}" method="POST">
+                        <input type="hidden" name="followed_id" value="{{ current_user.username_id }}">
+                        <button type="submit" class="btn btn-lg btn-block">Follow</button>
+                    </form>
+                {% endif %}
+            </div>
         {% endif %}
     </div>
     <div class="container container-profile-body">

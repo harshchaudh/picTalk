@@ -11,45 +11,111 @@ Gallery
 
 <!-- Content for gallery page -->
 {% block main %}
-<div class="container container-title-gallery mb-3">
-  <p class="display-6 fw-bold"> Gallery </p>
-  <p>
-    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestias ab atque dolore voluptatem saepe quae labore
-    praesentium vel quidem, ipsum accusamus odio, maiores earum possimus, perspiciatis quia pariatur ducimus. Eveniet.
-  </p>
+
+{% if current_user.is_authenticated %}
+<div class="container container-tabs">
+  <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="pills-gallery-tab" data-bs-toggle="pill" data-bs-target="#pills-gallery"
+        type="button" role="tab" aria-controls="pills-gallery" aria-selected="true">Gallery</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="pills-following-tab" data-bs-toggle="pill" data-bs-target="#pills-following"
+        type="button" role="tab" aria-controls="pills-following" aria-selected="false">Following</button>
+    </li>
+  </ul>
 </div>
+{% endif %}
 
-<div class="container container-gallery mb-3">
+<div class="tab-content" id="pills-tabContent">
+  <div class="tab-pane fade show active" id="pills-gallery" role="tabpanel" aria-labelledby="pills-gallery-tab">
 
-  <div class="row gx-3 mb-4">
-
-    <div class="col column">
-      {% for image in images_firstColumn %}
-        <a href="{{ url_for('picTalk.view_post', submission_id=image.id) }}">
-          <img src="data:image/png;base64, {{image.data}}" class="image" style="width:100%">
-        </a>
-      {% endfor %}
+    <div class="container container-title-gallery mb-3">
+      <p class="display-6 fw-bold"> Gallery </p>
+      <p>
+        Welcome to PicTalk's vibrant Gallery page, where every image tells a story and every critique sparks creativity. From stunning
+        landscapes to captivating portraits, our gallery is a dynamic showcase of artistic expression. Engage with
+        fellow enthusiasts, share your thoughts, and unleash the power of constructive feedback.
+      </p>
     </div>
 
-    <div class="col column">
-      {% for image in images_secondColumn %}
-        <a href="{{ url_for('picTalk.view_post', submission_id=image.id) }}">
-          <img src="data:image/png;base64, {{image.data}}" class="image" style="width:100%">
-        </a>
-      {% endfor %}
+    <div class="container container-gallery mb-3">
+      <div class="row gx-3 mb-4">
+
+        <div class="col column">
+          {% for image in images_firstColumn %}
+          <a href="{{ url_for('picTalk.view_post', submission_id=image.id) }}">
+            <img src="data:image/png;base64, {{image.data}}" class="image" style="width:100%">
+          </a>
+          {% endfor %}
+        </div>
+
+        <div class="col column">
+          {% for image in images_secondColumn %}
+          <a href="{{ url_for('picTalk.view_post', submission_id=image.id) }}">
+            <img src="data:image/png;base64, {{image.data}}" class="image" style="width:100%">
+          </a>
+          {% endfor %}
+        </div>
+
+        <div class="col column">
+          {% for image in images_thirdColumn %}
+          <a href="{{ url_for('picTalk.view_post', submission_id=image.id) }}">
+            <img src="data:image/png;base64, {{image.data}}" class="image" style="width:100%">
+          </a>
+          {% endfor %}
+        </div>
+
+      </div>
     </div>
 
-    <div class="col column">
-      {% for image in images_thirdColumn %}
-        <a href="{{ url_for('picTalk.view_post', submission_id=image.id) }}">
-          <img src="data:image/png;base64, {{image.data}}" class="image" style="width:100%">
-        </a>
-      {% endfor %}
+  </div>
+
+  <div class="tab-pane fade" id="pills-following" role="tabpanel" aria-labelledby="pills-following-tab">
+    <div class="container container-title-gallery mb-3">
+      <p class="display-6 fw-bold"> Following </p>
+      <p>
+        Discover a selection of images from the creators you follow.
+      </p>
+    </div>
+
+    <div class="container container-gallery mb-3">
+      <div class="row gx-3 mb-4">
+
+        <div class="col column">
+          {% for image in images_firstColumn_following %}
+          <a href="{{ url_for('picTalk.view_post', submission_id=image.id) }}">
+            <img src="data:image/png;base64, {{image.data}}" class="image" style="width:100%">
+          </a>
+          {% endfor %}
+        </div>
+
+        <div class="col column">
+          {% for image in images_secondColumn_following %}
+          <a href="{{ url_for('picTalk.view_post', submission_id=image.id) }}">
+            <img src="data:image/png;base64, {{image.data}}" class="image" style="width:100%">
+          </a>
+          {% endfor %}
+        </div>
+
+        <div class="col column">
+          {% for image in images_thirdColumn_following %}
+          <a href="{{ url_for('picTalk.view_post', submission_id=image.id) }}">
+            <img src="data:image/png;base64, {{image.data}}" class="image" style="width:100%">
+          </a>
+          {% endfor %}
+        </div>
+
+      </div>
     </div>
 
   </div>
 
 </div>
 
+{% endblock %}
 
+{% block variable_js %}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 {% endblock %}
