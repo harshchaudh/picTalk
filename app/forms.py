@@ -39,3 +39,12 @@ class CreateContentForm(FlaskForm):
 class CommentForm(FlaskForm):
     comment = StringField('', validators=[DataRequired(), Regexp('^[a-zA-Z ,.!?]+$', message='No special characters in comments.')])
     submit = SubmitField('Post')
+
+class EditProfileForm(FlaskForm):
+    username = StringField('Username', validators=[
+                        DataRequired(), 
+                        Length(min=3, max=20), 
+                        UsernameValidation()
+                        ])
+    about_me = TextAreaField('About me', validators=[Length(min=0, max=140)])
+    submit = SubmitField('Submit')

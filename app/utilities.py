@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 import re
 from wtforms import ValidationError, validators
-from app.model import USER 
+from app.model import USER, FOLLOWER 
 
 # Validate tags used in forms.py
 def ValidateTags(form, field):
@@ -92,3 +92,12 @@ def truncate_comment_time(comment_time):
             return f"{hrs} hours ago"
         else:
             return f"{mins} minutes ago"
+
+def is_following(follower_id, followed_id):
+    follower_entry = FOLLOWER.query.filter_by(follower_id=follower_id, followed_id=followed_id).first()
+    
+    if follower_entry is not None:
+        return True
+    else:
+        return False
+
