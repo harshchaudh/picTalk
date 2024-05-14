@@ -20,6 +20,33 @@ Post: {{ image.caption }}
     Created by <a class="h4" href=" {{ url_for('picTalk.profile', username=creator.username) }}">{{ creator.username }}</a>
 </h4>
 
-<p id="caption">{{ image.caption }}</p>  
+<p id="caption">{{ image.caption }}</p>
+
+<hr>
+
+<h4>Comments</h4>
+
+<ul id="comment-section" class="list-group list-group-flush"></ul>
+    {% for comment in comments %}
+    <li class="list-group-item">
+        <p><span id="user-span">{{ comment.user.username }}</span>: {{ comment.comment }} <span id="timestamp"> {{comment.created_at | truncate_comment_time}} </span></p>
+    </li>
+    {% endfor %}
+</ul>
+
+<div id="form-div" class="row justify-content-center">
+    <div class="col-md-8">
+        <form id="form" method="post">
+            {{ form.hidden_tag() }}
+            <div id="comment-div">
+                {{ form.comment(id="comment-box", class="form-control") }}
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4">
+        {{ form.submit(class="btn btn-primary") }}
+    </div>
+</div>
+
 
 {% endblock %}

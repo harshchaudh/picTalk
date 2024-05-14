@@ -36,6 +36,10 @@ class CreateContentForm(FlaskForm):
     tag_text = StringField('Enter your tags', validators=[DataRequired(), ValidateTags, Regexp('^[a-zA-Z,]+$', message='Alphabetical characters in tags only.')])
     submit = SubmitField('Submit')
 
+class CommentForm(FlaskForm):
+    comment = StringField('', validators=[DataRequired(), Regexp('^[a-zA-Z ,.!?]+$', message='No special characters in comments.')])
+    submit = SubmitField('Post')
+
 class EditProfileForm(FlaskForm):
     username = StringField('Username', validators=[
                         DataRequired(), 

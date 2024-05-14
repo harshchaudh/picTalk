@@ -7,7 +7,7 @@ from app.model import db, init_login
 from app.routes import picTalk_bp
 
 from app.config import Config
-from app.utilities import format_profileNumbers, truncate_username
+from app.utilities import format_profileNumbers, truncate_comment_time, truncate_username
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -24,6 +24,8 @@ init_login(login_manager)
 
 app.jinja_env.filters['format_profileNumbers'] = format_profileNumbers
 app.jinja_env.filters['truncate_username'] = truncate_username
+app.jinja_env.filters['truncate_comment_time'] = truncate_comment_time
+
 
 app.register_blueprint(picTalk_bp)
 

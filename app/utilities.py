@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 import re
 from wtforms import ValidationError, validators
 from flask import flash
@@ -70,6 +71,27 @@ def format_profileNumbers(value):
 def organiseColumnImages(elements):
     return elements[::3], elements[1::3], elements[2::3]
 
+def truncate_comment_time(comment_time):
+    time_diff = (datetime.now() - comment_time)
+    day_diff = time_diff.days
+    
+    yrs = day_diff // 365
+    months = (day_diff % 365) // 30
+
+    if yrs > 0:
+        return f"{yrs} years ago"
+    elif months > 0:
+        return f"{months} months ago"
+    elif day_diff > 1:
+        return f"{day_diff} days ago"
+    else:
+        hrs = time_diff.seconds // 3600
+        mins = (time_diff.seconds % 3600) // 60
+        if hrs > 0:
+            return f"{hrs} hours ago"
+        else:
+            return f"{mins} minutes ago"
+
 def is_following(follower_id, followed_id):
     follower_entry = FOLLOWER.query.filter_by(follower_id=follower_id, followed_id=followed_id).first()
     
@@ -77,3 +99,4 @@ def is_following(follower_id, followed_id):
         return True
     else:
         return False
+

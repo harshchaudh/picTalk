@@ -5,9 +5,8 @@ from sqlalchemy.exc import IntegrityError
 
 import base64
 
-
 from app.model import db, USER, SUBMISSION, COMMENT, TAGS, FOLLOWER
-from app.forms import CreateContentForm, EditProfileForm
+from app.forms import CreateContentForm, EditProfileForm, CommentForm
 
 from app.utilities import UsernameValidation, PasswordValidation, organiseColumnImages, is_following
 
@@ -166,6 +165,7 @@ def profile(username):
                            images_secondColumn = base64_images_secondColumn, 
                            images_thirdColumn = base64_images_thirdColumn)
 
+
 @picTalk_bp.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
@@ -184,14 +184,29 @@ def edit_profile():
 
     return render_template('edit_profile.html', title='Edit Profile',form=form)
 
+@picTalk_bp.route('/image/<int:submission_id>', methods=['GET', 'POST'])
+@login_required
 @picTalk_bp.route('/image/<int:submission_id>')
 def view_post(submission_id):
+    form = CommentForm()
     image = SUBMISSION.query.get(submission_id)
     base64_image = base64.b64encode(image.image).decode("utf-8")
     comments = COMMENT.query.filter_by(submission_id=submission_id).all()
     creator = USER.query.get(image.username_id)
 
-    return render_template('view_post.html', image=image, base64_image=base64_image, comments=comments, creator=creator)
+    if form.validate_on_submit():
+        new_comment = COMMENT(comment = form.comment.data,
+                              username_id = current_user.username_id,
+                              submission_id = submission_id)
+        try:
+            db.session.add(new_comment)
+            db.session.commit()
+            flash('Comment created successfully.', 'success')
+        except:
+            flash('Comment failed to submit. Please try again.', 'danger')
+        return redirect(url_for('picTalk.view_post', submission_id=submission_id))
+
+    return render_template('view_post.html', form=form, image=image, base64_image=base64_image, comments=comments, creator=creator)
 
 @picTalk_bp.route('/create', methods=['GET', 'POST'])
 @login_required
