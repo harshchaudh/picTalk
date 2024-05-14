@@ -29,7 +29,7 @@ Post: {{ image.caption }}
 <ul id="comment-section" class="list-group list-group-flush"></ul>
     {% for comment in comments %}
     <li class="list-group-item">
-        <p><span id="user-span">{{ comment.user.username }}</span>: {{ comment.comment }} <span id="timestamp"> {{comment.created_at}} </span></p>
+        <p><span id="user-span">{{ comment.user.username }}</span>: {{ comment.comment }} <span id="timestamp"> {{comment.created_at | truncate_comment_time}} </span></p>
     </li>
     {% endfor %}
 </ul>
