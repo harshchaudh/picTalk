@@ -1,6 +1,7 @@
 import re
 from wtforms import ValidationError, validators
-from app.model import USER 
+from flask import flash
+from app.model import USER, FOLLOWER 
 
 # Validate tags used in forms.py
 def ValidateTags(form, field):
@@ -21,7 +22,7 @@ class UsernameValidation:
 
     def __init__(self, message = None):
         if not message:
-            message = "Username does not meet criteria."
+            message = "Username does not meet criteria"
         self.message = message
 
     def __call__(self, form, field):
@@ -32,8 +33,6 @@ class UsernameValidation:
     def validate(cls, username):
         return not re.match(cls.regex, username)
 
-
-    
 # Validate password used in routes.py
 class PasswordValidation:
     # Minimum eight characters, at least one letter and one number
@@ -70,3 +69,11 @@ def format_profileNumbers(value):
     
 def organiseColumnImages(elements):
     return elements[::3], elements[1::3], elements[2::3]
+
+def is_following(follower_id, followed_id):
+    follower_entry = FOLLOWER.query.filter_by(follower_id=follower_id, followed_id=followed_id).first()
+    
+    if follower_entry is not None:
+        return True
+    else:
+        return False

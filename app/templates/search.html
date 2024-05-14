@@ -14,18 +14,18 @@ Search
 <div class="container container-search">
     <div class="container-fluid">
 
-        <nav>
-            <ul class="nav nav-tabs w-100" id="myTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="user-tab" data-bs-toggle="tab" data-bs-target="#user"
-                        type="button" role="tab" aria-controls="user" aria-selected="true">Users</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="tags-tab" data-bs-toggle="tab" data-bs-target="#tags" type="button"
-                        role="tab" aria-controls="tags" aria-selected="false">Tags</button>
-                </li>
+        <div class="container container-tabs">
+            <ul class="nav nav-pills mb-3" id="myTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="user-tab" data-bs-toggle="pill" data-bs-target="#user" type="button"
+                  role="tab" aria-controls="user" aria-selected="true">User</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tags-tab" data-bs-toggle="pill" data-bs-target="#tags" type="button"
+                  role="tab" aria-controls="tags" aria-selected="false">Tags</button>
+              </li>
             </ul>
-        </nav>
+        </div>
 
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="user" role="tabpanel" aria-labelledby="user-tab">
@@ -34,7 +34,7 @@ Search
                 </div>
                 <ul class="list-group">
                     {% for user in users %}
-                        <li class="list-group-item"><a href="{{ url_for('picTalk.user_page', username_id = user.username_id) }}">{{ user.username }}</a></li>
+                        <li class="list-group-item"><a href="{{ url_for('picTalk.profile', username = user.username) }}">{{ user.username }}</a></li>
                     {% endfor %}
                 </ul>
             </div>

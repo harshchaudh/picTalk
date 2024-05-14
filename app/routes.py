@@ -5,11 +5,11 @@ from sqlalchemy.exc import IntegrityError
 
 import base64
 
-from app.model import db, USER, SUBMISSION, COMMENT, TAGS
 
-from app.forms import CreateContentForm
+from app.model import db, USER, SUBMISSION, COMMENT, TAGS, FOLLOWER
+from app.forms import CreateContentForm, EditProfileForm
 
-from app.utilities import UsernameValidation, PasswordValidation, organiseColumnImages
+from app.utilities import UsernameValidation, PasswordValidation, organiseColumnImages, is_following
 
 picTalk_bp = Blueprint('picTalk', __name__)
 
@@ -35,6 +35,29 @@ def search():
 @picTalk_bp.route('/gallery')
 def gallery():
     images = SUBMISSION.query.order_by(SUBMISSION.created_at).all()
+    
+    if current_user.is_authenticated:
+
+        images_following = (SUBMISSION.query
+                            .join(FOLLOWER, FOLLOWER.followed_id == SUBMISSION.username_id)
+                            .filter(FOLLOWER.follower_id == current_user.username_id)
+                            .order_by(SUBMISSION.created_at)
+                            .all()
+                            )
+        base64_images_following = [
+            {"id": image.submission_id, "data": base64.b64encode(image.image).decode("utf-8")}
+            for image in images_following
+        ] 
+        base64_images_following.reverse()
+
+        base64_images_firstColumn_following = organiseColumnImages(base64_images_following)[0]
+        base64_images_secondColumn_following = organiseColumnImages(base64_images_following)[1]
+        base64_images_thirdColumn_following = organiseColumnImages(base64_images_following)[2]
+    else:
+        base64_images_firstColumn_following = []
+        base64_images_secondColumn_following = []
+        base64_images_thirdColumn_following = []
+        
     base64_images = [
         {"id": image.submission_id, "data": base64.b64encode(image.image).decode("utf-8")}
         for image in images
@@ -48,7 +71,11 @@ def gallery():
     return render_template('gallery.html', user=current_user, 
                            images_firstColumn = base64_images_firstColumn, 
                            images_secondColumn = base64_images_secondColumn, 
-                           images_thirdColumn = base64_images_thirdColumn)
+                           images_thirdColumn = base64_images_thirdColumn,
+
+                           images_firstColumn_following = base64_images_firstColumn_following,
+                           images_secondColumn_following = base64_images_secondColumn_following,
+                           images_thirdColumn_following = base64_images_thirdColumn_following)
 
 @picTalk_bp.route('/signup', methods=['GET', 'POST'])   
 def signup():
@@ -122,12 +149,40 @@ def profile(username):
     base64_images_firstColumn = organiseColumnImages(base64_images)[0]
     base64_images_secondColumn = organiseColumnImages(base64_images)[1]
     base64_images_thirdColumn = organiseColumnImages(base64_images)[2]
+    
+    check_following = False
+    if current_user.is_authenticated: 
+        check_following = is_following(current_user.username_id, user.username_id)
+
+    follower_count = FOLLOWER.query.filter_by(followed_id=user.username_id).count()
+    followed_count = FOLLOWER.query.filter_by(follower_id=user.username_id).count()
 
     return render_template('profile.html', user=user, 
-                           submission_count=submission_count, 
+                           submission_count=submission_count,
+                           check_following = check_following,
+                           follower_count = follower_count,
+                           followed_count = followed_count, 
                            images_firstColumn = base64_images_firstColumn, 
                            images_secondColumn = base64_images_secondColumn, 
                            images_thirdColumn = base64_images_thirdColumn)
+
+@picTalk_bp.route('/edit_profile', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    form = EditProfileForm()
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        current_user.about_me = form.about_me.data
+        db.session.commit()
+        flash('Your changes have been saved.', 'success')
+        return redirect(url_for('picTalk.profile', username = current_user.username))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+        form.about_me.data = current_user.about_me
+    else:
+        flash('Username did not meet criteria', 'warning')
+
+    return render_template('edit_profile.html', title='Edit Profile',form=form)
 
 @picTalk_bp.route('/image/<int:submission_id>')
 def view_post(submission_id):
@@ -145,6 +200,7 @@ def create():
     if form.validate_on_submit():
         image_file = form.image.data
         image_data = image_file.read()
+        tags = form.tag_text.data.split(',')
 
         new_submission = SUBMISSION(image = image_data,
                                     caption = form.caption_text.data,
@@ -152,6 +208,13 @@ def create():
         try:
             db.session.add(new_submission)
             db.session.commit()
+
+            for tag in tags:
+                newtag = TAGS(tag = tag.strip(),
+                              submission_id = new_submission.submission_id)
+                db.session.add(newtag)
+            db.session.commit()
+            
             flash('Post created successfully!', 'success')
             return redirect(url_for('picTalk.home'))
         except:
@@ -159,3 +222,32 @@ def create():
             render_template('create_post.html')
 
     return render_template('create_post.html', form=form)
+
+@picTalk_bp.route('/follow/<int:username_id>', methods=['POST'])
+def follow(username_id):
+    follower_id = current_user.username_id
+    user = USER.query.filter_by(username_id=username_id).first()
+
+    if follower_id:
+        new_follower = FOLLOWER(follower_id = follower_id, followed_id = username_id)
+        db.session.add(new_follower)
+        db.session.commit()
+        flash('Sucessfully followed user', 'success')
+        return redirect(url_for('picTalk.profile', username = user.username))
+    else:
+        flash('Error could not follow!', 'warning')
+        return redirect(url_for('picTalk.profile', username = user.username))
+
+@picTalk_bp.route('/unfollow/<int:username_id>', methods=['POST'])
+def unfollow(username_id):
+    follower_id = current_user.username_id
+    user = USER.query.filter_by(username_id=username_id).first()
+
+    if follower_id:
+        FOLLOWER.query.filter_by(follower_id=follower_id, followed_id = username_id).delete()
+        db.session.commit()
+        flash('Sucessfully unfollowed user', 'success')
+        return redirect(url_for('picTalk.profile', username = user.username))
+    else:
+        flash('Error could not unfollow!', 'warning')
+        return redirect(url_for('picTalk.profile', username = user.username))

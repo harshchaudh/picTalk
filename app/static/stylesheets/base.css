@@ -54,6 +54,10 @@ body {
   background-color: #BBCDE5;
 }
 
+.nav-link {
+  text-transform: capitalize;
+}
+
 .navbar-brand {
   font-family: 'Alata-Regular', sans-serif;
   font-size: 40px;

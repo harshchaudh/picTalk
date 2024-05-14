@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+<!-- Imports login.css -->
+{% block variable_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/edit_profile.css') }}">
+{% endblock %}
+
+<!-- Sets title for login page -->
+{% block title %}
+Edit Profile
+{% endblock %}
+
+{% block main %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1>Edit Profile</h1>
+            <form action="" method="post">
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    {{ form.username.label(class="form-control-label") }}<br>
+                    {{ form.username(class="form-control") }}<br>
+                </div>
+                <div class="form-group">
+                    {{ form.about_me.label(class="form-control-label") }}<br>
+                    {{ form.about_me(class="form-control", cols=50, rows=4) }}<br>
+                </div>
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-primary") }}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
