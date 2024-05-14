@@ -20,7 +20,20 @@
 /* Profile page body */
 .container-profile-body {
     border: 0px solid black;
-    margin-top: 2%;
+    padding-top: 2%;
+}
+
+.USERNAME {
+    text-transform: capitalize;
+}
+
+p.editProfLink {
+     font-size: xx-small !important;
+}
+
+.container-about-me {
+    text-align: center;
+    padding-top: 0.5cm;
 }
 
 .card-img-top {
