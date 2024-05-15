@@ -186,7 +186,6 @@ def edit_profile():
 
 @picTalk_bp.route('/image/<int:submission_id>', methods=['GET', 'POST'])
 @login_required
-@picTalk_bp.route('/image/<int:submission_id>')
 def view_post(submission_id):
     form = CommentForm()
     image = SUBMISSION.query.get(submission_id)
