@@ -90,7 +90,10 @@ def truncate_comment_time(comment_time):
         if hrs > 0:
             return f"{hrs} hours ago"
         else:
-            return f"{mins} minutes ago"
+            if mins == 0:
+                return "now"
+            else:
+                return f"{mins} minutes ago"
 
 def is_following(follower_id, followed_id):
     follower_entry = FOLLOWER.query.filter_by(follower_id=follower_id, followed_id=followed_id).first()
