@@ -75,12 +75,17 @@ def gallery():
         base64_images_thirdColumn_following = organiseColumnImages(
             base64_images_following)[2]
 
+    followed_count = FOLLOWER.query.filter_by(
+        follower_id=current_user.username_id).count()
     return render_template(
         'gallery.html',
         user=current_user,
+        followed_count=followed_count,
+
         images_firstColumn=base64_images_firstColumn,
         images_secondColumn=base64_images_secondColumn,
         images_thirdColumn=base64_images_thirdColumn,
+
         images_firstColumn_following=base64_images_firstColumn_following,
         images_secondColumn_following=base64_images_secondColumn_following,
         images_thirdColumn_following=base64_images_thirdColumn_following)
