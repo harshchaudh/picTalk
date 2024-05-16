@@ -36,8 +36,9 @@ h4 {
     float: right;
 }
 
-#user-span {
+#comment-user-span a {
     font-weight: bold;
+    color: black;
 }
 
 li.list-group-item {
