@@ -18,6 +18,8 @@ migrate = Migrate(app, db)
 # Initialize Flask-Login
 login_manager = LoginManager(app)
 login_manager.login_view = 'picTalk.login'
+login_manager.login_message = u"Please log in to access this page or sign up for free."
+login_manager.login_message_category = "info"
 
 # Initialize Flask-Login in the model module
 init_login(login_manager)
