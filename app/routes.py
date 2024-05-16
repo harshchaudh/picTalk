@@ -34,9 +34,8 @@ def search():
 @picTalk_bp.route('/gallery')
 def gallery():
     images = SUBMISSION.query.order_by(SUBMISSION.created_at).all()
-    
-    if current_user.is_authenticated:
 
+    if current_user.is_authenticated:
         images_following = (SUBMISSION.query
                             .join(FOLLOWER, FOLLOWER.followed_id == SUBMISSION.username_id)
                             .filter(FOLLOWER.follower_id == current_user.username_id)
@@ -75,6 +74,34 @@ def gallery():
                            images_firstColumn_following = base64_images_firstColumn_following,
                            images_secondColumn_following = base64_images_secondColumn_following,
                            images_thirdColumn_following = base64_images_thirdColumn_following)
+
+@picTalk_bp.route('/gallery/<string:tag>')
+def gallery_tags(tag):
+    tag = TAGS.query.filter_by(tag = tag).first()
+    
+    if tag:
+        images_tag = SUBMISSION.query.filter_by(submission_id=tag.submission_id).all()
+
+        base64_images_tag = [
+            {"id": image.submission_id, "data": base64.b64encode(image.image).decode("utf-8")}
+            for image in images_tag
+        ]
+        base64_images_tag.reverse() 
+
+        base64_images_firstColumn_tag = organiseColumnImages(base64_images_tag)[0]
+        base64_images_secondColumn_tag = organiseColumnImages(base64_images_tag)[1]
+        base64_images_thirdColumn_tag = organiseColumnImages(base64_images_tag)[2]
+    else:
+        base64_images_firstColumn_tag = []
+        base64_images_secondColumn_tag = []
+        base64_images_thirdColumn_tag = []
+
+    return render_template('gallery_tags.html',
+                           tag = tag,
+                           images_firstColumn_tag = base64_images_firstColumn_tag,
+                           images_secondColumn_tag = base64_images_secondColumn_tag,
+                           images_thirdColumn_tag = base64_images_thirdColumn_tag)
+
 
 @picTalk_bp.route('/signup', methods=['GET', 'POST'])   
 def signup():
