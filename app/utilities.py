@@ -85,7 +85,7 @@ def truncate_comment_time(comment_time):
         return f"{yrs} years ago"
     elif months > 0:
         return f"{months} months ago"
-    elif day_diff > 1:
+    elif day_diff > 0:
         return f"{day_diff} days ago"
     else:
         hrs = time_diff.seconds // 3600

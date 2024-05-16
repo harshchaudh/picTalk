@@ -134,7 +134,6 @@ def signup():
 
         if PasswordValidation.validate(signup_psw):
             flash('Password does not meet criteria.', 'warning')
-
             return render_template('signup.html')
 
         existing_user = USER.query.filter_by(username=signup_username).first()
