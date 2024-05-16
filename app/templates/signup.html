@@ -25,7 +25,7 @@ Sign up
 
         <!-- Sign Up Body -->
         <div class="card-body">
-            <form action="/signup" method="POST">
+            <form action="{{ url_for('picTalk.signup') }}" method="POST">
                 <div class="form-group">
                     <label for="signup-username"><b>Username</b></label>
                     <input type="text" class="form-control" id="signup-username" placeholder="Enter username"
@@ -48,16 +48,12 @@ Sign up
 
                 <br>
 
-                {% if error is not none %}
-                <p class="error" style="color: red;">{{ error }}</p>
-                {% endif %}
-
                 <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
                 <button type="submit" class="btn">Sign up</button>
             </form>
 
-
             <br>
+
             <!-- Login Page Link -->
             <p>Have an account?
                 <a href="{{ url_for('picTalk.login')}}">Login</a>

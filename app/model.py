@@ -16,9 +16,13 @@ def init_login(login_manager):
 # USER table in picTalk.db
 class USER(UserMixin, db.Model):
     __tablename__ = 'USER'
-    
+
     username_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    username = db.Column(db.String(32), unique=True, nullable=False, index=True)
+    username = db.Column(
+        db.String(32),
+        unique=True,
+        nullable=False,
+        index=True)
     password = db.Column(db.String(128), nullable=False)
     about_me = db.Column(db.String(128))
 
@@ -44,11 +48,22 @@ class SUBMISSION(db.Model):
     caption = db.Column(db.String(256))
     created_at = db.Column(db.DateTime, default=datetime.now)
 
-    username_id = db.Column(db.Integer, db.ForeignKey('USER.username_id'), nullable=False)
-    user = db.relationship('USER', backref=db.backref('submissions', lazy=True, cascade="all, delete-orphan"))
+    username_id = db.Column(
+        db.Integer,
+        db.ForeignKey('USER.username_id'),
+        nullable=False)
+    user = db.relationship(
+        'USER',
+        backref=db.backref(
+            'submissions',
+            lazy=True,
+            cascade="all, delete-orphan"))
 
     def __repr__(self):
-        return f'<SUBMISSION {self.submission_id} about {self.caption} by User {self.username_id}>'
+        return f'<SUBMISSION {
+            self.submission_id} about {
+            self.caption} by User {
+            self.username_id}>'
 
 # COMMENT table in picTalk.db
 class COMMENT(db.Model):
@@ -58,14 +73,30 @@ class COMMENT(db.Model):
     comment = db.Column(db.String(256), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now)
 
-    username_id = db.Column(db.Integer, db.ForeignKey('USER.username_id'), nullable=False)
-    user = db.relationship('USER', backref=db.backref('comments', lazy=True, cascade="all, delete-orphan"))
+    username_id = db.Column(
+        db.Integer,
+        db.ForeignKey('USER.username_id'),
+        nullable=False)
+    user = db.relationship(
+        'USER',
+        backref=db.backref(
+            'comments',
+            lazy=True,
+            cascade="all, delete-orphan"))
 
-    submission_id = db.Column(db.Integer, db.ForeignKey('SUBMISSION.submission_id'), nullable=False)
-    submit = db.relationship('SUBMISSION', backref=db.backref('comments', lazy=True, cascade="all, delete-orphan"))
+    submission_id = db.Column(db.Integer, db.ForeignKey(
+        'SUBMISSION.submission_id'), nullable=False)
+    submit = db.relationship(
+        'SUBMISSION',
+        backref=db.backref(
+            'comments',
+            lazy=True,
+            cascade="all, delete-orphan"))
 
     def __repr__(self):
-        return f'<COMMENT {self.comment_id} on Submission {self.submission_id}>'
+        return f'<COMMENT {
+            self.comment_id} on Submission {
+            self.submission_id}>'
 
 # TAGS table in picTalk.db
 class TAGS(db.Model):
@@ -74,27 +105,49 @@ class TAGS(db.Model):
     tag_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     tag = db.Column(db.String(15), nullable=False)
 
-    submission_id = db.Column(db.Integer, db.ForeignKey('SUBMISSION.submission_id'), nullable=False)
-    submit = db.relationship('SUBMISSION', backref=db.backref('tags', lazy=True, cascade="all, delete-orphan"))
+    submission_id = db.Column(db.Integer, db.ForeignKey(
+        'SUBMISSION.submission_id'), nullable=False)
+    submit = db.relationship(
+        'SUBMISSION',
+        backref=db.backref(
+            'tags',
+            lazy=True,
+            cascade="all, delete-orphan"))
 
     def __repr__(self):
         return f'<TAG {self.tag} on Submission {self.submission_id}>'
+
 
 class FOLLOWER(db.Model):
     __tablename__ = "FOLLOWER"
 
     id = db.Column(db.Integer, primary_key=True)
-    follower_id = db.Column(db.Integer, db.ForeignKey('USER.username_id'), nullable=False)
-    followed_id = db.Column(db.Integer, db.ForeignKey('USER.username_id'), nullable=False)
-    
-    follower = db.relationship("USER", foreign_keys=[follower_id], backref="following")
-    followed = db.relationship("USER", foreign_keys=[followed_id], backref="followers")
+    follower_id = db.Column(
+        db.Integer,
+        db.ForeignKey('USER.username_id'),
+        nullable=False)
+    followed_id = db.Column(
+        db.Integer,
+        db.ForeignKey('USER.username_id'),
+        nullable=False)
 
+    follower = db.relationship(
+        "USER",
+        foreign_keys=[follower_id],
+        backref="following")
+    followed = db.relationship(
+        "USER",
+        foreign_keys=[followed_id],
+        backref="followers")
 
-    # Unique constraint to ensure a user can't follow another user multiple times
-    __table_args__ = (db.UniqueConstraint('follower_id', 'followed_id', name='_follower_followed_uc'),)
+    # Unique constraint to ensure a user can't follow another user multiple
+    # times
+    __table_args__ = (
+        db.UniqueConstraint(
+            'follower_id',
+            'followed_id',
+            name='_follower_followed_uc'),
+    )
 
     def __repr__(self):
         return f'< {self.follower_id} Followers {self.followed_id}>'
-
-

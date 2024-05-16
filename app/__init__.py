@@ -15,6 +15,7 @@ app.config.from_object(Config)
 # Initialize SQLAlchemy
 db.init_app(app)
 migrate = Migrate(app, db)
+
 # Initialize Flask-Login
 login_manager = LoginManager(app)
 login_manager.login_view = 'picTalk.login'
