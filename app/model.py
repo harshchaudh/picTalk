@@ -60,10 +60,7 @@ class SUBMISSION(db.Model):
             cascade="all, delete-orphan"))
 
     def __repr__(self):
-        return f'<SUBMISSION {
-            self.submission_id} about {
-            self.caption} by User {
-            self.username_id}>'
+        return f'<SUBMISSION {self.submission_id} about {self.caption} by User {self.username_id}>'
 
 # COMMENT table in picTalk.db
 class COMMENT(db.Model):
@@ -94,9 +91,7 @@ class COMMENT(db.Model):
             cascade="all, delete-orphan"))
 
     def __repr__(self):
-        return f'<COMMENT {
-            self.comment_id} on Submission {
-            self.submission_id}>'
+        return f'<COMMENT {self.comment_id} on Submission {self.submission_id}>'
 
 # TAGS table in picTalk.db
 class TAGS(db.Model):
