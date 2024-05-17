@@ -32,11 +32,11 @@ h4 {
     margin-bottom: 0px;
 }
 
-#timestamp {
+.timestamp {
     float: right;
 }
 
-#comment-user-span a {
+.comment-user-span a {
     font-weight: bold;
     color: black;
 }

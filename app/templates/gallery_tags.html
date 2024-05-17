@@ -6,7 +6,7 @@
 
 <!-- Sets title for gallery page -->
 {% block title %}
-
+{{ tag.tag }}
 {% endblock %}
 
 <!-- Content for gallery page -->
@@ -21,7 +21,7 @@
         <div class="col column">
             {% for image in images_firstColumn_tag %}
             <a href="{{ url_for('picTalk.view_post', submission_id=image.id) }}">
-                <img src="data:image/png;base64, {{image.data}}" class="image" style="width:100%">
+                <img src="data:image/png;base64,{{image.data}}" class="image" style="width:100%" alt="first column image">
             </a>
             {% endfor %}
         </div>
@@ -29,7 +29,7 @@
         <div class="col column">
             {% for image in images_secondColumn_tag %}
             <a href="{{ url_for('picTalk.view_post', submission_id=image.id) }}">
-                <img src="data:image/png;base64, {{image.data}}" class="image" style="width:100%">
+                <img src="data:image/png;base64,{{image.data}}" class="image" style="width:100%" alt="second column image">
             </a>
             {% endfor %}
         </div>
@@ -37,7 +37,7 @@
         <div class="col column">
             {% for image in images_thirdColumn_tag %}
             <a href="{{ url_for('picTalk.view_post', submission_id=image.id) }}">
-                <img src="data:image/png;base64, {{image.data}}" class="image" style="width:100%">
+                <img src="data:image/png;base64,{{image.data}}" class="image" style="width:100%" alt="third column image">
             </a>
             {% endfor %}
         </div>

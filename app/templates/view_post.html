@@ -13,7 +13,7 @@ Post: {{ image.caption }}
 {% block main %}
 
 <div id="image-div">
-    <img src="data:image/png;base64, {{ base64_image }}">
+    <img src="data:image/png;base64,{{ base64_image }}" alt="showcase image">
 </div>
 
 <h4>
@@ -26,17 +26,17 @@ Post: {{ image.caption }}
 
 <h4>Comments</h4>
 
-<ul id="comment-section" class="list-group list-group-flush"></ul>
+<ul id="comment-section" class="list-group list-group-flush">
 {% for comment in comments %}
 <li class="list-group-item">
     <p>
-        <span id="comment-user-span">
+        <span class="comment-user-span">
             <a href="{{ url_for('picTalk.profile', username=comment.user.username) }}">
                 {{ comment.user.username }}
             </a>
         </span>
         : {{ comment.comment }}
-        <span id="timestamp">{{ comment.created_at | truncate_comment_time }}</span>
+        <span class="timestamp">{{ comment.created_at | truncate_comment_time }}</span>
     </p>
 </li>
 {% endfor %}
