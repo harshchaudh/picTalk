@@ -7,9 +7,6 @@ import unittest
 from app import create_app, db
 from app.config import TestingConfig
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver import ActionChains
 import multiprocessing
 
 from db_utilities import populate_db
@@ -22,12 +19,17 @@ class BasicSeleniumTests(unittest.TestCase):
         self.app_context = self.testApp.app_context()
         self.app_context.push()
         db.create_all()
-        populate_db()
+        #populate_db()
+
+        ''' for windowsless version
+        options = webdriver.ChromeOptions()
+        options.add_argument('--headless=new')
+        self.driver = webdriver.Chrome(options=options)'''
 
         self.server_process = multiprocessing.Process(target=self.testApp.run)
         self.server_process.start()
 
-        self.driver = webdriver.Edge()
+        self.driver = webdriver.Chrome()
         self.driver.get(localHost)  
 
     def tearDown(self):
