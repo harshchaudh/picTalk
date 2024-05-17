@@ -18,8 +18,8 @@ localHost= 'http://localhost:5000/'
 class BasicSeleniumTests(unittest.TestCase):
 
     def setUp(self):
-        self.testApp = create_app(TestingConfig)
-        self.app_context = app.app_context()
+        testApp = create_app(TestingConfig)
+        self.app_context = testApp.app_context()
         self.app_context.push()
         db.create_all()
         populate_db()
