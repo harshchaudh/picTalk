@@ -12,3 +12,4 @@ instance/picTalk.db
 **__pycache__
 picTalk.db
 
+:memory
