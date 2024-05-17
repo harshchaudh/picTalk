@@ -26,9 +26,10 @@ class USER(UserMixin, db.Model):
     password = db.Column(db.String(128), nullable=False)
     about_me = db.Column(db.String(128))
 
-    def __init__(self, username, password):
+    def __init__(self, username, password, about_me):
         self.username = username
         self.password = generate_password_hash(password)
+        self.about_me = about_me
 
     def check_password(self, password):
         return check_password_hash(self.password, password)
