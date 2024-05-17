@@ -123,8 +123,8 @@ p {
 
 #caption-label-div,
 #tag-label-div {
-    color: #2b6e7b;
-    padding: 8px;
+    color: black;
+    padding: 5px;
 }
 
 #upload-errors {
