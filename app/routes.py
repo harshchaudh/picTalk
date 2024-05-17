@@ -53,7 +53,6 @@ def gallery():
         base64_images_firstColumn = organiseColumnImages(base64_images)[0]
         base64_images_secondColumn = organiseColumnImages(base64_images)[1]
         base64_images_thirdColumn = organiseColumnImages(base64_images)[2]
-
     followed_count = 0
     base64_images_firstColumn_following = base64_images_secondColumn_following = base64_images_thirdColumn_following = []
     if current_user.is_authenticated:
