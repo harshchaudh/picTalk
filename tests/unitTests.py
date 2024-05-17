@@ -2,8 +2,6 @@ import os
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-os.environ['DATABASE_URL'] = 'sqlite:///:memory:'
-
 import multiprocessing
 import unittest
 from app import create_app, db
