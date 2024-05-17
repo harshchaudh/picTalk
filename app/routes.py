@@ -54,6 +54,7 @@ def gallery():
         base64_images_secondColumn = organiseColumnImages(base64_images)[1]
         base64_images_thirdColumn = organiseColumnImages(base64_images)[2]
 
+    followed_count = 0
     base64_images_firstColumn_following = base64_images_secondColumn_following = base64_images_thirdColumn_following = []
     if current_user.is_authenticated:
         images_following = (
@@ -75,8 +76,8 @@ def gallery():
         base64_images_thirdColumn_following = organiseColumnImages(
             base64_images_following)[2]
 
-    followed_count = FOLLOWER.query.filter_by(
-        follower_id=current_user.username_id).count()
+        followed_count = FOLLOWER.query.filter_by(
+            follower_id=current_user.username_id).count()
     return render_template(
         'gallery.html',
         user=current_user,
@@ -147,7 +148,7 @@ def signup():
             return render_template('signup.html')
 
         # Only pass the username and unhashed password
-        new_user = USER(username=signup_username, password=signup_psw)
+        new_user = USER(username=signup_username, password=signup_psw, about_me="")
         db.session.add(new_user)
         db.session.commit()
         flash('Account created successfully! Please log in.', 'success')
