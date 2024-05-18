@@ -22,6 +22,16 @@ Post: {{ image.caption }}
 
 <p id="caption">{{ image.caption }}</p>
 
+<div id="tags">
+    {% for tag in tags %}
+        <span class="tag">
+            <a href="{{ url_for('picTalk.gallery_tags', tag=tag.tag) }}">
+                <b>{{ tag.tag }}</b>
+            </a>
+        </span>
+    {% endfor %}
+</div>
+
 <hr>
 
 <h4>Comments</h4>
@@ -32,11 +42,15 @@ Post: {{ image.caption }}
     <p>
         <span class="comment-user-span">
             <a href="{{ url_for('picTalk.profile', username=comment.user.username) }}">
-                {{ comment.user.username }}
+                {{ comment.user.username }}:
             </a>
         </span>
-        : {{ comment.comment }}
-        <span class="timestamp">{{ comment.created_at | truncate_comment_time }}</span>
+        <span class="comment-message">
+            {{ comment.comment }}
+        </span>
+        <span class="timestamp">
+            {{ comment.created_at | truncate_comment_time }}
+        </span>
     </p>
 </li>
 {% endfor %}
@@ -59,5 +73,15 @@ Post: {{ image.caption }}
     </form>
 </div>
 
+{% for error in form.comment.errors %}
+    <div class="error">{{ error }}</div>
+{% endfor %}
 
+{% endblock %}
+
+{% block variable_js %}
+<!-- JQuery-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<!-- Custom JS -->
+<script src="{{ url_for('static', filename='javascript/viewPost.js') }}"></script>
 {% endblock %}

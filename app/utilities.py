@@ -12,6 +12,9 @@ def ValidateTags(form, field):
             'You must not submit more than 5 tags.')
     if '' in tags:
         raise validators.ValidationError('Tags can not be empty.')
+    unique_tags = set(tags)
+    if len(unique_tags) != len(tags):
+        raise ValidationError('Duplicate tags are not allowed.')
 
 # Validate username used in routes.py
 class UsernameValidation:
