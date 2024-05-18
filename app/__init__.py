@@ -6,7 +6,7 @@ from flask_migrate import Migrate
 from app.config import Config
 from app.model import db, init_login
 from app.routes import picTalk_bp
-from app.utilities import format_profileNumbers, truncate_comment_time, truncate_username
+from app.utilities import format_profileNumbers, truncate_time, truncate_username
 
 def create_app(config_class=Config):
     app = Flask(__name__)
@@ -34,7 +34,7 @@ def create_app(config_class=Config):
     # Register Jinja filters
     app.jinja_env.filters['format_profileNumbers'] = format_profileNumbers
     app.jinja_env.filters['truncate_username'] = truncate_username
-    app.jinja_env.filters['truncate_comment_time'] = truncate_comment_time
+    app.jinja_env.filters['truncate_time'] = truncate_time
 
     with app.app_context():
         db.create_all()
