@@ -93,12 +93,12 @@ def gallery():
 
 @picTalk_bp.route('/gallery/<string:tag>')
 def gallery_tags(tag):
-    tag = TAGS.query.filter_by(tag=tag).first()
+    tags = TAGS.query.filter_by(tag=tag).all()
+    submission_ids = [tag.submission_id for tag in tags]
 
     base64_images_firstColumn_tag = base64_images_secondColumn_tag = base64_images_thirdColumn_tag = []
-    if tag:
-        images_tag = SUBMISSION.query.filter_by(
-            submission_id=tag.submission_id).all()
+    if submission_ids:
+        images_tag = SUBMISSION.query.filter(SUBMISSION.submission_id.in_(submission_ids)).all()
 
         base64_images_tag = [
             {"id": image.submission_id,

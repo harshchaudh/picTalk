@@ -6,13 +6,13 @@
 
 <!-- Sets title for gallery page -->
 {% block title %}
-{{ tag.tag }}
+Tag: {{ tag }}
 {% endblock %}
 
 <!-- Content for gallery page -->
 {% block main %}
 <div class="container container-title-gallery mb-3">
-    <p class="display-6 fw-bold"> Images tagged with '{{ tag.tag }}' </p>
+    <p class="display-6 fw-bold"> Images tagged with '{{ tag }}' </p>
 </div>
 
 <div class="container container-gallery mb-3">
