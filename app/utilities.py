@@ -77,7 +77,7 @@ def organiseColumnImages(elements):
     return elements[::3], elements[1::3], elements[2::3]
 
 # Truncate time so it looks more natural and readable to the user.
-def truncate_comment_time(comment_time):
+def truncate_time(comment_time):
     time_diff = (datetime.now() - comment_time)
     day_diff = time_diff.days
 

@@ -16,9 +16,18 @@ Post: {{ image.caption }}
     <img src="data:image/png;base64,{{ base64_image }}" alt="showcase image">
 </div>
 
-<h4>
-    Created by <a class="h4" href=" {{ url_for('picTalk.profile', username=creator.username) }}">{{ creator.username}}</a>
-</h4>
+<div id="creator-div" class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h4>
+                Created by <a class="h4" href="{{ url_for('picTalk.profile', username=creator.username) }}">{{ creator.username }}</a>
+            </h4>
+        </div>
+        <div id="post-time">
+            {{ image.created_at | truncate_time }}
+        </div>
+    </div>
+</div>
 
 <p id="caption">{{ image.caption }}</p>
 
@@ -39,7 +48,7 @@ Post: {{ image.caption }}
 <ul id="comment-section" class="list-group list-group-flush">
 {% for comment in comments %}
 <li class="list-group-item">
-    <p>
+    <div>
         <span class="comment-user-span">
             <a href="{{ url_for('picTalk.profile', username=comment.user.username) }}">
                 {{ comment.user.username }}:
@@ -49,9 +58,9 @@ Post: {{ image.caption }}
             {{ comment.comment }}
         </span>
         <span class="timestamp">
-            {{ comment.created_at | truncate_comment_time }}
+            {{ comment.created_at | truncate_time }}
         </span>
-    </p>
+    </div>
 </li>
 {% endfor %}
 </ul>
