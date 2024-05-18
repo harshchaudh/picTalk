@@ -32,12 +32,12 @@ class SignupForm(FlaskForm):
 
 class CreateContentForm(FlaskForm):
     image = FileField('', validators=[FileRequired(), FileAllowed(['jpg', 'png', 'jpeg'], '.jpg, .png, and .jpeg only.')])
-    caption_text = TextAreaField('Enter your caption', validators=[DataRequired(), Regexp('^[a-zA-Z ,.!?]+$', message='No special characters in caption.')])
-    tag_text = StringField('Enter your tags', validators=[ValidateTags, Regexp('^[a-zA-Z,]+$', message='Alphabetical characters in tags only.')])
+    caption_text = TextAreaField('Enter your caption', validators=[DataRequired(), Regexp('^[a-zA-Z ,.!?]+$', message='No special characters are allowed in the caption.')])
+    tag_text = StringField('Enter your tags', validators=[ValidateTags, Regexp('^[a-zA-Z,]+$', message='Alphabetical characters are only allowed for tags.')])
     submit = SubmitField('Submit')
 
 class CommentForm(FlaskForm):
-    comment = StringField('', validators=[DataRequired(), Regexp('^[a-zA-Z ,.!?]+$', message='No special characters in comments.')])
+    comment = StringField('', validators=[Length(max=500), DataRequired(), Regexp('^[a-zA-Z ,.!?]+$', message='No special characters in comments.')])
     submit = SubmitField('Post')
 
 class EditProfileForm(FlaskForm):

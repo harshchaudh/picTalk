@@ -8,7 +8,7 @@ from app import create_app, db
 from app.config import TestingConfig
 from selenium import webdriver
 import multiprocessing
-from db_utilities import populate_db
+from tests.db_utilities import populate_db
 
 localHost= 'http://localhost:5000/'
 class BasicSeleniumTests(unittest.TestCase):

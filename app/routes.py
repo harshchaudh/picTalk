@@ -250,6 +250,7 @@ def view_post(submission_id):
     base64_image = base64.b64encode(image.image).decode("utf-8")
     comments = COMMENT.query.filter_by(submission_id=submission_id).all()
     creator = USER.query.get(image.username_id)
+    tags = TAGS.query.filter_by(submission_id=submission_id).all()
 
     if form.validate_on_submit():
         new_comment = COMMENT(comment=form.comment.data,
@@ -261,8 +262,8 @@ def view_post(submission_id):
             flash('Comment created successfully.', 'success')
         except BaseException:
             flash('Comment failed to submit. Please try again.', 'danger')
-        return redirect(url_for('picTalk.view_post',
-                        submission_id=submission_id))
+        return redirect(url_for('picTalk.view_post', 
+                                submission_id=submission_id))
 
     return render_template(
         'view_post.html',
@@ -270,7 +271,8 @@ def view_post(submission_id):
         image=image,
         base64_image=base64_image,
         comments=comments,
-        creator=creator)
+        creator=creator,
+        tags=tags)
 
 
 @picTalk_bp.route('/create', methods=['GET', 'POST'])

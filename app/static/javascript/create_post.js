@@ -66,7 +66,7 @@ $tagForm.keydown(function (e) { //Event listener on the enter button to see if a
     }
 });
 
-$captionForm.keydown(function (e) {
+$captionForm.keydown(function (e) { //Ensures characters which are not allowed in the caption are not allowed to be inserted. 
     if (!e.key.match(/^[a-zA-Z ,.!?]+$/) || e.which == 13) {
         e.preventDefault();
     }

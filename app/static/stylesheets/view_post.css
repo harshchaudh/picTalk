@@ -27,9 +27,17 @@ h4 {
 }
 
 #caption {
-    padding: 5px;
+    background: #f1f1f150;
+    border-radius: 5px;
+    padding: 10px;
     margin-left: 30px; 
-    margin-bottom: 0px;
+    margin-right: 30px;
+    margin-bottom: 15px;
+    /* Below is to ensure long captions create a new line*/
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    display: block;
+    white-space: normal;
 }
 
 .timestamp {
@@ -39,6 +47,8 @@ h4 {
 .comment-user-span a {
     font-weight: bold;
     color: black;
+    padding: 5px;
+    padding-left: 0px;
 }
 
 li.list-group-item {
@@ -48,4 +58,35 @@ li.list-group-item {
 
 #form-div {
     margin: 20px;
+}
+
+.tag {
+    background: #f1f1f1;
+    border-radius: 5px;
+    display: inline-block;
+    margin: 0.2em;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.tag a {
+    text-decoration: none;
+}
+
+.tag:hover {
+    background: #dfdfff;
+}
+
+#tags {
+    margin-left: 30px;
+}
+
+.comment-message {
+    /* Below is to ensure long comments create a new line*/
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    display: block;
+    white-space: normal;
 }
