@@ -73,5 +73,15 @@ Post: {{ image.caption }}
     </form>
 </div>
 
+{% for error in form.comment.errors %}
+    <div class="error">{{ error }}</div>
+{% endfor %}
 
+{% endblock %}
+
+{% block variable_js %}
+<!-- JQuery-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<!-- Custom JS -->
+<script src="{{ url_for('static', filename='javascript/viewPost.js') }}"></script>
 {% endblock %}

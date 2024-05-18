@@ -90,3 +90,9 @@ li.list-group-item {
     display: block;
     white-space: normal;
 }
+
+.error {
+    color: red;
+    margin-left: 30px;
+    margin-bottom: 30px;
+}

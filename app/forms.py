@@ -37,7 +37,7 @@ class CreateContentForm(FlaskForm):
     submit = SubmitField('Submit')
 
 class CommentForm(FlaskForm):
-    comment = StringField('', validators=[Length(max=500), DataRequired(), Regexp('^[a-zA-Z ,.!?]+$', message='No special characters in comments.')])
+    comment = StringField('', validators=[Length(max=500), DataRequired(), Regexp('^[a-zA-Z ,.!?]+$', message='No special characters are allowed in comments.')])
     submit = SubmitField('Post')
 
 class EditProfileForm(FlaskForm):

@@ -261,9 +261,11 @@ def view_post(submission_id):
             db.session.commit()
             flash('Comment created successfully.', 'success')
         except BaseException:
-            flash('Comment failed to submit. Please try again.', 'danger')
+            flash('Comment submission failure: please try again.', 'danger')
         return redirect(url_for('picTalk.view_post', 
                                 submission_id=submission_id))
+    elif form.is_submitted() and not form.validate():
+        flash('Comment failed to submit. Please check your inputs and try again.', 'danger')
 
     return render_template(
         'view_post.html',
@@ -302,6 +304,8 @@ def create():
         except BaseException:
             flash('Post failed to submit.', 'danger')
             render_template('create_post.html')
+    elif form.is_submitted() and not form.validate():
+        flash('Post failed to submit. Please check your inputs and try again.', 'danger')
 
     return render_template('create_post.html', form=form)
 

@@ -21,9 +21,9 @@ Create Your Post | PicTalk
         <div class="row">
             <div class="col-md-8">
 
-                <div id="upload-errors">
+                <div>
                     {% for error in form.image.errors %}
-                    <div> {{ error }}</div>
+                    <div class="errors"> {{ error }}</div>
                     {% endfor %}
                 </div><br>
 
@@ -56,12 +56,12 @@ Create Your Post | PicTalk
 
                 <div class="tags"></div>
 
-                <div id="caption-tag-errors">
+                <div>
                     {% for error in form.tag_text.errors %}
-                    <div>{{ error }}</div>
+                    <div class="errors">{{ error }}</div>
                     {% endfor %}
                     {% for error in form.caption_text.errors %}
-                    <div>{{ error }}</div>
+                    <div class="errors">{{ error }}</div>
                     {% endfor %}
                 </div>
 
@@ -82,5 +82,5 @@ Create Your Post | PicTalk
 <!-- JQuery-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <!-- Custom JS -->
-<script src="{{ url_for('static', filename='javascript/create_post.js') }}"></script>
+<script src="{{ url_for('static', filename='javascript/createPost.js') }}"></script>
 {% endblock %}
