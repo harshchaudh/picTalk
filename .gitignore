@@ -11,5 +11,5 @@ venv/
 instance/picTalk.db
 **__pycache__
 picTalk.db
-
+Dockerfile
 :memory
