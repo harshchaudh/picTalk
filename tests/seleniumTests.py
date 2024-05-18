@@ -42,7 +42,7 @@ class BasicSeleniumTests(unittest.TestCase):
 
     def test1(self):
         time.sleep(1)
-        self.assertEqual(self.driver.current_url, localHost+'Home')
+        self.assertEqual(self.driver.current_url, localHost)
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
