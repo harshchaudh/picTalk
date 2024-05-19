@@ -7,8 +7,6 @@ class Config:
     'sqlite:///' + os.path.join(basedir, 'picTalk.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-    SECRET_KEY = 'your_secret_key_here'
-
 class TestingConfig(Config):
     TESTING = True
     SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
