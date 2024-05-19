@@ -47,7 +47,7 @@ class BasicSeleniumTests(unittest.TestCase):
         self.driver.find_element(By.XPATH, xpath)
         time.sleep(1)
 
-    def signup(self, username = 'username', password = 'testing1'):
+    def signup(self, username = 'usernameOne', password = 'testing1'):
         self.driver.find_element(By.LINK_TEXT, 'Login').click()
         time.sleep(1)
 
@@ -59,7 +59,7 @@ class BasicSeleniumTests(unittest.TestCase):
         self.driver.find_element(By.ID, "signup-pswConfirm").send_keys(password)
         self.driver.find_element(By.XPATH, "/html/body/main/div/div/div[2]/form/button").click()
     
-    def login(self, username = 'username', password = 'testing1'):
+    def login(self, username = 'usernameOne', password = 'testing1'):
         self.driver.find_element(By.LINK_TEXT, 'Login').click()
         time.sleep(1)
         self.driver.find_element(By.XPATH, '//*[@id="login-username"]').send_keys(username)
@@ -153,7 +153,7 @@ class BasicSeleniumTests(unittest.TestCase):
         self.assertEqual(self.driver.current_url, localHost + 'gallery')
 
         self.goProfile()
-        self.assertAlmostEqual(self.driver.current_url, localHost + 'profile/username')
+        self.assertAlmostEqual(self.driver.current_url, localHost + 'profile/usernameOne')
 
         self.goLogout()
         self.assertEqual(self.driver.current_url, localHost)
@@ -225,19 +225,49 @@ class BasicSeleniumTests(unittest.TestCase):
         self.driver.find_element(By.XPATH, '/html/body/main/div/div/div[2]/div[2]/ul/li/a')
 
         # Test does not work, cannot get element.
-    '''def test_follow(self):
+    def test_follow(self):
         self.signup('usernameTwo', 'testing2')
         self.goHome()
         self.signup('username', 'testing1')
         self.login('username', 'testing1')
 
+        self.goSearch('usernameTwo')
         self.driver.find_element(By.XPATH, '/html/body/main/div/div/div[2]/div[1]/ul/li/a').click()
+        time.sleep(1)
+        
         self.driver.find_element(By.XPATH, '/html/body/main/div/div[1]/div[2]/form/button').click()
-        # self.assertEqual(int(self.driver.find_element(By.XPATH, '/html/body/main/div/div[1]/div[1]/div[2]/div/div[2]')), 1)'''
+        followers = self.driver.find_element(By.XPATH, '/html/body/main/div/div[1]/div[1]/div[2]/div/div[2]')
+        follower_count = ''.join(filter(str.isdigit, followers.text))
+        self.assertEqual(follower_count, '1')
+
+        self.goProfile()
+        following = self.driver.find_element(By.XPATH, '/html/body/main/div/div[1]/div[1]/div[2]/div/div[3]')
+        following_count = ''.join(filter(str.isdigit, following.text))
+        self.assertEqual(following_count, '1')
     
     # Test does not work, cannot get element.
     def test_unfollow(self):
-        pass
+        self.signup('usernameTwo', 'testing2')
+        self.goHome()
+        self.signup('username', 'testing1')
+        self.login('username', 'testing1')
+
+        self.goSearch('usernameTwo')
+        self.driver.find_element(By.XPATH, '/html/body/main/div/div/div[2]/div[1]/ul/li/a').click()
+        time.sleep(1)
+        
+        self.driver.find_element(By.XPATH, '/html/body/main/div/div[1]/div[2]/form/button').click()
+        followers = self.driver.find_element(By.XPATH, '/html/body/main/div/div[1]/div[1]/div[2]/div/div[2]')
+        
+        self.driver.find_element(By.XPATH, '/html/body/main/div/div[1]/div[2]/form/button').click()
+        followers = self.driver.find_element(By.XPATH, '/html/body/main/div/div[1]/div[1]/div[2]/div/div[2]')
+        follower_count = ''.join(filter(str.isdigit, followers.text))
+        self.assertEqual(follower_count, '0')
+        
+        self.goProfile()
+        following = self.driver.find_element(By.XPATH, '/html/body/main/div/div[1]/div[1]/div[2]/div/div[3]')
+        following_count = ''.join(filter(str.isdigit, following.text))
+        self.assertEqual(following_count, '0')
 
     # Will have to assume the following feature works.
     def test_gallery_follow(self):
@@ -259,7 +289,25 @@ class BasicSeleniumTests(unittest.TestCase):
         self.driver.find_element(By.XPATH, '//*[@id="pills-following-tab"]').click()
         time.sleep(1)
         self.driver.find_element(By.XPATH, '/html/body/main/div[2]/div[2]/div[2]/div/div[1]/a/img')
+    
+    def test_edit_profile(self):
+        self.signup()
+        self.login()
+        self.goProfile()
 
+        self.driver.find_element(By.XPATH, '/html/body/main/div/div[1]/div[1]/div[1]/p[2]/a').click()
+        time.sleep(1)
+        username = self.driver.find_element(By.XPATH, '//*[@id="username"]')
+        username.clear()
+        username.send_keys('editProfile')
+        self.driver.find_element(By.XPATH, '//*[@id="about_me"]').send_keys("Testing about me feature!")
+        self.driver.find_element(By.XPATH, '//*[@id="submit"]').click()
+        time.sleep(1)
+
+        self.assertEqual(self.driver.current_url, localHost + 'profile/editProfile')
+        # About me xpath was not working.
+        about_me = self.driver.find_element(By.XPATH, '/html/body/main/div[2]/div[1]/div[2]/div/div/div/div[2]')
+        self.assertEqual(about_me.text, "Testing about me feature!")
 
 if __name__ == "__main__":
-    unittest.main(verbosity=2)
+    unittest.main(argv=[''], defaultTest='BasicSeleniumTests.test_unfollow', verbosity=2)
