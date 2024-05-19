@@ -153,7 +153,7 @@ class BasicSeleniumTests(unittest.TestCase):
         self.assertEqual(self.driver.current_url, localHost + 'gallery')
 
         self.goProfile()
-        self.assertAlmostEqual(self.driver.current_url, localHost + 'profile/usernameOne')
+        self.assertEqual(self.driver.current_url, localHost + 'profile/usernameone')
 
         self.goLogout()
         self.assertEqual(self.driver.current_url, localHost)
@@ -310,4 +310,4 @@ class BasicSeleniumTests(unittest.TestCase):
         self.assertEqual(about_me.text, "Testing about me feature!")
 
 if __name__ == "__main__":
-    unittest.main(argv=[''], defaultTest='BasicSeleniumTests.test_unfollow', verbosity=2)
+    unittest.main(verbosity=2)

@@ -110,7 +110,7 @@ Many of the packages listed are not used.
 
 ### Deployment
 Ensure you have a .flaskenv file in main directory with the following line:
-FLASK_APP=picTalk.py
+`FLASK_APP=picTalk.py`.
 
 To run the web application, run the command,
 ```cpp
@@ -129,12 +129,11 @@ python3 unitTests.py
 ```
 
 ### Systems tests
-It's advised to collapse all the functions when viewing the source code (on Vscode, the shortcut is `CTRL + K CTRL + 0`). To run the test, navigate to the tests directory, then run `seleniumTests.py`. Failing to navigate to the tests directory, will result in certain tests failing.
+It's advised to collapse all the functions when viewing the source code (on Vscode, the shortcut is `CTRL + K CTRL + 0`). To run all tests, navigate to the tests directory (failing to navigate to the tests directory, will result in certain tests failing) then run `seleniumTests.py`. Do not have the flask app running in the background, otherwise this will overload the server.
 ```
 python3 seleniumTests.py
 ```
-
-To run a specific test, 
+The tests take a upwards of a 135 seconds to complete, as such to run a specific test, 
 ```cpp
 # Modify this line:
 if __name__ == "__main__":
