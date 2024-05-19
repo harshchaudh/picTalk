@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
 
-<!-- Imports login.css -->
+<!-- Imports search.css -->
 {% block variable_css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/search.css') }}">
 {% endblock %}
 
-<!-- Sets title for login page -->
+<!-- Sets title for search page -->
 {% block title %}
 Search
 {% endblock %}
 
+<!-- Main content for search page -->
 {% block main %}
 <div class="container container-search">
     <div class="container-fluid">

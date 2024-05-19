@@ -1,15 +1,16 @@
 {% extends 'base.html' %}
 
-<!-- Imports login.css -->
+<!-- Imports profile.css -->
 {% block variable_css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/profile.css') }}">
 {% endblock %}
 
-<!-- Sets title for login page -->
+<!-- Sets title for profile page -->
 {% block title %}
 {{ user.username }}
 {% endblock %}
 
+<!-- Main content for profile page -->
 {% block main %}
 <div class="container container-profile">
     <div class="container container-profile-header">

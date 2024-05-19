@@ -7,7 +7,9 @@
 |23426595|Wesley Dalbock|wdalbock|
 |23087371|Jayden Hondris|JaydenHond|
 
+View Projects/CITS3403 Group Project, to view agile process.
 
+Note: The username and password requirements are never made obvious to the user, view app/utilities.py to see requirements.
 ***
 # PicTalk
 ## About

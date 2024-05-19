@@ -113,7 +113,7 @@ class TAGS(db.Model):
     def __repr__(self):
         return f'<TAG {self.tag} on Submission {self.submission_id}>'
 
-
+# Follower table in picTalk.db
 class FOLLOWER(db.Model):
     __tablename__ = "FOLLOWER"
 

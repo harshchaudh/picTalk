@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
 
+<!-- Imports home.css -->
 {% block variable_css %}
 <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/home.css') }}">
 {% endblock %}
 
-<!-- Sets title for gallery page -->
+<!-- Sets title for home page -->
 {% block title %}
 PicTalk
 {% endblock %}
 
+<!-- Main content for login page -->
 {% block main %}
 <div id="myCarousel" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner">

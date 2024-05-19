@@ -224,7 +224,6 @@ class BasicSeleniumTests(unittest.TestCase):
         self.driver.find_element(By.XPATH, '//*[@id="tags-tab"]').click()
         self.driver.find_element(By.XPATH, '/html/body/main/div/div/div[2]/div[2]/ul/li/a')
 
-        # Test does not work, cannot get element.
     def test_follow(self):
         self.signup('usernameTwo', 'testing2')
         self.goHome()
@@ -245,7 +244,6 @@ class BasicSeleniumTests(unittest.TestCase):
         following_count = ''.join(filter(str.isdigit, following.text))
         self.assertEqual(following_count, '1')
     
-    # Test does not work, cannot get element.
     def test_unfollow(self):
         self.signup('usernameTwo', 'testing2')
         self.goHome()
@@ -269,7 +267,6 @@ class BasicSeleniumTests(unittest.TestCase):
         following_count = ''.join(filter(str.isdigit, following.text))
         self.assertEqual(following_count, '0')
 
-    # Will have to assume the following feature works.
     def test_gallery_follow(self):
         self.signup('usernameTwo', 'testing2')
         self.login('usernameTwo', 'testing2')
@@ -305,7 +302,6 @@ class BasicSeleniumTests(unittest.TestCase):
         time.sleep(1)
 
         self.assertEqual(self.driver.current_url, localHost + 'profile/editProfile')
-        # About me xpath was not working.
         about_me = self.driver.find_element(By.XPATH, '/html/body/main/div[2]/div[1]/div[2]/div/div/div/div[2]')
         self.assertEqual(about_me.text, "Testing about me feature!")
 
