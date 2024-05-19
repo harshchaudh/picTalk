@@ -131,6 +131,14 @@ class BasicSeleniumTests(unittest.TestCase):
         self.login()
         self.assertEqual(self.driver.current_url, localHost)
     
+    def test_login(self):
+        self.signup()
+        self.login()
+        self.goLogout()
+        self.login()
+
+        self.assertEqual(self.driver.current_url, localHost)
+    
     def test_page_navigation_authenticated(self):
         self.signup()
         self.login()
@@ -254,4 +262,4 @@ class BasicSeleniumTests(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main(argv=[''], defaultTest='BasicSeleniumTests.test_gallery_follow', verbosity=2)
+    unittest.main(verbosity=2)
