@@ -108,8 +108,8 @@ pip install -r requirements.txt
 Many of the packages listed are not used.
 
 ### Deployment
-Ensure you have a .flaskenv file in main directory with at least following lines outlining environments of:
-`FLASK_APP=picTalk.py` and 'SECRET_KEY'
+Ensure you have a .flaskenv file in main directory with at least the following lines outlining environments of:
+`FLASK_APP=picTalk.py` and `SECRET_KEY`.
 
 To run the web application, run the command,
 ```cpp
