@@ -6,6 +6,7 @@ class Config:
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
     'sqlite:///' + os.path.join(basedir, 'picTalk.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SECRET_KEY = os.getenv('SECRET_KEY') # extracts secret key from .flaskenv file.
 
 class TestingConfig(Config):
     TESTING = True
