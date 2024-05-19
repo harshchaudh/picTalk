@@ -36,10 +36,36 @@ For website's similar to PicTalk, [Instagram](https://www.instagram.com) and [Un
 ## Getting started
 This section details the steps required to deploy the website and complete necessary tests. The following instructions are for Ubuntu based Linux distrubtions; **Ubuntu 22.04.4 LTS** was used specificaly.
 
+
+
 ### Prerequsites
-We'll assume you have the basic's softwares like Python. Packages can be installed using the command `pip3 install <<package>>`, where **package** is the package that needs to be installed.Refer to the `requirments.txt` to get a full list of python packages.
+We'll assume you have the basic's softwares like Python. Packages can be installed using the command `pip3 install <<package>>`, where **package** is the package that needs to be installed. Refer to the `requirments.txt` to get a full list of python packages. To install all packages from `requirements.txt`, run the command,
+```
+pip install -r requirements.txt
+```
 
 ### Deployment
 
 ## Running tests
+### Unit Tests
 
+### Systems tests
+It's advised to collapse all the function when viewing the source code (on Vscode, the shortcut is `CTRL + K CTRL + 0`). To run the test, run `seleniumTests.py`.
+```
+python3 seleniumTests.py
+```
+
+To run a specific test, 
+```cpp
+# Modify this line:
+if __name__ == "__main__":
+    unittest.main(verbosity=2)
+
+# Modify it to:
+if __name__ == "__main__":
+    unittest.main(argv=[''], defaultTest='BasicSeleniumTests.<name_of_test>', verbosity=2)
+
+# For example, to run 'test_submit'.
+if __name__ == "__main__":
+    unittest.main(argv=[''], defaultTest='BasicSeleniumTests.test_sumbit', verbosity=2)
+```

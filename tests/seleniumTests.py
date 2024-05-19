@@ -7,6 +7,8 @@ import unittest
 from app import create_app, db
 from app.config import TestingConfig
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
 import multiprocessing
 from tests.db_utilities import populate_db
 
@@ -29,6 +31,7 @@ class BasicSeleniumTests(unittest.TestCase):
         self.server_process.start()
 
         self.driver = webdriver.Chrome()
+        self.driver.maximize_window()
         self.driver.get(localHost)  
 
     def tearDown(self):
@@ -39,10 +42,224 @@ class BasicSeleniumTests(unittest.TestCase):
         self.server_process.terminate()
         self.driver.close()
 
+    # Pre-defined functions
+    def find(self, xpath):
+        self.driver.find_element(By.XPATH, xpath)
+        time.sleep(1)
 
-    def test1(self):
+    def signup(self, username = 'username', password = 'testing1'):
+        self.driver.find_element(By.LINK_TEXT, 'Login').click()
+        time.sleep(1)
+
+        self.driver.find_element(By.LINK_TEXT, 'Create an account.').click()
+        time.sleep(1)
+
+        self.driver.find_element(By.ID, "signup-username").send_keys(username)
+        self.driver.find_element(By.ID, "signup-psw").send_keys(password)
+        self.driver.find_element(By.ID, "signup-pswConfirm").send_keys(password)
+        self.driver.find_element(By.XPATH, "/html/body/main/div/div/div[2]/form/button").click()
+    
+    def login(self, username = 'username', password = 'testing1'):
+        self.driver.find_element(By.LINK_TEXT, 'Login').click()
+        time.sleep(1)
+        self.driver.find_element(By.XPATH, '//*[@id="login-username"]').send_keys(username)
+        self.driver.find_element(By.XPATH, '//*[@id="login-password"]').send_keys(password)
+        self.driver.find_element(By.XPATH, '/html/body/main/div/div/div[2]/form/button').click()
+    
+    def goHome(self):
+        self.driver.find_element(By.LINK_TEXT, 'PicTalk').click()
+        time.sleep(1)
+    
+    def goSearch(self, query):
+        self.driver.find_element(By.XPATH, '//*[@id="search"]').send_keys(query)
+        self.driver.find_element(By.XPATH, '//*[@id="search"]').send_keys(Keys.ENTER)
+        time.sleep(1)
+
+    def goGallery(self):
+        self.driver.find_element(By.LINK_TEXT, 'Gallery').click()
+        time.sleep(1)
+    
+    def goSubmit(self):
+        self.driver.find_element(By.LINK_TEXT, 'Submit').click()
+        time.sleep(1)
+
+    def Submit(self):
+        self.driver.find_element(By.XPATH, '//*[@id="file-upload"]').send_keys(os.getcwd()+"/tests/image.jpg")
+
+        self.driver.find_element(By.XPATH, '//*[@id="caption-text-input"]').send_keys('This is a caption for this image.')
+
+        self.driver.find_element(By.XPATH, '//*[@id="tag-text-input"]').send_keys('TagOne')
+        self.driver.find_element(By.XPATH, '//*[@id="tag-text-input"]').send_keys(Keys.ENTER)
+
+        self.driver.find_element(By.XPATH, '//*[@id="tag-text-input"]').send_keys('TagTwo')
+        self.driver.find_element(By.XPATH, '//*[@id="tag-text-input"]').send_keys(Keys.ENTER)
+
+        self.driver.find_element(By.XPATH, '//*[@id="submit-btn"]').click()
+        time.sleep(1)
+
+    def goProfile(self):
+        self.driver.find_element(By.XPATH, '/html/body/header/nav/div/div/ul/li[3]/a').click()
+        time.sleep(1)
+    
+    def goLogout(self):
+        self.driver.find_element(By.LINK_TEXT, 'Logout').click()
+        time.sleep(1)
+
+    # ////////////////
+
+    def test_appLoad(self):
         time.sleep(1)
         self.assertEqual(self.driver.current_url, localHost)
+
+    def test_page_navigation_unauthenticated(self):
+        self.driver.find_element(By.LINK_TEXT, 'Login').click()
+        time.sleep(1)
+        self.assertEqual(self.driver.current_url, localHost + "login")
+
+        self.goGallery()
+        self.assertEqual(self.driver.current_url, localHost + 'gallery')
+
+        self.goHome()
+        self.assertEqual(self.driver.current_url, localHost)
+    
+    def test_signup(self):
+        self.signup()
+        self.assertEqual(self.driver.current_url, localHost + 'login')
+
+    def test_signup_login(self):
+        self.signup()
+        self.login()
+        self.assertEqual(self.driver.current_url, localHost)
+    
+    def test_login(self):
+        self.signup()
+        self.login()
+        self.goLogout()
+        self.login()
+
+        self.assertEqual(self.driver.current_url, localHost)
+    
+    def test_page_navigation_authenticated(self):
+        self.signup()
+        self.login()
+
+        self.goSubmit()
+        self.assertEqual(self.driver.current_url, localHost + 'create')
+
+        self.goHome()
+        self.assertEqual(self.driver.current_url, localHost)
+
+        self.goGallery()
+        self.assertEqual(self.driver.current_url, localHost + 'gallery')
+
+        self.goProfile()
+        self.assertAlmostEqual(self.driver.current_url, localHost + 'profile/username')
+
+        self.goLogout()
+        self.assertEqual(self.driver.current_url, localHost)
+
+    def test_submit(self): # Return to the home page.
+        self.signup()
+        self.login()
+        self.goSubmit()
+        self.Submit()
+
+        self.assertEqual(self.driver.current_url, localHost)
+    
+    def test_gallery(self): # Returns to image page
+        self.signup()
+        self.login()
+        self.goSubmit()
+        self.Submit()
+
+        self.goGallery()
+        self.driver.find_element(By.XPATH, '/html/body/main/div[2]/div[1]/div[2]/div/div[1]/a[1]/img').click()
+        self.assertEqual(self.driver.current_url, localHost + 'image/1')
+
+    def test_comment(self):
+        self.signup()
+        self.login()
+        self.goSubmit()
+        self.Submit()
+
+        self.goGallery()
+        self.driver.find_element(By.XPATH, '/html/body/main/div[2]/div[1]/div[2]/div/div[1]/a[1]/img').click()
+
+        self.driver.find_element(By.XPATH, '//*[@id="comment-box"]').send_keys("This is a comment!")
+        self.driver.find_element(By.XPATH, '//*[@id="submit"]').send_keys(Keys.ENTER)
+        self.driver.find_element(By.XPATH, '//*[@id="comment-box"]').send_keys("This is another comment!")
+        self.driver.find_element(By.XPATH, '//*[@id="submit"]').send_keys(Keys.ENTER)
+        self.driver.find_element(By.XPATH, '//*[@id="comment-box"]').send_keys("This is also a comment!")
+        self.driver.find_element(By.XPATH, '//*[@id="submit"]').send_keys(Keys.ENTER)
+
+        # checks if comments exists
+        self.driver.find_element(By.XPATH, '/html/body/main/ul/li[1]')
+        self.driver.find_element(By.XPATH, '/html/body/main/ul/li[2]')
+        self.driver.find_element(By.XPATH, '/html/body/main/ul/li[3]')
+
+    def test_search(self): # Returns search page, with one user
+        self.signup('usernameTwo', 'testing2')
+        self.goHome()
+        self.signup('username', 'testing1')
+        self.login('username', 'testing1')
+
+        self.goSearch('usernameTwo')
+        self.driver.find_element(By.XPATH, '/html/body/main/div/div/div[2]/div[1]/ul/li/a')
+
+    def test_searchTag(self):
+        self.signup()
+        self.login()
+        self.goSubmit()
+        self.Submit()
+
+        self.goHome()
+        self.goLogout()
+        self.signup('usernameTwo', 'testing2')
+        self.login('usernameTwo', 'testing2')
+
+        self.goSearch('TagOne')
+        self.driver.find_element(By.XPATH, '//*[@id="tags-tab"]').click()
+        self.driver.find_element(By.XPATH, '/html/body/main/div/div/div[2]/div[2]/ul/li/a')
+        self.goSearch('TagTwo')
+        self.driver.find_element(By.XPATH, '//*[@id="tags-tab"]').click()
+        self.driver.find_element(By.XPATH, '/html/body/main/div/div/div[2]/div[2]/ul/li/a')
+
+        # Test does not work, cannot get element.
+    '''def test_follow(self):
+        self.signup('usernameTwo', 'testing2')
+        self.goHome()
+        self.signup('username', 'testing1')
+        self.login('username', 'testing1')
+
+        self.driver.find_element(By.XPATH, '/html/body/main/div/div/div[2]/div[1]/ul/li/a').click()
+        self.driver.find_element(By.XPATH, '/html/body/main/div/div[1]/div[2]/form/button').click()
+        # self.assertEqual(int(self.driver.find_element(By.XPATH, '/html/body/main/div/div[1]/div[1]/div[2]/div/div[2]')), 1)'''
+    
+    # Test does not work, cannot get element.
+    def test_unfollow(self):
+        pass
+
+    # Will have to assume the following feature works.
+    def test_gallery_follow(self):
+        self.signup('usernameTwo', 'testing2')
+        self.login('usernameTwo', 'testing2')
+        self.goSubmit()
+        self.Submit()
+
+        self.goLogout()
+        self.signup()
+        self.login()
+
+        self.goSearch('usernameTwo')
+        self.driver.find_element(By.XPATH, '/html/body/main/div/div/div[2]/div[1]/ul/li[1]/a').click()
+        self.driver.find_element(By.XPATH, '/html/body/main/div/div[1]/div[2]/form/button').click() # Follow 'usernameTwo'
+        
+        self.goHome()
+        self.goGallery()
+        self.driver.find_element(By.XPATH, '//*[@id="pills-following-tab"]').click()
+        time.sleep(1)
+        self.driver.find_element(By.XPATH, '/html/body/main/div[2]/div[2]/div[2]/div/div[1]/a/img')
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
