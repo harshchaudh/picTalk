@@ -61,16 +61,20 @@ To run the web application, run the command,
 ```cpp
 flask run
 ```
+Or,
+```cpp
+python3 picTalk.py
+```
 
 ## Running tests
-### Unit Tests
+### Unit tests
 Within the tests directory, run the command,
 ```cpp
 python3 unitTests.py
 ```
 
 ### Systems tests
-It's advised to collapse all the functions when viewing the source code (on Vscode, the shortcut is `CTRL + K CTRL + 0`). To run the test, navigate to the tests folder, then run `seleniumTests.py`. Failing to navigate to the tests directory, will result in certain tests failing.
+It's advised to collapse all the functions when viewing the source code (on Vscode, the shortcut is `CTRL + K CTRL + 0`). To run the test, navigate to the tests directory, then run `seleniumTests.py`. Failing to navigate to the tests directory, will result in certain tests failing.
 ```
 python3 seleniumTests.py
 ```
