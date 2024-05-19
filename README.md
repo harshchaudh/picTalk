@@ -44,8 +44,14 @@ For website's similar to PicTalk, [Instagram](https://www.instagram.com) and [Un
         Find other users or tags that interest you. It’s a handy tool to discover new content and connections.
     -View Post Page:
         Dive into a single post to see the image in detail, read the caption, and check out the comments.
-### Use
-- 
+### Usage
+
+-With PicTalk, you can:
+
+- **Create and Manage Accounts**: Signing up and managing your account is a breeze. Customize your profile to make it your own.
+- **Upload Pictures**: Share your favorite moments and artistic creations. Add titles and descriptions to give context to your posts.
+- **Comment and Interact**: Dive into discussions, leave comments, and connect with other users. It’s all about building a community.
+- **Explore Content**: Browse the homepage to discover fresh and popular pictures. Our gallery is full of inspiration and new perspectives.
 
 ## Architecture
 
