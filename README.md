@@ -22,12 +22,28 @@ For website's similar to PicTalk, [Instagram](https://www.instagram.com) and [Un
 - **Navigation**: The website is fairly simple as all navigatable items are all available to the user on the home page. There's a persistant navigation bar that only changes with the login state of the user. The main content changes as the user visits different sections of the website. All labels and possible links are all fairly clear. Nothing is really hidden away.
 
 - **Pages**
-    - Home page - gives a general idea of what PicTalk is about, this can be viewed without logging in.
-    - Search page - allows the user to search other users and tags, this can viewed without logging in.
-    - Gallery page - displays the latest images posted, this can be viewed without logging in, however, logged in viewers will be able to view images from users whom they follow.
-    - Profile page - displays images postsed by that user, a submission, follower and following count. Does not require logging in, however, add a follower feature when users are logged in.
-    - Submission page - allows users to post images, with a caption and with a maximum of 5 tags. Requires users to be logged in.
-    - Login/Sign up page - allows users to sign up or log in.
+    -Base Template:
+        This is the skeleton of our app. It includes the navigation bar and handles messages that pop up when you perform actions like logging in or posting a picture.
+    -Home Page:
+        This is your starting point. It features a carousel with a welcome message, prompts to sign up, and links to explore our gallery.
+    -Login Page:
+        If you have an account, log in here to start sharing and interacting.
+    -Signup Page:
+        New here? Create an account easily and join our community.
+    -Profile Page:
+        This is your personal space. It shows your submissions, your followers, and the people you’re following. You can also edit your profile here.
+    -Edit Profile Page:
+        Update your username, bio, and other details to keep your profile fresh.
+    -Gallery Page:
+        Explore a wide range of images shared by our community. It’s a great place to find inspiration and see what others are up to.
+    -Gallery Tags Page:
+        Looking for something specific? Check out images tagged with your favorite keywords.
+    -Create Post Page:
+        Share your latest creation by uploading an image, adding a caption, and tagging it.
+    -Search Page:
+        Find other users or tags that interest you. It’s a handy tool to discover new content and connections.
+    -View Post Page:
+        Dive into a single post to see the image in detail, read the caption, and check out the comments.
 ### Use
 - 
 
