@@ -34,23 +34,39 @@ For website's similar to PicTalk, [Instagram](https://www.instagram.com) and [Un
 ## Architecture
 
 ## Getting started
-This section details the steps required to deploy the website and complete necessary tests. The following instructions are for Ubuntu based Linux distrubtions; **Ubuntu 22.04.4 LTS** was used specificaly.
-
-
+This section details the steps required to deploy the website and complete necessary tests. The following instructions are for Ubuntu based Linux distrubtions; **Ubuntu 22.04.4 LTS** was used specificaly. 
 
 ### Prerequsites
-We'll assume you have the basic's softwares like Python. Packages can be installed using the command `pip3 install <<package>>`, where **package** is the package that needs to be installed. Refer to the `requirments.txt` to get a full list of python packages. To install all packages from `requirements.txt`, run the command,
+We'll assume you have the basic's softwares like Python3. Create a virtual environment,
+
+```cpp
+python3 -m venv /path/to/venv
+
+# Example 
+python3 -m venv ~/.env
+
+# Activate the virtual environment
+source path/to/venv/bin/activate
+```
+
+Packages can be installed using the command `pip3 install <<package>>`, where **package** is the package that needs to be installed. Refer to the `requirments.txt` to get a full list of python packages. To install all packages from `requirements.txt`, navigate to the project directory and run the command,
+
 ```
 pip install -r requirements.txt
 ```
+Many of the packages listed are not used.
 
 ### Deployment
 
 ## Running tests
 ### Unit Tests
+Within the tests directory, run the command,
+```cpp
+python3 unitTests.py
+```
 
 ### Systems tests
-It's advised to collapse all the function when viewing the source code (on Vscode, the shortcut is `CTRL + K CTRL + 0`). To run the test, run `seleniumTests.py`.
+It's advised to collapse all the function when viewing the source code (on Vscode, the shortcut is `CTRL + K CTRL + 0`). To run the test navigate to the tests folder, then run `seleniumTests.py`. Failing to navigate to the tests directory, will fail certain tests.
 ```
 python3 seleniumTests.py
 ```
@@ -65,7 +81,7 @@ if __name__ == "__main__":
 if __name__ == "__main__":
     unittest.main(argv=[''], defaultTest='BasicSeleniumTests.<name_of_test>', verbosity=2)
 
-# For example, to run 'test_submit'.
+# For example, to run 'test_submit':
 if __name__ == "__main__":
-    unittest.main(argv=[''], defaultTest='BasicSeleniumTests.test_sumbit', verbosity=2)
+    unittest.main(argv=[''], defaultTest='BasicSeleniumTests.test_submit', verbosity=2)
 ```

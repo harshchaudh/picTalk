@@ -84,7 +84,7 @@ class BasicSeleniumTests(unittest.TestCase):
         time.sleep(1)
 
     def Submit(self):
-        self.driver.find_element(By.XPATH, '//*[@id="file-upload"]').send_keys(os.getcwd()+"/tests/image.jpg")
+        self.driver.find_element(By.XPATH, '//*[@id="file-upload"]').send_keys(os.getcwd()+"/image.jpg")
 
         self.driver.find_element(By.XPATH, '//*[@id="caption-text-input"]').send_keys('This is a caption for this image.')
 
