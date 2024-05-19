@@ -81,7 +81,7 @@ PicTalk is built using a modern web application architecture that leverages the 
     - **Templates**: Contains HTML template files that define the structure of the web pages.
 
 - **Deployment**
-    - The application can be run locally using Flask's built-in development server and can be deployed to a production server for wider access.
+    - As described in detail below, the application can be run locally using Flask's built-in development server and can be deployed to a production server for wider access.
 
 This architecture ensures that PicTalk is scalable, maintainable, and easy to develop and deploy. It separates concerns between the backend and frontend, making it easier to manage and extend the application over time.
 
