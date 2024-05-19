@@ -40,24 +40,62 @@
     transform: rotate(-10deg); 
   }
 
+.title-slide-1{
+    padding-bottom: 10px;
+}
+
 #slider {
     height: 350px;
     overflow: hidden;
     width: 100%;
 }
 
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #28a745; /* Change control icon color */
+    border-radius: 50%;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+    background-color: #ffffff; /* Change color on hover */
+}
+
 .carousel-control-prev,
 .carousel-control-next {
-    color: rgb(13, 13, 13);
+    width: auto;
 }
 
-.carousel-indicators {
-    display: none;
+.carousel-control-prev {
+    left: 20px;
 }
 
-#slogan {
+.carousel-control-next {
+    right: 20px;
+}
+
+#slogan, #caption1 {
+    color: #FFFFFF;
     padding: 10px;
     text-decoration: double;
+    padding-top: 15px;
+}
+
+.btn-professional {
+    background-color: #28a745;
+    border-color: #28a745;
+    color: #fff;
+    font-size: 1.5rem; /* Larger font size for buttons */
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.btn-professional:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
 }
 
 .container {
