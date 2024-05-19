@@ -12,14 +12,14 @@
 # PicTalk
 ## About
 ### Purpose
-PicTalk is a website designed for photography enthusiasts. Users can upload their own images to share with the community. Other users can then interact with these images by commenting on said images. This in turn provides valuable, constructive feedback to the original user and creates engagment among users.  Overall, PicTalk provides a platform for amatuer photographers to showcase their work and receive feedback from others in the community.
+PicTalk is a website designed for photography enthusiasts. Users can upload their own images to share with the community. Other users can then interact with these images by commenting on them. This in turn provides valuable, constructive feedback to the original user and creates engagement among users.  Overall, PicTalk provides a platform for amateur photographers to showcase their work and receive feedback from others in the community.
 
-For website's similar to PicTalk, [Instagram](https://www.instagram.com) and [Unsplash](https://unsplash.com/) would be appropriate comparisons, they have similar but opposite purposes, while PicTalk achieves both.
+For websites similar to PicTalk, [Instagram](https://www.instagram.com) and [Unsplash](https://unsplash.com/) would be appropriate comparisons, they have similar but opposite purposes, while PicTalk achieves both.
 
 ### Design
-- **User Interface**: Minimilist layout, a fair portion of the website is whitespace and rarely is the full screen ever used. We've chosen a colour pallete that was visually satisfying. Large and easily identifiable fonts, buttons, links, etc. Small screens like phone screens where taken into consideration and were mostly accomplished automatically by Bootstrap. With the exception of the navigation bar, all aspects of the website function normally on smaller screens. While PicTalk can be viewed on a smaller screen, due to amount of images it may be considered a desktop-first website.
+- **User Interface**: Minimal layout, a fair portion of the website is whitespace; and rarely is the full screen ever used. We've chosen a colour palette that is visually satisfying. Large and easily identifiable fonts, buttons, links, etc. Small screens, like phone screens, were taken into consideration and were mostly accomplished automatically by Bootstrap. While PicTalk can be viewed on a smaller screens, it would still be considered a desktop-first website.
 
-- **Navigation**: The website is fairly simple as all navigatable items are all available to the user on the home page. There's a persistant navigation bar that only changes with the login state of the user. The main content changes as the user visits different sections of the website. All labels and possible links are all fairly clear. Nothing is really hidden away.
+- **Navigation**: The website is fairly simple, as all navigable items are available to the user on the home page. There's a persistent navigation bar that only changes with the login state of the user. The main content changes as the user visits different sections of the website. All labels and possible links are fairly clear.
 
 - **Pages**
     - **Base Template**:
@@ -33,11 +33,11 @@ For website's similar to PicTalk, [Instagram](https://www.instagram.com) and [Un
     - **Profile Page**:
         This is your personal space. It shows your submissions, your followers, and the people you’re following. You can also edit your profile here.
     - **Edit Profile Page**:
-        Update your username, bio, and other details to keep your profile fresh.
+        Update your username and biography to keep your profile fresh.
     - **Gallery Page**:
         Explore a wide range of images shared by our community. It’s a great place to find inspiration and see what others are up to.
     - **Gallery Tags Page**:
-        Looking for something specific? Check out images tagged with your favorite keywords.
+        Looking for something specific? Check out images tagged with your favourite keywords.
     - **Create Post Page**:
         Share your latest creation by uploading an image, adding a caption, and tagging it.
     - **Search Page**:
@@ -46,7 +46,7 @@ For website's similar to PicTalk, [Instagram](https://www.instagram.com) and [Un
         Dive into a single post to see the image in detail, read the caption, and check out the comments.
 ### Usage
 
--With PicTalk, you can:
+With PicTalk, you can:
 
 - **Create and Manage Accounts**: Signing up and managing your account is a breeze. Customize your profile to make it your own.
 - **Upload Pictures**: Share your favorite moments and artistic creations. Add titles and descriptions to give context to your posts.
@@ -60,7 +60,7 @@ PicTalk is built using a modern web application architecture that leverages the 
 
 - **Backend**
 
-    - **Flask**: A lightweight and flexible web framework that handles the server-side logic, routing, and request handling.
+    - **Flask**: A lightweight and flexible web framework that handles server-side logic, routing, and request handling.
     - **SQLAlchemy**: An ORM (Object-Relational Mapping) tool used for database interactions, making it easy to perform CRUD operations.
     - **Flask-Login**: Manages user authentication and session handling, ensuring secure login and logout functionalities.
 
@@ -79,9 +79,6 @@ PicTalk is built using a modern web application architecture that leverages the 
     - **App Package**: Contains all the application code, including configurations, routes, models, forms, and utilities.
     - **Static Files**: Includes CSS, JavaScript, and image files used in the application.
     - **Templates**: Contains HTML template files that define the structure of the web pages.
-
-- **Deployment**
-    - As described in detail below, the application can be run locally using Flask's built-in development server and can be deployed to a production server for wider access.
 
 This architecture ensures that PicTalk is scalable, maintainable, and easy to develop and deploy. It separates concerns between the backend and frontend, making it easier to manage and extend the application over time.
 
