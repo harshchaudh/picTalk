@@ -57,6 +57,9 @@ pip install -r requirements.txt
 Many of the packages listed are not used.
 
 ### Deployment
+Ensure you have a .flaskenv file in main directory with the following line:
+FLASK_APP=picTalk.py
+
 To run the web application, run the command,
 ```cpp
 flask run
