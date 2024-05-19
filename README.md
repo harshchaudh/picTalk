@@ -22,27 +22,27 @@ For website's similar to PicTalk, [Instagram](https://www.instagram.com) and [Un
 - **Navigation**: The website is fairly simple as all navigatable items are all available to the user on the home page. There's a persistant navigation bar that only changes with the login state of the user. The main content changes as the user visits different sections of the website. All labels and possible links are all fairly clear. Nothing is really hidden away.
 
 - **Pages**
-    -Base Template:
+    - **Base Template**:
         This is the skeleton of our app. It includes the navigation bar and handles messages that pop up when you perform actions like logging in or posting a picture.
-    -Home Page:
+    - **Home Page**:
         This is your starting point. It features a carousel with a welcome message, prompts to sign up, and links to explore our gallery.
-    -Login Page:
+    - **Login Page**:
         If you have an account, log in here to start sharing and interacting.
-    -Signup Page:
+    - **Signup Page**:
         New here? Create an account easily and join our community.
-    -Profile Page:
+    - **Profile Page**:
         This is your personal space. It shows your submissions, your followers, and the people you’re following. You can also edit your profile here.
-    -Edit Profile Page:
+    - **Edit Profile Page**:
         Update your username, bio, and other details to keep your profile fresh.
-    -Gallery Page:
+    - **Gallery Page**:
         Explore a wide range of images shared by our community. It’s a great place to find inspiration and see what others are up to.
-    -Gallery Tags Page:
+    - **Gallery Tags Page**:
         Looking for something specific? Check out images tagged with your favorite keywords.
-    -Create Post Page:
+    - **Create Post Page**:
         Share your latest creation by uploading an image, adding a caption, and tagging it.
-    -Search Page:
+    - **Search Page**:
         Find other users or tags that interest you. It’s a handy tool to discover new content and connections.
-    -View Post Page:
+    - **View Post Page**:
         Dive into a single post to see the image in detail, read the caption, and check out the comments.
 ### Usage
 
@@ -53,7 +53,37 @@ For website's similar to PicTalk, [Instagram](https://www.instagram.com) and [Un
 - **Comment and Interact**: Dive into discussions, leave comments, and connect with other users. It’s all about building a community.
 - **Explore Content**: Browse the homepage to discover fresh and popular pictures. Our gallery is full of inspiration and new perspectives.
 
-## Architecture
+### Architecture
+
+
+PicTalk is built using a modern web application architecture that leverages the power of Python and Flask for the backend, along with HTML, CSS, and JavaScript for the frontend. Here's a high-level overview of the architecture:
+
+- **Backend**
+
+    - **Flask**: A lightweight and flexible web framework that handles the server-side logic, routing, and request handling.
+    - **SQLAlchemy**: An ORM (Object-Relational Mapping) tool used for database interactions, making it easy to perform CRUD operations.
+    - **Flask-Login**: Manages user authentication and session handling, ensuring secure login and logout functionalities.
+
+- **Frontend**
+    - **HTML**: Structures the web pages, providing the content and layout for different parts of the application.
+    - **CSS**: Styles the web pages, making them visually appealing and responsive. Custom CSS files and Bootstrap are used for consistent and attractive design.
+    - **JavaScript**: Adds interactivity and dynamic behavior to the web pages, enhancing the user experience.
+
+- **Templates**
+    - **Jinja2**: The templating engine used with Flask to dynamically generate HTML pages. Templates are extended from a base layout to maintain a consistent look and feel across the application.
+
+- **Database**
+    - **SQLite**: Used as the database to store user information, posts, comments, and other data. SQLAlchemy provides an easy interface to interact with the database.
+
+- **File Structure**
+    - **App Package**: Contains all the application code, including configurations, routes, models, forms, and utilities.
+    - **Static Files**: Includes CSS, JavaScript, and image files used in the application.
+    - **Templates**: Contains HTML template files that define the structure of the web pages.
+
+- **Deployment**
+    - The application can be run locally using Flask's built-in development server and can be deployed to a production server for wider access.
+
+This architecture ensures that PicTalk is scalable, maintainable, and easy to develop and deploy. It separates concerns between the backend and frontend, making it easier to manage and extend the application over time.
 
 ## Getting started
 This section details the steps required to deploy the website and complete the necessary tests. The following instructions are for Ubuntu-based Linux distributions; **Ubuntu 22.04.4 LTS** was used specifically. 
