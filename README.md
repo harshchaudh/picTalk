@@ -108,8 +108,8 @@ pip install -r requirements.txt
 Many of the packages listed are not used.
 
 ### Deployment
-Ensure you have a .flaskenv file in main directory with the following line:
-`FLASK_APP=picTalk.py`.
+Ensure you have a .flaskenv file in main directory with at least following lines outlining environments of:
+`FLASK_APP=picTalk.py` and 'SECRET_KEY'
 
 To run the web application, run the command,
 ```cpp
@@ -126,7 +126,7 @@ Within the tests directory, run the command,
 ```cpp
 python3 unitTests.py
 ```
-
+And open the link 'http://127.0.0.1:5000' on your preferred browser. 
 ### Systems tests
 It's advised to collapse all the functions when viewing the source code (on Vscode, the shortcut is `CTRL + K CTRL + 0`). To run all tests, navigate to the tests directory (failing to navigate to the tests directory, will result in certain tests failing) then run `seleniumTests.py`. Do not have the flask app running in the background, otherwise this will overload the server.
 ```
